@@ -35,8 +35,8 @@ public class Display extends JFrame implements WindowListener
 	
 	public Display()
 	{
-		setName("Paint");
-		setTitle("Paint");
+		setName("LetsPaint");
+		setTitle("LetsPaint");
 		PrintStream o=null;
 		try
 		{
