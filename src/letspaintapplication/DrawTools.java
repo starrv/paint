@@ -16,7 +16,8 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	private JButton green, yellow, orange, blue, black, white, red, pink, lightGray, darkGray, magenta, cyan, chocolate1, peach1, buttonSelected;
 	//private Graphics buffer;
 	//private Image image;
-	private Color chocolate, peach;
+	private Color chocolate=new Color(125,30,45);
+	private Color peach=new Color(225,200,195);
 	private Whiteboard w;
 	private JLabel title;
 	private Color color = new Color(217, 187, 169);
@@ -135,7 +136,6 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    cyan.setBorderPainted(false);
 	    cyan.setFont(font);
 	    
-	    chocolate=new Color(125,30,45,50);
 	    chocolate1=new JButton("chocolate");
 	    chocolate1.addActionListener(this);
 	    chocolate1.addKeyListener(this);
@@ -144,7 +144,6 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    chocolate1.setBorderPainted(false);
 	    chocolate1.setFont(font);
 	    
-	    peach=new Color(225,200,195,25);
 	    peach1=new JButton("peach");
 	    peach1.addActionListener(this);
 	    peach1.addKeyListener(this);
@@ -483,18 +482,18 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 				buttonSelected.setBackground(color);	
 				buttonSelected.setForeground(Color.black);
 				w.setFontColor(chocolate);
-				buttonSelected=chocolate1;
 				chocolate1.setBackground(chocolate);
 				chocolate1.setForeground(Color.white);
+				buttonSelected=chocolate1;
 			}
 			else if(event.getComponent().equals(peach1))
 			{
 				buttonSelected.setBackground(color);
 				buttonSelected.setForeground(Color.black);
 				w.setFontColor(peach);
-				buttonSelected=peach1;
 				peach1.setBackground(peach);
 				peach1.setForeground(Color.white);
+				buttonSelected=peach1;
 			}
 		}
 		

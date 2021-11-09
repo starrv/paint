@@ -16,7 +16,8 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	private JButton green, yellow, orange, blue, black, white, red, pink, lightGray, darkGray, magenta, cyan, buttonSelected, chocolate1, peach1;
 	//private Graphics buffer;
 	//private Image image;
-	private Color chocolate, peach;
+	private Color chocolate=new Color(125,30,45);
+	private Color peach=new Color(225,200,195);
 	private Whiteboard w;
 	private JLabel title;
 	private Color color=new Color(217, 187, 169);
@@ -135,8 +136,7 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	    cyan.setOpaque(true);
 	    cyan.setBorderPainted(false);
 	    cyan.setFont(font);
-	    
-	    chocolate=new Color(125,30,45,50);
+	
 	    chocolate1=new JButton("chocolate");
 	    chocolate1.addActionListener(this);
 	    chocolate1.addKeyListener(this);
@@ -144,8 +144,7 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	    chocolate1.setOpaque(true);
 	    chocolate1.setBorderPainted(false);
 	    chocolate1.setFont(font);
-	    
-	    peach=new Color(25,100,95,25);
+
 	    peach1=new JButton("peach");
 	    peach1.addActionListener(this);
 	    peach1.addKeyListener(this);
