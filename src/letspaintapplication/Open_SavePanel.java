@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
@@ -31,6 +32,7 @@ public class Open_SavePanel extends JPanel implements ActionListener
 	private File saveFile, openFile;
 	private PlainPanel panel;
 	private PrinterJob job = PrinterJob.getPrinterJob();
+	private File currentDirectory;
 
 	public Open_SavePanel(Whiteboard w, PlainPanel panel)
 	{
@@ -109,41 +111,25 @@ public class Open_SavePanel extends JPanel implements ActionListener
 	
 	private void print()
 	{
-		
+		job.pageDialog(job.defaultPage());
 		boolean doPrint = job.printDialog();
-		
 		if (doPrint) {
 		    try {
 		        job.print();
 		    } catch (PrinterException e) {
-		        // The job did not successfully
-		        // complete
+		        JOptionPane.showMessageDialog(findParentFrame(), "An error has occurred: "+e.getMessage());
+		        e.printStackTrace();
 		    }
 		}
-
-
-		
-		//PageFormat pf = pj.pageDialog(pj.defaultPage());
-		//pj.defaultPage(pf);
-		//
-	    
-	    /*PrinterJob pj=PrinterJob.getPrinterJob();
-		if (pj.printDialog())
-		{
-			try 
-			{
-				pj.print();
-			}
-			catch (PrinterException exc) 
-			{
-				JOptionPane.showMessageDialog(findParentFrame(), "Print error.  Error Message: "+exc);
-			}
-		}  */   
 	}
 	
 	private void saveAs()
 	{
 		JFileChooser chooser = new JFileChooser(saveFile);
+		if(currentDirectory!=null)
+		{
+			chooser.setCurrentDirectory(currentDirectory);
+		}
 	    FileNameExtensionFilter filter = new FileNameExtensionFilter(
 	        "JPG & GIF & PNG Images","jpg","jpeg","gif","png");
 	    chooser.setFileFilter(filter);
@@ -171,13 +157,14 @@ public class Open_SavePanel extends JPanel implements ActionListener
 		    	{
 		    	   ImageIO.write(image, getExtension(file.getPath()), file);  // ignore returned boolean
 		    	   JOptionPane.showMessageDialog(findParentFrame(), "File saved");
+		    	   currentDirectory=chooser.getCurrentDirectory();
 		    	} catch(IOException e) 
 		    	{
-		    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + file.getPath());
+		    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + file.getPath()+": "+e.getMessage());
 		    	}
 		    	catch(IllegalArgumentException e) 
 		    	{
-		    	 JOptionPane.showMessageDialog(findParentFrame(), "Nothing to save thus far " + file.getPath());
+		    	 JOptionPane.showMessageDialog(findParentFrame(), "Nothing to save thus far " + file.getPath()+": "+e.getMessage());
 		    	}
 		    }
 	    	else{
@@ -194,7 +181,7 @@ public class Open_SavePanel extends JPanel implements ActionListener
 			    	   JOptionPane.showMessageDialog(findParentFrame(), "File saved");
 			    	} catch(IOException e) 
 			    	{
-			    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + file.getPath());
+			    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + file.getPath()+": "+e.getMessage());
 			    	}
 		    	}
 		    	else
@@ -223,46 +210,30 @@ public class Open_SavePanel extends JPanel implements ActionListener
 	
 	private boolean isImageFile(String fileName)
 	{
-		Functions.printMessage("File name:"+fileName);
 		StringTokenizer tokenizer=new StringTokenizer(fileName,".");
 		String extension="";
 		while(tokenizer.hasMoreTokens())
 		{
 			extension=tokenizer.nextToken();
-			//Functions.printMessage("extension: "+extension);
 		}
-		/*for(int i=fileName.length()-4; i<fileName.length(); i++)
-		{
-			extension +=fileName.charAt(i);
-		}*/
-		//JOptionPane.showMessageDialog(null,"Extension of "+fileName+" is "+extension);
 		if(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") || extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("gif"))
 		{
-			//Functions.printMessage(fileName+ " is a JPG file because '"+extension+"' is equal to 'jpg'");
 			return true;
 		}
 		else
 		{
-			//Functions.printMessage(fileName+ " is not a JPG file because '"+extension+"' is not equal to 'jpg'");
 			return false;
 		}
 	}
 	
 	private String getExtension(String fileName)
 	{
-		Functions.printMessage("File name:"+fileName);
 		StringTokenizer tokenizer=new StringTokenizer(fileName,".");
 		String extension="";
 		while(tokenizer.hasMoreTokens())
 		{
 			extension=tokenizer.nextToken();
-			//Functions.printMessage("extension: "+extension);
 		}
-		/*for(int i=fileName.length()-4; i<fileName.length(); i++)
-		{
-			extension +=fileName.charAt(i);
-		}*/
-		//JOptionPane.showMessageDialog(null,"Extension of "+fileName+" is "+extension);
 		return extension;
 	}
 	
@@ -280,7 +251,8 @@ public class Open_SavePanel extends JPanel implements ActionListener
 	    	File fileToBeDeleted=chooser.getSelectedFile();
 	    	if(fileToBeDeleted.exists() && fileToBeDeleted.delete()==true)
 	    	{
-	    		if(openFile!=null)
+	    		JOptionPane.showMessageDialog(findParentFrame(), "file has been deleted");
+	    		/*if(openFile!=null)
 		    	{
 		    		if(!(openFile.equals(fileToBeDeleted)))
 		    		{
@@ -288,13 +260,14 @@ public class Open_SavePanel extends JPanel implements ActionListener
 		    		}
 		    		else
 			    	{
+		    			
 			    		JOptionPane.showMessageDialog(findParentFrame(), "file could not be deleted");
 			    	}
 		    	}
 	    		else
 	    		{
 	    			JOptionPane.showMessageDialog(findParentFrame(), "file has been deleted");
-	    		}
+	    		}*/
 	    	}
 	    	else
 	    	{
@@ -314,7 +287,7 @@ public class Open_SavePanel extends JPanel implements ActionListener
 	    	   JOptionPane.showMessageDialog(findParentFrame(), "File saved");
 	    	} catch(IOException e) 
 	    	{
-	    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + saveFile.getPath());
+	    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + saveFile.getPath()+": "+e.getMessage());
 	    	}
 		}
 		else

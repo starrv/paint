@@ -147,6 +147,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
  
   public BufferedImage getImage()
   {
+	  System.out.println("Image dimensions: "+image.getWidth()+","+image.getHeight());
 	  return image;
   }
   
@@ -507,6 +508,5 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 		
 }

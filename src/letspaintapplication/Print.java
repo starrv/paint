@@ -3,6 +3,7 @@ package letspaintapplication;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.print.*;
 
@@ -33,8 +34,11 @@ public class Print implements Printable, ImageObserver
 	    g2d.translate(pf.getImageableX(), pf.getImageableY());
 
 	    // Now we perform our rendering
-	    g.drawImage(w.getImage(), 0, 0, this);
-
+	    BufferedImage theImage=w.getImage();
+	    System.out.println("Image dimensions: "+theImage.getWidth()+","+theImage.getHeight());
+	    System.out.println("Page dimensions: "+pf.getWidth()+","+pf.getHeight());
+	    g.drawImage(theImage, 0, 0,(int)pf.getWidth(),(int)pf.getHeight(),this);
+	    
 	    // tell the caller that this page is part
 	    // of the printed document
 	    return PAGE_EXISTS;
