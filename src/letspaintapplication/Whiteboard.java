@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 /** An applet that lets you perform freehand drawing.
@@ -28,6 +30,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	protected int lastX=0, lastY=0;
 	protected int getXLocation, getYLocation;
 	protected BufferedImage image, backUpImage;
+	protected ArrayList<BufferedImage> backUpImages=new ArrayList<BufferedImage>();
 	protected Graphics2D buffer, backup, g2;
 	protected String hello;
 	protected Ellipse2D o;
@@ -306,6 +309,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    Graphics2D g = (Graphics2D)getGraphics();
 		    g.setColor(drawColor);
 		    g.drawLine(lastX, lastY, x, y);
+		    
 		    if(backUpImage==null)
 			{
 				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -316,6 +320,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    {
 		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
 		    }
+		    
+		    
 		    buffer = image.createGraphics();
 		    buffer.setColor(drawColor);
 		    buffer.drawLine(lastX, lastY, x, y);
@@ -348,7 +354,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			getYLocation=event.getY();
 		    Graphics g = getGraphics();
 		    g.setColor(drawColor);
-		    g.fillRect(event.getX(), event.getY(), 20,20);
+		    g.fillOval(event.getX(), event.getY(), 20,20);
+		    
 		    if(backUpImage==null)
 			{
 				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -359,6 +366,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    {
 		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
 		    }
+		    
 		   // Functions.printMessage(image);
 		    buffer = image.createGraphics();
 		    buffer.setColor(drawColor);
