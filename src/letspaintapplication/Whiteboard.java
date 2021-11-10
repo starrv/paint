@@ -39,6 +39,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	protected String fontFamily, buttonSelected;
 	protected int fontStyle, fontSize, imageWidth, imageHeight;
 	protected FontMetrics fm;
+	private int backUpImagesPosition=-1;
   
   public Whiteboard(int w, int h) 
   {
@@ -141,8 +142,20 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   }
   public void undo()
   {
-	  getGraphics().drawImage(backUpImage, 0,0,this);
-	  buffer.drawImage(backUpImage,0,0,this);
+	  /*getGraphics().drawImage(backUpImage, 0,0,this);
+	  buffer.drawImage(backUpImage,0,0,this);*/
+	  
+	  if(backUpImages.size()>0)
+	  {
+		  if(backUpImagesPosition<0 || backUpImagesPosition>=backUpImages.size())
+		  {
+			  backUpImagesPosition=backUpImages.size()-1;
+		  }
+		  getGraphics().drawImage(backUpImages.get(backUpImagesPosition), 0,0,this);
+		  buffer.drawImage(backUpImages.get(backUpImagesPosition),0,0,this);
+		  backUpImagesPosition--;
+		  System.out.println("At back up picture "+backUpImagesPosition); 
+	  }
   }
   // Record position that mouse entered window or
   // where user pressed mouse button.
@@ -264,12 +277,15 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			Font font=new Font(fontFamily, fontStyle, fontSize);
 			g2.setFont(font);
 			g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
+			
 			if(backUpImage==null)
 			{
 				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 			}
 			backup=backUpImage.createGraphics();
 			backup.drawImage(image, 0, 0,null);
+			backUpImages.add(backUpImage);
+			
 			if(image==null)
 		    {
 		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -356,21 +372,23 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    g.setColor(drawColor);
 		    g.fillOval(event.getX(), event.getY(), 20,20);
 		    
+		    
 		    if(backUpImage==null)
 			{
 				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 			}
 			backup=backUpImage.createGraphics();
 			backup.drawImage(image, 0, 0,null);
-		    if(image==null)
+			backUpImages.add(backUpImage);
+		    
+			if(image==null)
 		    {
 		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
 		    }
-		    
 		   // Functions.printMessage(image);
 		    buffer = image.createGraphics();
 		    buffer.setColor(drawColor);
-		    buffer.fillRect(event.getX(), event.getY(), 20,20);
+		    buffer.fillOval(event.getX(), event.getY(), 20,20);
 		}
 		else if(buttonSelected.equals("paint all"))
 		{
