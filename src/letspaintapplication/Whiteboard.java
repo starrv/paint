@@ -153,7 +153,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		  }
 		  getGraphics().drawImage(backUpImages.get(backUpImagesPosition), 0,0,this);
 		  buffer.drawImage(backUpImages.get(backUpImagesPosition),0,0,this);
-		  backUpImagesPosition--;
+		  backUpImagesPosition--;  
 		  System.out.println("At back up picture "+backUpImagesPosition); 
 	  }
   }
@@ -272,20 +272,21 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	{
 		if(buttonSelected.equals("text") && (event.getKeyChar()!=KeyEvent.VK_BACK_SPACE && event.getKeyChar()!=KeyEvent.VK_DELETE))
 		{
+			//image to draw on screen
 			Graphics2D g2=(Graphics2D)getGraphics();
 			g2.setColor(fontColor);
 			Font font=new Font(fontFamily, fontStyle, fontSize);
 			g2.setFont(font);
 			g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
 			
-			if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
+			//backup image
+		
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 			backup=backUpImage.createGraphics();
 			backup.drawImage(image, 0, 0,null);
 			backUpImages.add(backUpImage);
 			
+			//image to draw on repaint
 			if(image==null)
 		    {
 		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -294,6 +295,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			buffer.setColor(fontColor);
 			buffer.setFont(new Font(fontFamily, fontStyle, fontSize));
 			buffer.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
+			
 			if(fontSize>=65)
 				getXLocation+=75;
 			else if(fontSize>=55 && fontSize<65)
@@ -368,19 +370,23 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		{
 			getXLocation=event.getX();
 			getYLocation=event.getY();
+			
+			//back up image
+		   
+				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+			
+			backup=backUpImage.createGraphics();
+			backup.drawImage(image, 0, 0,null);
+			backUpImages.add(backUpImage);
+			
+			//image to draw on screen
 		    Graphics g = getGraphics();
 		    g.setColor(drawColor);
 		    g.fillOval(event.getX(), event.getY(), 20,20);
 		    
 		    
-		    if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-			backUpImages.add(backUpImage);
 		    
+			//image to draw on repaint
 			if(image==null)
 		    {
 		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
