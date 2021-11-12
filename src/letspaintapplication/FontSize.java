@@ -30,10 +30,11 @@ public class FontSize extends JPanel implements ItemListener
 		addLabels();
 		fontSizeList=new JComboBox<String>(JLabels);
 		fontSizeList.addItemListener(this);
-		fontSizeList.setSelectedIndex(2);
+		int fontSizeIndex=14;
+		fontSizeList.setSelectedIndex(fontSizeIndex);
 		fontSizeList.setFont(font);
 		add(fontSizeList);
-		w.setFontSize(Integer.parseInt(JLabels[2]));
+		w.setFontSize(Integer.parseInt(JLabels[fontSizeIndex]));
 		setBackground(new Color(217, 187, 169));
 		setOpaque(true);
 		//addButtons();

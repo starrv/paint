@@ -9,6 +9,8 @@ import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 import javax.swing.*;
 
@@ -145,16 +147,12 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	  /*getGraphics().drawImage(backUpImage, 0,0,this);
 	  buffer.drawImage(backUpImage,0,0,this);*/
 	  
-	  if(backUpImages.size()>0)
+	  if(backUpImages.size()>0 && backUpImagesPosition>=0)
 	  {
-		  if(backUpImagesPosition<0 || backUpImagesPosition>=backUpImages.size())
-		  {
-			  backUpImagesPosition=backUpImages.size()-1;
-		  }
 		  getGraphics().drawImage(backUpImages.get(backUpImagesPosition), 0,0,this);
 		  buffer.drawImage(backUpImages.get(backUpImagesPosition),0,0,this);
 		  backUpImagesPosition--;  
-		  System.out.println("At back up picture "+backUpImagesPosition); 
+		  System.out.println("moved to back up position "+backUpImagesPosition+1);
 	  }
   }
   // Record position that mouse entered window or
@@ -280,11 +278,24 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
 			
 			//backup image
-		
 			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 			backup=backUpImage.createGraphics();
 			backup.drawImage(image, 0, 0,null);
+			
+			
+			if(backUpImages.size()-1-backUpImagesPosition>1)
+			{
+				ListIterator<BufferedImage> list=backUpImages.listIterator(backUpImagesPosition+1);
+				while(list.hasNext())
+				{
+					list.next();
+					list.remove();
+				}
+			}
+			
 			backUpImages.add(backUpImage);
+			backUpImagesPosition=backUpImages.size()-1;
+			System.out.println("There are "+backUpImages.size()+" images");
 			
 			//image to draw on repaint
 			if(image==null)

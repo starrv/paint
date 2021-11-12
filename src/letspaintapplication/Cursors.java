@@ -25,8 +25,10 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 	{
 		setName("Colors");
 		setLayout(new FlowLayout());
+		
 		title=new JLabel("Tools: ");
 		title.setFont(font);
+		title.setBorder(new EmptyBorder(1,1,1,1));
 		add(title);
 		setBackground(color);
 		setOpaque(true);
@@ -37,7 +39,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		textCursor.setOpaque(true);
 		textCursor.setBorderPainted(false);
 		textCursor.setFont(font);
-		int borderWidth=5;
+		int borderWidth=30;
 		title.setBackground(Color.yellow);
 		title.setOpaque(true);
 		title.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 5, true),new EmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth)));
