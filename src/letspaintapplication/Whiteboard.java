@@ -32,7 +32,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	protected int lastX=0, lastY=0;
 	protected int getXLocation, getYLocation;
 	protected BufferedImage image, backUpImage;
-	protected ArrayList<BufferedImage> backUpImages=new ArrayList<BufferedImage>();
 	protected Graphics2D buffer, backup, g2;
 	protected String hello;
 	protected Ellipse2D o;
@@ -41,7 +40,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	protected String fontFamily, buttonSelected;
 	protected int fontStyle, fontSize, imageWidth, imageHeight;
 	protected FontMetrics fm;
-	private int backUpImagesPosition=-1;
   
   public Whiteboard(int w, int h) 
   {
@@ -144,16 +142,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   }
   public void undo()
   {
-	  /*getGraphics().drawImage(backUpImage, 0,0,this);
-	  buffer.drawImage(backUpImage,0,0,this);*/
-	  
-	  if(backUpImages.size()>0 && backUpImagesPosition>=0)
-	  {
-		  getGraphics().drawImage(backUpImages.get(backUpImagesPosition), 0,0,this);
-		  buffer.drawImage(backUpImages.get(backUpImagesPosition),0,0,this);
-		  backUpImagesPosition--;  
-		  System.out.println("moved to back up position "+backUpImagesPosition+1);
-	  }
+	  getGraphics().drawImage(backUpImage, 0,0,this);
+	  buffer.drawImage(backUpImage,0,0,this);
   }
   // Record position that mouse entered window or
   // where user pressed mouse button.
@@ -282,21 +272,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			backup=backUpImage.createGraphics();
 			backup.drawImage(image, 0, 0,null);
 			
-			
-			if(backUpImages.size()-1-backUpImagesPosition>1)
-			{
-				ListIterator<BufferedImage> list=backUpImages.listIterator(backUpImagesPosition+1);
-				while(list.hasNext())
-				{
-					list.next();
-					list.remove();
-				}
-			}
-			
-			backUpImages.add(backUpImage);
-			backUpImagesPosition=backUpImages.size()-1;
-			System.out.println("There are "+backUpImages.size()+" images");
-			
 			//image to draw on repaint
 			if(image==null)
 		    {
@@ -388,7 +363,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			
 			backup=backUpImage.createGraphics();
 			backup.drawImage(image, 0, 0,null);
-			backUpImages.add(backUpImage);
 			
 			//image to draw on screen
 		    Graphics g = getGraphics();
