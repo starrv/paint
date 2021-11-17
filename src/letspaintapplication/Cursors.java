@@ -12,7 +12,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 	 * 
 	 */
 	private static final long serialVersionUID = 5217787022390475320L;
-	private JButton textCursor, drawCursor, pointerCursor,eraseCursor, paintCursor, paintAllCursor, eraseAllCursor, buttonSelected;
+	private JButton textCursor, drawCursor, pointerCursor,eraseCursor, paintCursor, paintFillCursor, paintAllCursor, eraseAllCursor, buttonSelected;
 	private Whiteboard w;
 	private JLabel title;
 	private Color buttonSelectedColor=new Color(77, 106, 148);
@@ -74,6 +74,14 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		paintCursor.setBorderPainted(false);
 		paintCursor.setFont(font);
 		
+		paintFillCursor=new JButton("paint fill");
+		paintFillCursor.addActionListener(this);
+		paintFillCursor.addKeyListener(this);
+		paintFillCursor.setBackground(color);
+		paintFillCursor.setOpaque(true);
+		paintFillCursor.setBorderPainted(false);
+		paintFillCursor.setFont(font);
+		
 		paintAllCursor=new JButton("paint all");
 		paintAllCursor.addActionListener(this);
 		paintAllCursor.addKeyListener(this);
@@ -95,6 +103,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		add(pointerCursor);
 		add(eraseCursor);
 		add(paintCursor);
+		add(paintFillCursor);
 		add(paintAllCursor);
 		add(eraseAllCursor);
 		
@@ -179,6 +188,19 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			buttonSelected.setOpaque(true);
 			buttonSelected.setBorderPainted(false);
 		}
+		else if(event.getActionCommand()=="paint fill")
+		{
+			buttonSelected.setBackground(color);	
+			buttonSelected.setForeground(Color.black);	
+			w.setCursor2(createPaintBrushCursor());
+			//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
+			w.setButtonSelected("paint fill");
+			buttonSelected=paintFillCursor;
+			buttonSelected.setBackground(buttonSelectedColor);
+			buttonSelected.setForeground(buttonSelectedTextColor);
+			buttonSelected.setOpaque(true);
+			buttonSelected.setBorderPainted(false);
+		}
 		else if(event.getActionCommand()=="paint all")
 		{
 			buttonSelected.setBackground(color);	
@@ -243,84 +265,107 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 	{
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		if(event.getKeyCode()==KeyEvent.VK_ENTER) {
-				if(event.getComponent().equals(textCursor))
-				{
-					buttonSelected.setBackground(new Color(238,238,238));
-					buttonSelected.setForeground(Color.black);	
-					Cursor c=new Cursor(Cursor.TEXT_CURSOR);
-					w.setCursor2(c);
-					w.setButtonSelected("text");
-					buttonSelected=textCursor;
-					buttonSelected.setBackground(buttonSelectedColor);
-					buttonSelected.setForeground(buttonSelectedTextColor);
-				}
-				else if(event.getComponent().equals(drawCursor))
-				{
-					buttonSelected.setBackground(new Color(238,238,238));
-					buttonSelected.setForeground(Color.black);	
-					w.setCursor2(createPencilCursor());
-					//w.setCursor2(new Cursor(Cursor.CROSSHAIR_CURSOR));
-					w.setButtonSelected("draw");
-					buttonSelected=drawCursor;
-					buttonSelected.setBackground(buttonSelectedColor);
-					buttonSelected.setForeground(buttonSelectedTextColor);
-				}
-				else if(event.getComponent().equals(pointerCursor))
-				{
-					buttonSelected.setBackground(new Color(238,238,238));	
-					buttonSelected.setForeground(Color.black);	
-					Cursor c=new Cursor(Cursor.DEFAULT_CURSOR);
-					w.setCursor2(c);		
-					w.setButtonSelected("pointer");
-					buttonSelected=pointerCursor;
-					buttonSelected.setBackground(buttonSelectedColor);
-					buttonSelected.setForeground(buttonSelectedTextColor);
-				}
-				else if(event.getComponent().equals(eraseCursor))
-				{
-					buttonSelected.setBackground(new Color(238,238,238));
-					buttonSelected.setForeground(Color.black);	
-					w.setCursor2(createEraserCursor());
-					//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
-					w.setButtonSelected("erase");
-					buttonSelected=eraseCursor;
-					buttonSelected.setBackground(buttonSelectedColor);
-					buttonSelected.setForeground(buttonSelectedTextColor);
-				}
-				else if(event.getComponent().equals(paintCursor))
-				{
-					buttonSelected.setBackground(new Color(238,238,238));
-					buttonSelected.setForeground(Color.black);	
-					w.setCursor2(createPaintBrushCursor());
-					//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
-					w.setButtonSelected("paint");
-					buttonSelected=paintCursor;
-					buttonSelected.setBackground(buttonSelectedColor);
-					buttonSelected.setForeground(buttonSelectedTextColor);
-				}
-				else if(event.getComponent().equals(eraseCursor))
-				{
-					buttonSelected.setBackground(new Color(238,238,238));	
-					buttonSelected.setForeground(Color.black);	
-					w.setCursor2(createPaintBrushCursor());
-					//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
-					w.setButtonSelected("paint all");
-					buttonSelected=paintAllCursor;
-					buttonSelected.setBackground(buttonSelectedColor);
-					buttonSelected.setForeground(buttonSelectedTextColor);
-				}
-				else if(event.getComponent().equals(eraseAllCursor))
-				{
-					buttonSelected.setBackground(new Color(238,238,238));	
-					buttonSelected.setForeground(Color.black);	
-					w.setCursor2(createEraserCursor());
-					//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
-					w.setButtonSelected("erase all");
-					buttonSelected=eraseAllCursor;
-					buttonSelected.setBackground(buttonSelectedColor);
-					buttonSelected.setForeground(buttonSelectedTextColor);
-				}
+		if(event.getKeyCode()==KeyEvent.VK_ENTER) 
+		{
+			if(event.getComponent().equals(textCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setForeground(Color.black);	
+				Cursor c=new Cursor(Cursor.TEXT_CURSOR);
+				w.setCursor2(c);
+				w.setButtonSelected("text");
+				buttonSelected=textCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(drawCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setForeground(Color.black);	
+				w.setCursor2(createPencilCursor());
+				//w.setCursor2(new Cursor(Cursor.CROSSHAIR_CURSOR));
+				w.setButtonSelected("draw");
+				buttonSelected=drawCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(pointerCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));	
+				buttonSelected.setForeground(Color.black);	
+				Cursor c=new Cursor(Cursor.DEFAULT_CURSOR);
+				w.setCursor2(c);		
+				w.setButtonSelected("pointer");
+				buttonSelected=pointerCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(eraseCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setForeground(Color.black);	
+				w.setCursor2(createEraserCursor());
+				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
+				w.setButtonSelected("erase");
+				buttonSelected=eraseCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(paintCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setForeground(Color.black);	
+				w.setCursor2(createPaintBrushCursor());
+				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
+				w.setButtonSelected("paint");
+				buttonSelected=paintCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(paintFillCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setForeground(Color.black);	
+				w.setCursor2(createPaintBrushCursor());
+				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
+				w.setButtonSelected("paint fill");
+				buttonSelected=paintFillCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(paintAllCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setForeground(Color.black);	
+				w.setCursor2(createPaintBrushCursor());
+				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
+				w.setButtonSelected("paint all");
+				buttonSelected=paintFillCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(eraseCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));	
+				buttonSelected.setForeground(Color.black);	
+				w.setCursor2(createPaintBrushCursor());
+				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
+				w.setButtonSelected("paint all");
+				buttonSelected=paintAllCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
+			else if(event.getComponent().equals(eraseAllCursor))
+			{
+				buttonSelected.setBackground(new Color(238,238,238));	
+				buttonSelected.setForeground(Color.black);	
+				w.setCursor2(createEraserCursor());
+				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
+				w.setButtonSelected("erase all");
+				buttonSelected=eraseAllCursor;
+				buttonSelected.setBackground(buttonSelectedColor);
+				buttonSelected.setForeground(buttonSelectedTextColor);
+			}
 		}
 		
 	}
