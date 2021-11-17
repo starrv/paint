@@ -461,6 +461,35 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    buffer.setColor(drawColor);
 		    buffer.fillRect(0,0,imageWidth,imageHeight);
 		}
+		else if(buttonSelected.equals("paint fill"))
+		{
+		    Graphics g = getGraphics();
+		    g.setColor(drawColor);
+		    int curX=event.getX();
+		    int curY=event.getY();
+		    System.out.println("@ location: "+curX+","+curY+" color is "+Color.getColor(null,this.getImage().getRGB(curX, curY)));
+		    /*double radians;
+		    for(int i=0; i<360; i++)
+		    {
+		    	radians=i*(Math.PI/180);
+		    	while(cur)
+		    }*/
+		    
+		    /*if(backUpImage==null)
+			{
+				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+			}
+			backup=backUpImage.createGraphics();
+			backup.drawImage(image, 0, 0,null);
+			
+		    if(image==null)
+		    {
+		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
+		    }
+		    buffer = image.createGraphics();
+		    buffer.setColor(drawColor);
+		    buffer.fillRect(0,0,imageWidth,imageHeight);*/
+		}
 		else if(buttonSelected.equals("erase all"))
 		{
 			if(backUpImage==null)
