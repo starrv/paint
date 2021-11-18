@@ -9,8 +9,6 @@ import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.ListIterator;
 
 import javax.swing.*;
 
@@ -481,29 +479,27 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    ArrayList<Integer> yCoordsArrayList=new ArrayList<Integer>();
 		    for(int i=0; i<360; i++)
 		    {
-		    	System.out.println("Current degrees: "+i);
 		    	radians=i*(Math.PI/180);
 		    	distX=R*Math.cos(radians);
 			    distY=R*Math.sin(radians);
-		    	System.out.println("Current radians: "+radians);
-		    	System.out.println("distance to move x: "+distX);
-		    	System.out.println("distance to move y: "+distY);
 		    	
-		    	curX=initX+distX;
-		    	System.out.println("Current x: "+curX);
-		    	curY=initY+distY;
-		    	System.out.println("Current y: "+curY);
+		    	curX=initX;
+		    	curY=initY;
 		    	g.drawLine((int)curX, (int)curY, (int)curX, (int)curY);
-		    	curColor=Color.getColor(null,theImage.getRGB((int)curX, (int)curY));
-		    	while(curColor.equals(initColor) && ((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
+		    	curColor=initColor;
+		    	while(curColor.equals(initColor))
 		    	{
 			    	curX+=distX;
-			    	System.out.println("Current x: "+curX);
 			    	curY+=distY;
-			    	System.out.println("Current y: "+curY);
-			    	g.drawLine((int)curX, (int)curY, (int)curX, (int)curY);
-			    	curColor=Color.getColor(null,theImage.getRGB((int)curX, (int)curY));
-			    	System.out.println("Current color: "+curColor);
+			    	if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
+			    	{
+			    		//g.drawLine((int)curX, (int)curY, (int)curX, (int)curY);
+				    	curColor=Color.getColor(null,theImage.getRGB((int)curX, (int)curY));
+			    	}
+			    	else
+			    	{
+			    		break;
+			    	}
 		    	}
 		    	xCoordsArrayList.add((int)curX);
 		    	yCoordsArrayList.add((int)curY);
@@ -513,12 +509,10 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    for(int i=0; i<xCoords.length; i++)
 		    {
 		    	xCoords[i]=xCoordsArrayList.get(i);
-		    	//System.out.println(xCoords[i]);
 		    }
 		    for(int i=0; i<yCoords.length; i++)
 		    {
 		    	yCoords[i]=yCoordsArrayList.get(i);
-		    	//System.out.println(yCoords[i]);
 		    }
 		    g.fillPolygon(xCoords, yCoords,Math.min(xCoords.length,yCoords.length));
 		    
