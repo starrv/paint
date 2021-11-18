@@ -465,15 +465,65 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		{
 		    Graphics g = getGraphics();
 		    g.setColor(drawColor);
-		    int curX=event.getX();
-		    int curY=event.getY();
-		    System.out.println("@ location: "+curX+","+curY+" color is "+Color.getColor(null,this.getImage().getRGB(curX, curY)));
-		    /*double radians;
+		    int initX=event.getX();
+		    int initY=event.getY();
+		    BufferedImage theImage=getImage();
+		    Color initColor=Color.getColor(null,theImage.getRGB(initX, initY));
+		    System.out.println("@ location ("+initX+","+initY+") color is "+initColor);
+		    double radians;
+		    Color curColor;
+		    double curX;
+		    double curY;
+		    final int R=1;
+		    double distX;
+		    double distY;
+		    ArrayList<Integer> xCoordsArrayList=new ArrayList<Integer>();
+		    ArrayList<Integer> yCoordsArrayList=new ArrayList<Integer>();
 		    for(int i=0; i<360; i++)
 		    {
+		    	System.out.println("Current degrees: "+i);
 		    	radians=i*(Math.PI/180);
-		    	while(cur)
-		    }*/
+		    	distX=R*Math.cos(radians);
+			    distY=R*Math.sin(radians);
+		    	System.out.println("Current radians: "+radians);
+		    	System.out.println("distance to move x: "+distX);
+		    	System.out.println("distance to move y: "+distY);
+		    	
+		    	curX=initX+distX;
+		    	System.out.println("Current x: "+curX);
+		    	curY=initY+distY;
+		    	System.out.println("Current y: "+curY);
+		    	g.drawLine((int)curX, (int)curY, (int)curX, (int)curY);
+		    	curColor=Color.getColor(null,theImage.getRGB((int)curX, (int)curY));
+		    	while(curColor.equals(initColor) && ((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
+		    	{
+			    	curX+=distX;
+			    	System.out.println("Current x: "+curX);
+			    	curY+=distY;
+			    	System.out.println("Current y: "+curY);
+			    	g.drawLine((int)curX, (int)curY, (int)curX, (int)curY);
+			    	curColor=Color.getColor(null,theImage.getRGB((int)curX, (int)curY));
+			    	System.out.println("Current color: "+curColor);
+		    	}
+		    	xCoordsArrayList.add((int)curX);
+		    	yCoordsArrayList.add((int)curY);
+		    }
+		    int[] xCoords=new int[xCoordsArrayList.size()];
+		    int[] yCoords=new int[yCoordsArrayList.size()];
+		    for(int i=0; i<xCoords.length; i++)
+		    {
+		    	xCoords[i]=xCoordsArrayList.get(i);
+		    	//System.out.println(xCoords[i]);
+		    }
+		    for(int i=0; i<yCoords.length; i++)
+		    {
+		    	yCoords[i]=yCoordsArrayList.get(i);
+		    	//System.out.println(yCoords[i]);
+		    }
+		    g.fillPolygon(xCoords, yCoords,Math.min(xCoords.length,yCoords.length));
+		    
+		    
+		    
 		    
 		    /*if(backUpImage==null)
 			{
