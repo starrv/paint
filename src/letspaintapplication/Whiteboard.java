@@ -310,7 +310,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    int y = event.getY();
 		    Graphics2D g = (Graphics2D)getGraphics();
 		    g.setColor(drawColor);
-		    g.drawLine(lastX, lastY, x, y);
+		    g.fillOval(event.getX(), event.getY(),2,2);
+		    //g.drawLine(lastX, lastY, x, y);
 		    
 		    if(backUpImage==null)
 			{
@@ -326,7 +327,9 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    
 		    buffer = image.createGraphics();
 		    buffer.setColor(drawColor);
-		    buffer.drawLine(lastX, lastY, x, y);
+		    buffer.fillOval(event.getX(), event.getY(), 1,1);
+		    //buffer.drawLine(lastX, lastY, x, y);
+		    
 		    record(x, y);
 		}
 		else if(buttonSelected.equals("erase"))
@@ -355,19 +358,15 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			getXLocation=event.getX();
 			getYLocation=event.getY();
 			
-			//back up image
-		   
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-			
 			//image to draw on screen
 		    Graphics g = getGraphics();
 		    g.setColor(drawColor);
 		    g.fillOval(event.getX(), event.getY(), 20,20);
 		    
-		    
+		    //back up image
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+			backup=backUpImage.createGraphics();
+			backup.drawImage(image, 0, 0,null);
 		    
 			//image to draw on repaint
 			if(image==null)
@@ -472,12 +471,12 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    Color curColor;
 		    double curX;
 		    double curY;
-		    final int R=1;
+		    final double R=1;
 		    double distX;
 		    double distY;
 		    ArrayList<Integer> xCoordsArrayList=new ArrayList<Integer>();
 		    ArrayList<Integer> yCoordsArrayList=new ArrayList<Integer>();
-		    for(int i=0; i<360; i++)
+		    for(double i=0; i<360; i+=1)
 		    {
 		    	radians=i*(Math.PI/180);
 		    	distX=R*Math.cos(radians);
@@ -485,9 +484,9 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		    	
 		    	curX=initX;
 		    	curY=initY;
-		    	g.drawLine((int)curX, (int)curY, (int)curX, (int)curY);
 		    	curColor=initColor;
-		    	while(curColor.equals(initColor))
+		    	
+		    	while(curColor.equals(initColor) && ((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
 		    	{
 			    	curX+=distX;
 			    	curY+=distY;
