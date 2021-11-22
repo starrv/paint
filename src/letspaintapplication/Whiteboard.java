@@ -41,7 +41,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   
   public Whiteboard(int w, int h) 
   {
-	setName("Paint");
+	setName("LetsPaint");
 	cursor=new Cursor(Cursor.DEFAULT_CURSOR);
 	setSize(w,h);
 	imageWidth=getWidth();
@@ -149,7 +149,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
  
   public BufferedImage getImage()
   {
-	  System.out.println("Image dimensions: "+image.getWidth()+","+image.getHeight());
+	  //System.out.println("Image dimensions: "+image.getWidth()+","+image.getHeight());
 	  return image;
   }
   
@@ -175,7 +175,25 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	public void keyPressed(KeyEvent event)
 	{
 		// TODO Auto-generated method stub
-	/*	if(buttonSelected.equals("text"))
+		if((buttonSelected.equals("paint all") && event.getKeyCode()==KeyEvent.VK_ENTER) || (buttonSelected.equals("paint all") && event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_P))
+		{
+			paintAll();
+		}
+		else if((buttonSelected.equals("paint fill") && event.getKeyCode()==KeyEvent.VK_ENTER) || (buttonSelected.equals("paint fill") && event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_P))
+		{
+			paintAll();
+		}
+		else if((buttonSelected.equals("paint") && event.getKeyCode()==KeyEvent.VK_ENTER) || (buttonSelected.equals("paint") && event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_P))
+		{
+			paintAll();
+		}
+		else if(event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_Z)
+		{
+			undo();
+		}
+		
+		
+		/*	if(buttonSelected.equals("text"))
 		{
 			//Functions.printMessage("text written");
 			Graphics2D g2=(Graphics2D)getGraphics();
@@ -223,26 +241,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			else
 				getXLocation+=15;
 		}*/
-		if(buttonSelected.equals("paint all") && event.getKeyCode()==KeyEvent.VK_ENTER)
-		{
-			//Functions.printMessage(buttonSelected);
-			Graphics g = getGraphics();
-		    g.setColor(drawColor);
-		    g.fillRect(0,0,imageWidth,imageHeight);
-		    if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-		    if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    buffer = image.createGraphics();
-		    buffer.setColor(drawColor);
-		    buffer.fillRect(0,0,imageWidth,imageHeight);
-		}
 		
 	}
 	
@@ -258,45 +256,31 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	{
 		if(buttonSelected.equals("text") && (event.getKeyChar()!=KeyEvent.VK_BACK_SPACE && event.getKeyChar()!=KeyEvent.VK_DELETE))
 		{
-			//image to draw on screen
-			Graphics2D g2=(Graphics2D)getGraphics();
-			g2.setColor(fontColor);
-			Font font=new Font(fontFamily, fontStyle, fontSize);
-			g2.setFont(font);
-			g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
-			
-			//backup image
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-			
-			//image to draw on repaint
-			if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    buffer = image.createGraphics();
-			buffer.setColor(fontColor);
-			buffer.setFont(new Font(fontFamily, fontStyle, fontSize));
-			buffer.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
-			
-			if(fontSize>=65)
-				getXLocation+=75;
-			else if(fontSize>=55 && fontSize<65)
-				getXLocation+=65;
-			else if(fontSize>=45 && fontSize<55)
-				getXLocation+=55;
-			else if(fontSize>=35 && fontSize<45)
-				getXLocation+=45;
-			else if(fontSize>=25 && fontSize<35)
-				getXLocation+=35;
-			else if(fontSize>=15 && fontSize<25)
-				getXLocation+=25;
-			else
-				getXLocation+=15;
+			type(event);
 		}
 	}
 	
+	public void eraseAll()
+	{
+		if(backUpImage==null)
+		{
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
+		
+		Graphics g = getGraphics();
+		g.setColor(Color.white);
+		g.fillRect(0,0,imageWidth,imageHeight);
+		if(image==null)
+		{
+		  image=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		buffer = image.createGraphics();
+		buffer.setColor(Color.white);
+		buffer.fillRect(0,0,imageWidth,imageHeight);
+	}
+
 	@Override
 	public void mouseDragged(MouseEvent event) 
 	{
@@ -304,124 +288,25 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		
 		if(buttonSelected.equals("draw"))
 		{
-			getXLocation=event.getX();
-			getYLocation=event.getY();
-			int x = event.getX();
-		    int y = event.getY();
-		    Graphics2D g = (Graphics2D)getGraphics();
-		    g.setColor(drawColor);
-		    g.fillOval(event.getX(), event.getY(),2,2);
-		    //g.drawLine(lastX, lastY, x, y);
-		    
-		    if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-		    if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    
-		    
-		    buffer = image.createGraphics();
-		    buffer.setColor(drawColor);
-		    buffer.fillOval(event.getX(), event.getY(), 1,1);
-		    //buffer.drawLine(lastX, lastY, x, y);
-		    
-		    record(x, y);
+			draw(event.getX(),event.getY());
 		}
 		else if(buttonSelected.equals("erase"))
 		{
-			getXLocation=event.getX();
-			getYLocation=event.getY();
-		    Graphics g = getGraphics();
-		    g.setColor(Color.white);
-		    g.fillRect(event.getX(), event.getY(), 20,20);
-		    if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-		    if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    buffer = image.createGraphics();
-		    buffer.setColor(Color.white);
-		    buffer.fillRect(event.getX(), event.getY(), 20,20);
+			erase(event.getX(),event.getY());
 		}
 		else if(buttonSelected.equals("paint"))
 		{
-			getXLocation=event.getX();
-			getYLocation=event.getY();
-			
-			//image to draw on screen
-		    Graphics g = getGraphics();
-		    g.setColor(drawColor);
-		    g.fillOval(event.getX(), event.getY(), 20,20);
-		    
-		    //back up image
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-		    
-			//image to draw on repaint
-			if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		   // Functions.printMessage(image);
-		    buffer = image.createGraphics();
-		    buffer.setColor(drawColor);
-		    buffer.fillOval(event.getX(), event.getY(), 20,20);
+			paint(event.getX(),event.getY());
 		}
 		else if(buttonSelected.equals("paint all"))
 		{
-		    Graphics g = getGraphics();
-		    g.setColor(drawColor);
-		    g.fillRect(0,0,imageWidth,imageHeight);
-		    if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-		    if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    buffer = image.createGraphics();
-		    buffer.setColor(drawColor);
-		    buffer.fillRect(0,0,imageWidth,imageHeight);
+		   paintAll(); 
 		}
 		else if(buttonSelected.equals("erase all"))
 		{
-			if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
 			eraseAll();
 		}
 	}
-	public void eraseAll()
-	{
-		Graphics g = getGraphics();
-		 g.setColor(Color.white);
-		 g.fillRect(0,0,imageWidth,imageHeight);
-		 if(image==null)
-		 {
-		   image=(BufferedImage) createImage(imageWidth, imageHeight);
-		 }
-		 buffer = image.createGraphics();
-		 buffer.setColor(Color.white);
-		 buffer.fillRect(0,0,imageWidth,imageHeight);
-	}
-	
 	
 	@Override
 	public void mouseMoved(MouseEvent event)
@@ -429,6 +314,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		// TODO Auto-generated method stub
 		getXLocation=event.getX();
 		getYLocation=event.getY();
+		
 		/*Graphics2D g=(Graphics2D)getGraphics();
 		g.setColor(color);
 		repaint();*/
@@ -441,108 +327,17 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		// TODO Auto-generated method stub
 		if(buttonSelected.equals("paint all"))
 		{
-		    Graphics g = getGraphics();
-		    g.setColor(drawColor);
-		    g.fillRect(0,0,imageWidth,imageHeight);
-		    if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-		    if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    buffer = image.createGraphics();
-		    buffer.setColor(drawColor);
-		    buffer.fillRect(0,0,imageWidth,imageHeight);
+		   paintAll();
 		}
 		else if(buttonSelected.equals("paint fill"))
 		{
-		    Graphics g = getGraphics();
-		    g.setColor(drawColor);
-		    int initX=event.getX();
-		    int initY=event.getY();
-		    BufferedImage theImage=getImage();
-		    Color initColor=Color.getColor(null,theImage.getRGB(initX, initY));
-		    System.out.println("@ location ("+initX+","+initY+") color is "+initColor);
-		    double radians;
-		    Color curColor;
-		    double curX;
-		    double curY;
-		    final double R=1;
-		    double distX;
-		    double distY;
-		    ArrayList<Integer> xCoordsArrayList=new ArrayList<Integer>();
-		    ArrayList<Integer> yCoordsArrayList=new ArrayList<Integer>();
-		    for(double i=0; i<360; i+=1)
-		    {
-		    	radians=i*(Math.PI/180);
-		    	distX=R*Math.cos(radians);
-			    distY=R*Math.sin(radians);
-		    	
-		    	curX=initX;
-		    	curY=initY;
-		    	curColor=initColor;
-		    	
-		    	while(curColor.equals(initColor) && ((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
-		    	{
-			    	curX+=distX;
-			    	curY+=distY;
-			    	if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
-			    	{
-			    		//g.drawLine((int)curX, (int)curY, (int)curX, (int)curY);
-				    	curColor=Color.getColor(null,theImage.getRGB((int)curX, (int)curY));
-			    	}
-			    	else
-			    	{
-			    		break;
-			    	}
-		    	}
-		    	xCoordsArrayList.add((int)curX);
-		    	yCoordsArrayList.add((int)curY);
-		    }
-		    int[] xCoords=new int[xCoordsArrayList.size()];
-		    int[] yCoords=new int[yCoordsArrayList.size()];
-		    for(int i=0; i<xCoords.length; i++)
-		    {
-		    	xCoords[i]=xCoordsArrayList.get(i);
-		    }
-		    for(int i=0; i<yCoords.length; i++)
-		    {
-		    	yCoords[i]=yCoordsArrayList.get(i);
-		    }
-		    g.fillPolygon(xCoords, yCoords,Math.min(xCoords.length,yCoords.length));
-		    
-		    
-		    
-		    
-		    /*if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-			
-		    if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    buffer = image.createGraphics();
-		    buffer.setColor(drawColor);
-		    buffer.fillRect(0,0,imageWidth,imageHeight);*/
+		    paintFill(event.getX(),event.getY());
 		}
 		else if(buttonSelected.equals("erase all"))
 		{
-			if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
 			eraseAll();
 		}
+		System.out.println("Color at ("+event.getX()+","+event.getY()+"): "+Color.getColor(null,getImage().getRGB(event.getX(),event.getY())));
 	}
 	
 	
@@ -597,5 +392,260 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	private void paintAll()
+	{
+		Graphics g = getGraphics();
+	    g.setColor(drawColor);
+	    g.fillRect(0,0,imageWidth,imageHeight);
+	    if(backUpImage==null)
+		{
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
+	    if(image==null)
+	    {
+	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
+	    }
+	    buffer = image.createGraphics();
+	    buffer.setColor(drawColor);
+	    buffer.fillRect(0,0,imageWidth,imageHeight);
+	}
+	
+	private void paintFill(int x, int y)
+	{
+		Graphics g = getGraphics();
+	    g.setColor(drawColor);
+	    int initX=x;
+	    int initY=y;
+	    BufferedImage theImage=getImage();
+	    Color initColor=Color.getColor(null,theImage.getRGB(initX, initY));
+	    Color curColor;
+	    double radians;
+	    double curX;
+	    double curY;
+	    final double R=.5;
+	    double distX;
+	    double distY;
+	    ArrayList<Integer> xCoordsArrayList=new ArrayList<Integer>();
+	    ArrayList<Integer> yCoordsArrayList=new ArrayList<Integer>();
+	    for(double i=0; i<360; i+=1)
+	    {
+	    	radians=i*(Math.PI/180);
+	    	distX=R*Math.cos(radians);
+		    distY=R*Math.sin(radians);
+	    	
+	    	curX=initX;
+	    	curY=initY;
+	    	curColor=initColor;
+	    	
+	    	double[] coords=getEdgeIfExist(curX,curY,theImage,initColor);
+	    	
+	    	while(coords[0]==curX && coords[1]==curY)
+	    	{
+		    	curX+=distX;
+		    	curY+=distY;
+		    	coords=getEdgeIfExist(curX,curY,theImage,initColor);
+	    	}
+	    	curX=coords[0];
+	    	curY=coords[1];
+	    	xCoordsArrayList.add((int)curX);
+	    	yCoordsArrayList.add((int)curY);
+	    }
+	    int[] xCoords=new int[xCoordsArrayList.size()];
+	    int[] yCoords=new int[yCoordsArrayList.size()];
+	    for(int i=0; i<xCoords.length; i++)
+	    {
+	    	xCoords[i]=xCoordsArrayList.get(i);
+	    	yCoords[i]=yCoordsArrayList.get(i);
+	    }
+	    g.fillPolygon(xCoords, yCoords,xCoords.length);
+	    
+	    if(backUpImage==null)
+		{
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
 		
+	    if(image==null)
+	    {
+	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
+	    }
+	    buffer = image.createGraphics();
+	    buffer.setColor(drawColor);
+	    buffer.fillPolygon(xCoords, yCoords,xCoords.length);
+	}
+	
+	private void draw(int x, int y)
+	{
+	    Graphics2D g = (Graphics2D)getGraphics();
+	    g.setColor(drawColor);
+	    g.drawLine(lastX, lastY, x, y);
+	    
+	    if(backUpImage==null)
+		{
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
+	    if(image==null)
+	    {
+	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
+	    }
+	    
+	    
+	    buffer = image.createGraphics();
+	    buffer.setColor(drawColor);
+	    buffer.drawLine(lastX, lastY, x, y);
+	    
+	    record(x, y);
+	}
+	
+	private void erase(int x, int y)
+	{
+	    Graphics g = getGraphics();
+	    g.setColor(Color.white);
+	    g.fillRect(x, y, 20,20);
+	    if(backUpImage==null)
+		{
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
+	    if(image==null)
+	    {
+	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
+	    }
+	    buffer = image.createGraphics();
+	    buffer.setColor(Color.white);
+	    buffer.fillRect(x, y, 20,20);
+	}
+	
+	private void paint(int x, int y)
+	{
+		//image to draw on screen
+	    Graphics g = getGraphics();
+	    g.setColor(drawColor);
+	    g.fillOval(x, y, 20,20);
+	    
+	    //back up image
+		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
+	    
+		//image to draw on repaint
+		if(image==null)
+	    {
+	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
+	    }
+	   // Functions.printMessage(image);
+	    buffer = image.createGraphics();
+	    buffer.setColor(drawColor);
+	    buffer.fillOval(x, y, 20,20);
+	}
+	
+	private void type(KeyEvent event)
+	{
+		//image to draw on screen
+		Graphics2D g2=(Graphics2D)getGraphics();
+		g2.setColor(fontColor);
+		Font font=new Font(fontFamily, fontStyle, fontSize);
+		g2.setFont(font);
+		g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
+		
+		//backup image
+		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
+		
+		//image to draw on repaint
+		if(image==null)
+	    {
+	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
+	    }
+	    buffer = image.createGraphics();
+		buffer.setColor(fontColor);
+		buffer.setFont(new Font(fontFamily, fontStyle, fontSize));
+		buffer.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
+		
+		if(fontSize>=65)
+			getXLocation+=75;
+		else if(fontSize>=55 && fontSize<65)
+			getXLocation+=65;
+		else if(fontSize>=45 && fontSize<55)
+			getXLocation+=55;
+		else if(fontSize>=35 && fontSize<45)
+			getXLocation+=45;
+		else if(fontSize>=25 && fontSize<35)
+			getXLocation+=35;
+		else if(fontSize>=15 && fontSize<25)
+			getXLocation+=25;
+		else
+			getXLocation+=15;
+	}
+	
+	private boolean isEdge(double x, double y, BufferedImage theImage, Color initColor)
+	{
+		Color curColor;
+		int curX;
+		int curY;
+		int imageWidth=theImage.getWidth();
+		int imageHeight=theImage.getHeight();
+		for(double i=-5; i<=5; i+=.5)
+		{
+			curX=(int)(x+i);
+			curY=(int)(y+i);
+			if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
+			{
+				curColor=Color.getColor(null,theImage.getRGB(curX,curY));
+				if(!curColor.equals(initColor))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private double[] getEdgeIfExist(double x, double y, BufferedImage theImage, Color initColor)
+	{
+		Color curColor;
+		int curX;
+		int curY;
+		int imageWidth=theImage.getWidth();
+		int imageHeight=theImage.getHeight();
+		for(double i=-5; i<=5; i+=.5)
+		{
+			curX=(int)(x+i);
+			curY=(int)(y+i);
+			if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
+			{
+				curColor=Color.getColor(null,theImage.getRGB(curX,curY));
+				if(!curColor.equals(initColor))
+				{
+					double[] coords=new double[2];
+					coords[0]=curX;
+					coords[1]=curY;
+					return coords;
+				}
+			}
+			else
+			{
+				double[] coords=new double[2];
+				coords[0]=curX;
+				coords[1]=curY;
+				return coords;
+			}
+		}
+		double[] coords=new double[2];
+		coords[0]=x;
+		coords[1]=y;
+		return coords;
+	}
 }

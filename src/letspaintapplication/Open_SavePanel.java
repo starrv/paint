@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 
 
 
-public class Open_SavePanel extends JPanel implements ActionListener
+public class Open_SavePanel extends JPanel implements ActionListener, KeyListener
 {
 	
 	/**
@@ -332,5 +332,26 @@ public class Open_SavePanel extends JPanel implements ActionListener
 		      c = c.getParent(); 
 		    } 
 		    return (Frame)null; 
+	}
+
+	@Override
+	public void keyPressed(KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_S)
+		{
+			save();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	} 
 }
