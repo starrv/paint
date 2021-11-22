@@ -528,7 +528,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		//image to draw on screen
 	    Graphics g = getGraphics();
 	    g.setColor(drawColor);
-	    g.fillOval(x, y, 20,20);
+	    g.fillRect(x, y, 20,20);
 	    
 	    //back up image
 		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -543,7 +543,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	   // Functions.printMessage(image);
 	    buffer = image.createGraphics();
 	    buffer.setColor(drawColor);
-	    buffer.fillOval(x, y, 20,20);
+	    buffer.fillRect(x, y, 20,20);
 	}
 	
 	private void type(KeyEvent event)
@@ -620,7 +620,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		int curY;
 		int imageWidth=theImage.getWidth();
 		int imageHeight=theImage.getHeight();
-		for(double i=-5; i<=5; i+=.5)
+		for(double i=-1; i<1; i+=.5)
 		{
 			curX=(int)(x+i);
 			curY=(int)(y+i);
