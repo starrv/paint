@@ -425,12 +425,12 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    double radians;
 	    double curX;
 	    double curY;
-	    final double R=.5;
+	    final double R=.0075;
 	    double distX;
 	    double distY;
-	    ArrayList<Integer> xCoordsArrayList=new ArrayList<Integer>();
-	    ArrayList<Integer> yCoordsArrayList=new ArrayList<Integer>();
-	    for(double i=0; i<360; i+=1)
+	    int[] xCoords=new int[360];
+	    int[] yCoords=new int[360];
+	    for(int i=0; i<360; i+=1)
 	    {
 	    	radians=i*(Math.PI/180);
 	    	distX=R*Math.cos(radians);
@@ -440,25 +440,22 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    	curY=initY;
 	    	curColor=initColor;
 	    	
-	    	double[] coords=getEdgeIfExist(curX,curY,theImage,initColor);
 	    	
-	    	while(coords[0]==curX && coords[1]==curY)
+	    	while(curColor.equals(initColor))
 	    	{
 		    	curX+=distX;
 		    	curY+=distY;
-		    	coords=getEdgeIfExist(curX,curY,theImage,initColor);
+		    	if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
+		    	{
+		    		curColor=Color.getColor(null,theImage.getRGB((int)curX,(int)curY));
+		    	}
+		    	else
+		    	{
+		    		break;
+		    	}
 	    	}
-	    	curX=coords[0];
-	    	curY=coords[1];
-	    	xCoordsArrayList.add((int)curX);
-	    	yCoordsArrayList.add((int)curY);
-	    }
-	    int[] xCoords=new int[xCoordsArrayList.size()];
-	    int[] yCoords=new int[yCoordsArrayList.size()];
-	    for(int i=0; i<xCoords.length; i++)
-	    {
-	    	xCoords[i]=xCoordsArrayList.get(i);
-	    	yCoords[i]=yCoordsArrayList.get(i);
+	    	xCoords[i]=(int)curX;
+	    	yCoords[i]=(int)curY;
 	    }
 	    g.fillPolygon(xCoords, yCoords,xCoords.length);
 	    
@@ -620,7 +617,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		int curY;
 		int imageWidth=theImage.getWidth();
 		int imageHeight=theImage.getHeight();
-		for(double i=-1; i<1; i+=.5)
+		for(double i=-1; i<1; i+=1)
 		{
 			curX=(int)(x+i);
 			curY=(int)(y+i);
