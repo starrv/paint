@@ -37,6 +37,7 @@ public class Display extends JFrame implements WindowListener
 	{
 		setName("LetsPaint");
 		setTitle("LetsPaint");
+		TrigLookUpTable.populate();
 		PrintStream o=null;
 		try
 		{
@@ -47,7 +48,9 @@ public class Display extends JFrame implements WindowListener
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
+		Color focusColor=new Color(0,0,255);
+		UIManager.put("Button.focus", focusColor);
 		setBackground(new Color(193, 217, 230));
 		Dimension size=java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(size.width,size.height);

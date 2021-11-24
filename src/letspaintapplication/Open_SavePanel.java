@@ -50,7 +50,9 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		for(int i=0; i<labels.length;i++)
 		{
 			JButtonBox[i]=new JButton(labels[i]);
+			JButtonBox[i].setName(labels[i]);
 			JButtonBox[i].addActionListener(this);
+			JButtonBox[i].addKeyListener(this);
 			JButtonBox[i].setFont(new Font("Sans Serif", Font.BOLD, 18));
 			JButtonBox[i].setBackground(new Color(245, 233, 225));
 			JButtonBox[i].setOpaque(true);
@@ -66,11 +68,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		// TODO Auto-generated method stub
 		if(event.getActionCommand().equals("new file"))
 		{
-			w.eraseAll();
-			panel.changeDocumentLabel(PlainPanel.DEFAULT_DOCUMENT_LABEL);
-			JOptionPane.showMessageDialog(null, "new file created");
-			saveFile=null;
-			openFile=null;
+			newFile();
 		}
 		else if(event.getActionCommand().equals("save as"))
 		{
@@ -275,6 +273,15 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    }
 	}
 	
+	private void newFile()
+	{
+		w.eraseAll();
+		panel.changeDocumentLabel(PlainPanel.DEFAULT_DOCUMENT_LABEL);
+		JOptionPane.showMessageDialog(null, "new file created");
+		saveFile=null;
+		openFile=null;
+	}
+	
 	private void save()
 	{
 		if(saveFile!=null)
@@ -335,23 +342,58 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	}
 
 	@Override
-	public void keyPressed(KeyEvent event) {
+	public void keyPressed(KeyEvent event) 
+	{
 		// TODO Auto-generated method stub
-		if(event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_S)
+		if(event.getKeyCode()==KeyEvent.VK_ENTER)
 		{
-			save();
+			if(event.getComponent().getName()=="new file")
+			{
+				newFile();
+			}
+			else if(event.getComponent().getName()=="save as")
+			{
+				saveAs();
+			}
+			else if(event.getComponent().getName()=="open file")
+			{
+				openFile();
+			}
+			else if(event.getComponent().getName()=="save")
+			{
+				save();
+			}
+			else if(event.getComponent().getName()=="delete")
+			{
+				delete();
+			}
+			else if(event.getComponent().getName()=="undo")
+			{
+				w.undo();
+			}
+			else if(event.getComponent().getName()=="print")
+			{
+				print();
+			}
+			else if(event.getComponent().getName()=="play music")
+			{
+				Display.playMusic();
+			}
+			else if(event.getComponent().getName()=="stop music")
+			{
+				Display.stopMusic();
+			}
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent event) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent event) {
 		// TODO Auto-generated method stub
-		
 	} 
 }

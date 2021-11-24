@@ -184,129 +184,60 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		// TODO Auto-generated method stub
 		if(event.getActionCommand()=="green")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.green);
-			buttonSelected=green;
-			green.setBackground(Color.green);
-			green.setForeground(Color.white);
+			changeDrawColor(Color.green,green);
 		}
 		else if(event.getActionCommand()=="yellow")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.yellow);
-			buttonSelected=yellow;
-			yellow.setBackground(Color.yellow);
-			yellow.setForeground(Color.white);
+			changeDrawColor(Color.yellow,yellow);
 		}
 		else if(event.getActionCommand()=="orange")
 		{
-			buttonSelected.setBackground(color);	
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.orange);
-			buttonSelected=orange;
-			orange.setBackground(Color.orange);	
-			orange.setForeground(Color.white);
+			changeDrawColor(Color.orange,orange);
 		}
 		else if(event.getActionCommand()=="blue")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.blue);
-			buttonSelected=blue;
-			blue.setBackground(Color.blue);		
-			blue.setForeground(Color.white);
-			
+			changeDrawColor(Color.blue,blue);
 		}
 		else if(event.getActionCommand()=="black")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.black);
-			buttonSelected=black;
-			black.setBackground(Color.black);	
-			black.setForeground(Color.white);
+			changeDrawColor(Color.black,black);
+			
 		}
 		else if(event.getActionCommand()=="light gray")
 		{
-			buttonSelected.setBackground(color);	
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.lightGray);
-			buttonSelected=lightGray;
-			lightGray.setBackground(Color.lightGray);	
-			lightGray.setForeground(Color.white);
+			changeDrawColor(Color.lightGray,lightGray);
 		}
 		else if(event.getActionCommand()=="dark gray")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.darkGray);
-			buttonSelected=darkGray;
-			darkGray.setBackground(Color.darkGray);	
-			darkGray.setForeground(Color.white);
+			changeDrawColor(Color.darkGray,darkGray);
 		}
 		else if(event.getActionCommand()=="red")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.red);
-			buttonSelected=red;
-			red.setBackground(Color.red);
-			red.setForeground(Color.white);
+			changeDrawColor(Color.red,red);
 		}
 		else if(event.getActionCommand()=="pink")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.pink);
-			buttonSelected=pink;
-			pink.setBackground(Color.pink);	
-			pink.setForeground(Color.white);
+			changeDrawColor(Color.pink,pink);
 		}
 		else if(event.getActionCommand()=="magenta")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.magenta);
-			buttonSelected=magenta;
-			magenta.setBackground(Color.magenta);	
-			magenta.setForeground(Color.white);
+			changeDrawColor(Color.magenta,magenta);
 		}
 		else if(event.getActionCommand()=="cyan")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.cyan);
-			buttonSelected=cyan;
-			cyan.setBackground(Color.cyan);	
-			cyan.setForeground(Color.white);
+			changeDrawColor(Color.cyan,cyan);
 		}
 		else if(event.getActionCommand()=="white")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(Color.white);
-			buttonSelected=white;
-			white.setBackground(Color.white);
+			changeDrawColorToWhite(Color.white,white);
 		}
 		else if(event.getActionCommand()=="chocolate")
 		{
-			buttonSelected.setBackground(color);
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(chocolate);
-			buttonSelected=chocolate1;
-			chocolate1.setBackground(chocolate);
-			chocolate1.setForeground(Color.white);
+			changeDrawColor(chocolate,chocolate1);
 		}
 		else if(event.getActionCommand()=="peach")
 		{
-			buttonSelected.setBackground(color);	
-			buttonSelected.setForeground(Color.black);
-			w.setDrawColor(peach);
-			buttonSelected=peach1;
-			peach1.setBackground(peach);
-			peach1.setForeground(Color.white);
+			changeDrawColor(peach,peach1);
 		}
 	}
 	
@@ -370,130 +301,61 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		{
 			if(event.getComponent().equals(green))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.green);
-				buttonSelected=green;
-				green.setBackground(Color.green);
-				green.setForeground(Color.white);
+				changeDrawColor(Color.green,green);
 			
 			}
 			else if(event.getComponent().equals(yellow))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.yellow);
-				buttonSelected=yellow;
-				yellow.setBackground(Color.yellow);	
-				yellow.setForeground(Color.white);
+				changeDrawColor(Color.yellow,yellow);
 			}
 			else if(event.getComponent().equals(orange))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.orange);
-				buttonSelected=orange;
-				orange.setBackground(Color.orange);
-				orange.setForeground(Color.white);
+				changeDrawColor(Color.orange,orange);
 			}
 			else if(event.getComponent().equals(blue))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.blue);
-				buttonSelected=blue;
-				blue.setBackground(Color.blue);
-				blue.setForeground(Color.white);
+				changeDrawColor(Color.blue,blue);
 				
 			}
 			else if(event.getComponent().equals(black))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.black);
-				buttonSelected=black;
-				black.setBackground(Color.black);
-				black.setForeground(Color.white);
+				changeDrawColor(Color.black,black);
 			}
 			else if(event.getComponent().equals(lightGray))
 			{
-				buttonSelected.setBackground(color);	
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.lightGray);
-				buttonSelected=lightGray;
-				lightGray.setBackground(Color.lightGray);
-				lightGray.setForeground(Color.white);
+				changeDrawColor(Color.lightGray,lightGray);
 			}
 			else if(event.getComponent().equals(darkGray))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.darkGray);
-				buttonSelected=darkGray;
-				darkGray.setBackground(Color.darkGray);
-				darkGray.setForeground(Color.white);
+				changeDrawColor(Color.darkGray,darkGray);
 			}
 			else if(event.getComponent().equals(red))
 			{
-				buttonSelected.setBackground(color);	
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.red);
-				buttonSelected=red;
-				red.setBackground(Color.red);
-				red.setForeground(Color.white);
+				changeDrawColor(Color.red,red);
 			}
 			else if(event.getComponent().equals(pink))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.pink);
-				buttonSelected=pink;
-				pink.setBackground(Color.pink);
-				pink.setForeground(Color.white);
+				changeDrawColor(Color.pink,pink);
 			}
 			else if(event.getComponent().equals(magenta))
 			{
-				buttonSelected.setBackground(color);	
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.magenta);
-				buttonSelected=magenta;
-				magenta.setBackground(Color.magenta);
-				magenta.setForeground(Color.white);
+				changeDrawColor(Color.magenta,magenta);
 			}
 			else if(event.getComponent().equals(cyan))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.cyan);
-				buttonSelected=cyan;
-				cyan.setBackground(Color.cyan);
-				cyan.setForeground(Color.white);
+				changeDrawColor(Color.cyan,cyan);
 			}
 			else if(event.getComponent().equals(white))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(Color.white);
-				buttonSelected=white;
-				white.setBackground(Color.white);
+				changeDrawColorToWhite(Color.white,white);
 			}		
 			else if(event.getComponent().equals(chocolate1))
 			{
-				buttonSelected.setBackground(color);	
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(chocolate);
-				chocolate1.setBackground(chocolate);
-				chocolate1.setForeground(Color.white);
-				buttonSelected=chocolate1;
+				changeDrawColor(chocolate,chocolate1);
 			}
 			else if(event.getComponent().equals(peach1))
 			{
-				buttonSelected.setBackground(color);
-				buttonSelected.setForeground(Color.black);
-				w.setFontColor(peach);
-				peach1.setBackground(peach);
-				peach1.setForeground(Color.white);
-				buttonSelected=peach1;
+				changeDrawColor(peach,peach1);
 			}
 		}
 		
@@ -505,4 +367,22 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		
 	}
 	
+	private void changeDrawColor(Color newColor, JButton selectedButton)
+	{
+		buttonSelected.setBackground(color);
+		buttonSelected.setForeground(Color.black);
+		w.setDrawColor(newColor);
+		buttonSelected=selectedButton;
+		buttonSelected.setBackground(newColor);
+		buttonSelected.setForeground(Color.white);
+	}
+	
+	private void changeDrawColorToWhite(Color newColor, JButton selectedButton)
+	{
+		buttonSelected.setBackground(color);
+		buttonSelected.setForeground(Color.black);
+		w.setDrawColor(newColor);
+		buttonSelected=selectedButton;
+		buttonSelected.setBackground(newColor);
+	}
 }

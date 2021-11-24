@@ -8,11 +8,10 @@ import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
-import java.util.ArrayList;
 
 import javax.swing.*;
 
-/** An applet that lets you perform freehand drawing.
+/** An application that lets you perform freehand drawing.
  *  <p>
  *  From <a href="http://courses.coreservlets.com/Course-Materials/">the
  *  coreservlets.com tutorials on JSF 2, PrimeFaces, Ajax, jQuery, GWT, Android,
@@ -149,8 +148,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
  
   public BufferedImage getImage()
   {
-	  //System.out.println("Image dimensions: "+image.getWidth()+","+image.getHeight());
-	  return image;
+	   return image;
   }
   
   public Graphics getBufferedGraphics()
@@ -174,24 +172,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
-		// TODO Auto-generated method stub
-		if((buttonSelected.equals("paint all") && event.getKeyCode()==KeyEvent.VK_ENTER) || (buttonSelected.equals("paint all") && event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_P))
-		{
-			paintAll();
-		}
-		else if((buttonSelected.equals("paint fill") && event.getKeyCode()==KeyEvent.VK_ENTER) || (buttonSelected.equals("paint fill") && event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_P))
-		{
-			paintAll();
-		}
-		else if((buttonSelected.equals("paint") && event.getKeyCode()==KeyEvent.VK_ENTER) || (buttonSelected.equals("paint") && event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_P))
-		{
-			paintAll();
-		}
-		else if(event.getKeyCode()==KeyEvent.VK_CONTROL && event.getKeyCode()==KeyEvent.VK_Z)
-		{
-			undo();
-		}
-		
 		
 		/*	if(buttonSelected.equals("text"))
 		{
@@ -337,7 +317,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		{
 			eraseAll();
 		}
-		System.out.println("Color at ("+event.getX()+","+event.getY()+"): "+Color.getColor(null,getImage().getRGB(event.getX(),event.getY())));
 	}
 	
 	
@@ -416,43 +395,32 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	private void paintFill(int x, int y)
 	{
 		Graphics g = getGraphics();
-	    g.setColor(drawColor);
+		g.setColor(drawColor);
 	    int initX=x;
 	    int initY=y;
 	    BufferedImage theImage=getImage();
 	    Color initColor=Color.getColor(null,theImage.getRGB(initX, initY));
-	    Color curColor;
-	    double radians;
 	    double curX;
 	    double curY;
-	    final double R=.0075;
+	    final int R=1;
 	    double distX;
 	    double distY;
 	    int[] xCoords=new int[360];
 	    int[] yCoords=new int[360];
+	    
 	    for(int i=0; i<360; i+=1)
 	    {
-	    	radians=i*(Math.PI/180);
-	    	distX=R*Math.cos(radians);
-		    distY=R*Math.sin(radians);
+	    	distX=R*TrigLookUpTable.cos[i];
+		    distY=R*TrigLookUpTable.sin[i];
 	    	
 	    	curX=initX;
 	    	curY=initY;
-	    	curColor=initColor;
 	    	
-	    	
-	    	while(curColor.equals(initColor))
+	    	while(!isEdge(curX,curY,theImage,initColor))
 	    	{
 		    	curX+=distX;
 		    	curY+=distY;
-		    	if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
-		    	{
-		    		curColor=Color.getColor(null,theImage.getRGB((int)curX,(int)curY));
-		    	}
-		    	else
-		    	{
-		    		break;
-		    	}
+		    	//g.drawLine((int)curX,(int)curY,(int)curX,(int)curY);
 	    	}
 	    	xCoords[i]=(int)curX;
 	    	yCoords[i]=(int)curY;
@@ -590,59 +558,33 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		int curY;
 		int imageWidth=theImage.getWidth();
 		int imageHeight=theImage.getHeight();
-		for(double i=-5; i<=5; i+=.5)
+		for(int i=-1; i<=0; i+=1)
 		{
 			curX=(int)(x+i);
-			curY=(int)(y+i);
-			if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
+			for(int j=-1; j<=0; j+=1)
 			{
-				curColor=Color.getColor(null,theImage.getRGB(curX,curY));
-				if(!curColor.equals(initColor))
+				curY=(int)(y+j);
+				if(((curX>0 & curX<imageWidth) && (curY>0 & curY<imageHeight)))
+				{
+					curColor=Color.getColor(null,theImage.getRGB(curX,curY));
+					if(!curColor.equals(initColor))
+					{
+						return true;
+					}
+				}
+				else
 				{
 					return true;
 				}
 			}
-			else
-			{
-				return true;
-			}
 		}
 		return false;
 	}
-	
-	private double[] getEdgeIfExist(double x, double y, BufferedImage theImage, Color initColor)
-	{
-		Color curColor;
-		int curX;
-		int curY;
-		int imageWidth=theImage.getWidth();
-		int imageHeight=theImage.getHeight();
-		for(double i=-1; i<1; i+=1)
-		{
-			curX=(int)(x+i);
-			curY=(int)(y+i);
-			if(((curX>0 && curX<imageWidth) && (curY>0 && curY<imageHeight)))
-			{
-				curColor=Color.getColor(null,theImage.getRGB(curX,curY));
-				if(!curColor.equals(initColor))
-				{
-					double[] coords=new double[2];
-					coords[0]=curX;
-					coords[1]=curY;
-					return coords;
-				}
-			}
-			else
-			{
-				double[] coords=new double[2];
-				coords[0]=curX;
-				coords[1]=curY;
-				return coords;
-			}
-		}
-		double[] coords=new double[2];
-		coords[0]=x;
-		coords[1]=y;
-		return coords;
+
+	public Color getFontColor() {
+		return fontColor;
 	}
+
+	
+	
 }

@@ -35,6 +35,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		
 		textCursor=new JButton("text");
 		textCursor.addActionListener(this);
+		textCursor.addKeyListener(this);
 		textCursor.setBackground(color);
 		textCursor.setOpaque(true);
 		textCursor.setBorderPainted(false);
@@ -48,6 +49,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		
 		drawCursor=new JButton("draw");
 		drawCursor.addActionListener(this);
+		drawCursor.addKeyListener(this);
 		drawCursor.setBackground(color);
 		drawCursor.setOpaque(true);
 		drawCursor.setBorderPainted(false);
@@ -55,6 +57,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		
 		pointerCursor=new JButton("pointer");
 		pointerCursor.addActionListener(this);
+		pointerCursor.addKeyListener(this);
 		pointerCursor.setBackground(color);
 		pointerCursor.setOpaque(true);
 		pointerCursor.setBorderPainted(false);
@@ -62,6 +65,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		
 		eraseCursor=new JButton("erase");
 		eraseCursor.addActionListener(this);
+		eraseCursor.addKeyListener(this);
 		eraseCursor.setBackground(color);
 		eraseCursor.setOpaque(true);
 		eraseCursor.setBorderPainted(false);
@@ -69,6 +73,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		
 		paintCursor=new JButton("paint");
 		paintCursor.addActionListener(this);
+		paintCursor.addKeyListener(this);
 		paintCursor.setBackground(color);
 		paintCursor.setOpaque(true);
 		paintCursor.setBorderPainted(false);
@@ -92,6 +97,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		
 		eraseAllCursor=new JButton("erase all");
 		eraseAllCursor.addActionListener(this);
+		eraseAllCursor.addKeyListener(this);
 		eraseAllCursor.setBackground(color);
 		eraseAllCursor.setOpaque(true);
 		eraseAllCursor.setBorderPainted(false);
@@ -269,7 +275,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		{
 			if(event.getComponent().equals(textCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setBackground(color);
 				buttonSelected.setForeground(Color.black);	
 				Cursor c=new Cursor(Cursor.TEXT_CURSOR);
 				w.setCursor2(c);
@@ -280,7 +286,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			}
 			else if(event.getComponent().equals(drawCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setBackground(color);
 				buttonSelected.setForeground(Color.black);	
 				w.setCursor2(createPencilCursor());
 				//w.setCursor2(new Cursor(Cursor.CROSSHAIR_CURSOR));
@@ -291,7 +297,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			}
 			else if(event.getComponent().equals(pointerCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));	
+				buttonSelected.setBackground(color);	
 				buttonSelected.setForeground(Color.black);	
 				Cursor c=new Cursor(Cursor.DEFAULT_CURSOR);
 				w.setCursor2(c);		
@@ -302,7 +308,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			}
 			else if(event.getComponent().equals(eraseCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setBackground(color);
 				buttonSelected.setForeground(Color.black);	
 				w.setCursor2(createEraserCursor());
 				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
@@ -313,7 +319,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			}
 			else if(event.getComponent().equals(paintCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setBackground(color);
 				buttonSelected.setForeground(Color.black);	
 				w.setCursor2(createPaintBrushCursor());
 				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
@@ -324,7 +330,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			}
 			else if(event.getComponent().equals(paintFillCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setBackground(color);
 				buttonSelected.setForeground(Color.black);	
 				w.setCursor2(createPaintBrushCursor());
 				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
@@ -335,18 +341,18 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			}
 			else if(event.getComponent().equals(paintAllCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));
+				buttonSelected.setBackground(color);
 				buttonSelected.setForeground(Color.black);	
 				w.setCursor2(createPaintBrushCursor());
 				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
 				w.setButtonSelected("paint all");
-				buttonSelected=paintFillCursor;
+				buttonSelected=paintAllCursor;
 				buttonSelected.setBackground(buttonSelectedColor);
 				buttonSelected.setForeground(buttonSelectedTextColor);
 			}
 			else if(event.getComponent().equals(eraseCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));	
+				buttonSelected.setBackground(color);	
 				buttonSelected.setForeground(Color.black);	
 				w.setCursor2(createPaintBrushCursor());
 				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
@@ -357,7 +363,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 			}
 			else if(event.getComponent().equals(eraseAllCursor))
 			{
-				buttonSelected.setBackground(new Color(238,238,238));	
+				buttonSelected.setBackground(color);	
 				buttonSelected.setForeground(Color.black);	
 				w.setCursor2(createEraserCursor());
 				//w.setCursor2(new Cursor(Cursor.HAND_CURSOR));
@@ -371,7 +377,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void keyReleased(KeyEvent event) {
 		// TODO Auto-generated method stub
 		
 	}
