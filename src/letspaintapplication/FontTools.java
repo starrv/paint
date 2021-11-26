@@ -318,7 +318,6 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 			{
 				changeFontColor(peach,peach1);
 			}
-			Functions.printMessage(w.getFontColor());
 		}
 	}
 
@@ -342,6 +341,7 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 		buttonSelected=selectedButton;
 		buttonSelected.setBackground(newColor);
 		buttonSelected.setForeground(Color.white);
+		w.requestFocusInWindow();
 	}
 	
 	private void changeFontColorToWhite(Color newColor, JButton selectedButton)
@@ -351,6 +351,7 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 		w.setFontColor(newColor);
 		buttonSelected=selectedButton;
 		buttonSelected.setBackground(newColor);
+		w.requestFocusInWindow();
 	}
 
 }

@@ -234,6 +234,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	@Override
 	public void keyTyped(KeyEvent event) 
 	{
+		Functions.printMessage("key typed");
 		if(buttonSelected.equals("text") && (event.getKeyChar()!=KeyEvent.VK_BACK_SPACE && event.getKeyChar()!=KeyEvent.VK_DELETE))
 		{
 			type(event);

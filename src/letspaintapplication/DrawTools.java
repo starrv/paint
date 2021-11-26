@@ -375,6 +375,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		buttonSelected=selectedButton;
 		buttonSelected.setBackground(newColor);
 		buttonSelected.setForeground(Color.white);
+		w.requestFocusInWindow();
 	}
 	
 	private void changeDrawColorToWhite(Color newColor, JButton selectedButton)
@@ -384,5 +385,6 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		w.setDrawColor(newColor);
 		buttonSelected=selectedButton;
 		buttonSelected.setBackground(newColor);
+		w.requestFocusInWindow();
 	}
 }
