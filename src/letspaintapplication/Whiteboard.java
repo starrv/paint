@@ -37,14 +37,16 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	protected String fontFamily, buttonSelected;
 	protected int fontStyle, fontSize, imageWidth, imageHeight;
 	protected FontMetrics fm;
+	protected JFrame frame;
   
-  public Whiteboard(int w, int h) 
+  public Whiteboard(int w, int h, JFrame frame) 
   {
 	setName("LetsPaint");
 	cursor=new Cursor(Cursor.DEFAULT_CURSOR);
 	setSize(w,h);
 	imageWidth=getWidth();
 	imageHeight=getHeight();
+	this.frame=frame;
 	drawColor=Color.black;
 	fontColor=Color.black;
 	backGround=Color.white;
@@ -394,6 +396,10 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	
 	private void paintFill(int x, int y)
 	{
+		final JDialog modelDialog = new JDialog(frame, "Calculating painting range....");
+		modelDialog.setBounds(this.getWidth()/2,this.getHeight()/2, 500, 100);
+		modelDialog.setLocationRelativeTo(this);
+		modelDialog.setVisible(true);
 		Graphics g = getGraphics();
 		g.setColor(drawColor);
 	    int initX=x;
@@ -441,6 +447,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer = image.createGraphics();
 	    buffer.setColor(drawColor);
 	    buffer.fillPolygon(xCoords, yCoords,xCoords.length);
+	    modelDialog.setVisible(false);
 	}
 	
 	private void draw(int x, int y)

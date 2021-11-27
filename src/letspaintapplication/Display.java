@@ -59,7 +59,7 @@ public class Display extends JFrame implements WindowListener
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 		setLayout(new BorderLayout());
 		setFont(new Font("Sans Serif", Font.BOLD, 20));
-		whiteboard=new Whiteboard(getWidth(),getHeight());
+		whiteboard=new Whiteboard(getWidth(),getHeight(),this);
 		add(whiteboard, BorderLayout.CENTER);
 		FontTools fontTools=new FontTools(whiteboard);
 		add(fontTools, BorderLayout.EAST);
