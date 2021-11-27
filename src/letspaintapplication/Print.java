@@ -35,8 +35,6 @@ public class Print implements Printable, ImageObserver
 
 	    // Now we perform our rendering
 	    BufferedImage theImage=w.getImage();
-	    System.out.println("Image dimensions: "+theImage.getWidth()+","+theImage.getHeight());
-	    System.out.println("Page dimensions: "+pf.getWidth()+","+pf.getHeight());
 	    g.drawImage(theImage, 0, 0,(int)pf.getWidth(),(int)pf.getHeight(),this);
 	    
 	    // tell the caller that this page is part
