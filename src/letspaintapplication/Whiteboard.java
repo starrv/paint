@@ -143,6 +143,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   {
 	  getGraphics().drawImage(backUpImage, 0,0,this);
 	  buffer.drawImage(backUpImage,0,0,this);
+	  requestFocusInWindow();
   }
   // Record position that mouse entered window or
   // where user pressed mouse button.
@@ -174,6 +175,29 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
+		if(event.getKeyCode()==KeyEvent.VK_ENTER) 
+		{
+			if(buttonSelected=="paint")
+			{
+				paint(getXLocation,getYLocation);
+			}
+			else if(buttonSelected=="paint fill")
+			{
+				paintFill(getXLocation,getYLocation);
+			}
+			else if(buttonSelected=="paint all")
+			{
+				paintAll();
+			}
+			else if(buttonSelected=="erase")
+			{
+				erase(getXLocation,getYLocation);
+			}
+			else if(buttonSelected=="erase all")
+			{
+				eraseAll();
+			}
+		}
 		
 		/*	if(buttonSelected.equals("text"))
 		{
@@ -288,6 +312,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		{
 			eraseAll();
 		}
+		getXLocation=event.getX();
+		getYLocation=event.getY();
 	}
 	
 	@Override

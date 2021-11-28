@@ -118,6 +118,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		        e.printStackTrace();
 		    }
 		}
+		w.requestFocusInWindow();
 	}
 	
 	private void saveAs()
@@ -187,6 +188,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		    	}	    	
 	    	}
 	    }
+	    w.requestFocusInWindow();
 	}
 	
 	private String removeWhiteSpace(String fileName)
@@ -271,6 +273,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    		JOptionPane.showMessageDialog(findParentFrame(), "file could not be deleted");
 	    	}
 	    }
+	    w.requestFocusInWindow();
 	}
 	
 	private void newFile()
@@ -280,6 +283,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		JOptionPane.showMessageDialog(null, "new file created");
 		saveFile=null;
 		openFile=null;
+		w.requestFocusInWindow();
 	}
 	
 	private void save()
@@ -300,6 +304,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		{
 			saveAs();
 		}
+		w.requestFocusInWindow();
     }
 
 	private void openFile()
@@ -327,6 +332,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    	w.saveOpenedImage(image);
 	    	JOptionPane.showMessageDialog(findParentFrame(), "File opened");
 	    }
+	    w.requestFocusInWindow();
 	}
 	
 	 private Frame findParentFrame()

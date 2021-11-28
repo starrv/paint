@@ -118,6 +118,7 @@ public class Display extends JFrame implements WindowListener
 	    	Functions.printMessage(ex.getMessage());
 	        JOptionPane.showMessageDialog(null,ex.getMessage());
 		}
+		whiteboard.requestFocusInWindow();
 	}
 	
 	public static void stopMusic()
@@ -125,6 +126,7 @@ public class Display extends JFrame implements WindowListener
 		if(clip!=null)
 			clip.stop();
 		//JOptionPane.showMessageDialog(null,"music stopped");
+		whiteboard.requestFocusInWindow();
 	}
 	//C:/Users/Owner/workspace1/Paint/src/paint/Maid with the Flaxen Hair.mp3
 	@Override
