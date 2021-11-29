@@ -4,8 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
-public class FontStyle extends JPanel
+public class FontStyle extends JPanel implements FocusListener
 {
 	/**
 	 * 
@@ -14,7 +15,6 @@ public class FontStyle extends JPanel
 	private Whiteboard w;
 	private JCheckBox plainCheckBox, boldCheckBox, italicsCheckBox;
 	private Color color=new Color(217, 187, 169);
-	private Font font=new Font("Sans Serif", Font.BOLD, 20);
 	
 	public FontStyle(Whiteboard w)
 	{
@@ -22,17 +22,23 @@ public class FontStyle extends JPanel
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		//add(label);
 		plainCheckBox=new JCheckBox("regular", true);
-		plainCheckBox.setFont(font);
+		plainCheckBox.setFont(Display.DEFAULT_FONT);
 		plainCheckBox.addItemListener(new regularItemListener());
+		plainCheckBox.addFocusListener(this);
 		add(plainCheckBox);
+		
 		boldCheckBox=new JCheckBox("bold", false);
 		boldCheckBox.addItemListener(new boldItemListener());
-		boldCheckBox.setFont(font);
+		boldCheckBox.addFocusListener(this);
+		boldCheckBox.setFont(Display.DEFAULT_FONT);
 		add(boldCheckBox);
+		
 		italicsCheckBox=new JCheckBox("italics", false);
 		italicsCheckBox.addItemListener(new italicsItemListener());
-		italicsCheckBox.setFont(font);
+		italicsCheckBox.addFocusListener(this);
+		italicsCheckBox.setFont(Display.DEFAULT_FONT);
 		add(italicsCheckBox);
+		
 		setBackground(color);
 		setOpaque(true);
 		//w.setFontStyle(Font.PLAIN);
@@ -122,4 +128,28 @@ public class FontStyle extends JPanel
 			}
 		}
 	}
+	
+	@Override
+	public void focusGained(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JCheckBox"))
+		{
+			JCheckBox checkBox=(JCheckBox)event.getComponent();
+			checkBox.setFont(Display.FOCUS_FONT);
+			checkBox.setBorder(BorderFactory.createLineBorder(Color.blue, 1, true));
+			checkBox.setForeground(Color.blue);
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JCheckBox"))
+		{
+			JCheckBox checkBox=(JCheckBox)event.getComponent();
+			checkBox.setFont(Display.DEFAULT_FONT);
+			checkBox.setBorder(BorderFactory.createLineBorder(Color.gray, 1, true));
+			checkBox.setForeground(Color.black);
+		}
+	} 
 }

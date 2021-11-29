@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class FontTools extends JPanel implements ActionListener, MouseMotionListener, KeyListener
+public class FontTools extends JPanel implements ActionListener, MouseMotionListener, KeyListener, FocusListener
 {
 	
 	/**
@@ -44,7 +44,8 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 		orange=new JButton("orange");
 	    orange.addActionListener(this);
 	    orange.addKeyListener(this);
-	    orange.setBackground(color);
+	    orange.addFocusListener(this);
+	    //orange.setBackground(color);
 	    orange.setOpaque(true);
 	    orange.setBorderPainted(false);
 	    orange.setFont(font);
@@ -52,7 +53,8 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	    blue=new JButton("blue");
 	    blue.addActionListener(this);
 	    blue.addKeyListener(this);
-	    blue.setBackground(color);
+	    blue.addFocusListener(this);
+	    //blue.setBackground(color);
 	    blue.setOpaque(true);
 	    blue.setBorderPainted(false);
 	    blue.setFont(font);
@@ -60,7 +62,8 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	    black=new JButton("black");
 	    black.addActionListener(this);
 	    black.addKeyListener(this);
-	    black.setBackground(color);
+	    black.addFocusListener(this);
+	    //black.setBackground(color);
 	    black.setOpaque(true);
 	    black.setBorderPainted(false);
 	    black.setFont(font);
@@ -68,7 +71,8 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 		green=new JButton("green");
 	    green.addActionListener(this);
 	    green.addKeyListener(this);
-	    green.setBackground(color);
+	    green.addFocusListener(this);
+	    //green.setBackground(color);
 	    green.setOpaque(true);
 	    green.setBorderPainted(false);
 	    green.setFont(font);
@@ -352,6 +356,18 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 		buttonSelected=selectedButton;
 		buttonSelected.setBackground(newColor);
 		w.requestFocusInWindow();
+	}
+
+	@Override
+	public void focusGained(FocusEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

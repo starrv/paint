@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 
 
 
-public class Open_SavePanel extends JPanel implements ActionListener, KeyListener
+public class Open_SavePanel extends JPanel implements ActionListener, KeyListener, FocusListener
 {
 	
 	/**
@@ -53,7 +53,8 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 			JButtonBox[i].setName(labels[i]);
 			JButtonBox[i].addActionListener(this);
 			JButtonBox[i].addKeyListener(this);
-			JButtonBox[i].setFont(new Font("Sans Serif", Font.BOLD, 18));
+			JButtonBox[i].addFocusListener(this);
+			JButtonBox[i].setFont(Display.DEFAULT_FONT);
 			JButtonBox[i].setBackground(new Color(245, 233, 225));
 			JButtonBox[i].setOpaque(true);
 			JButtonBox[i].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.gray, 1, true), new EmptyBorder(5,5,5,5)));
@@ -401,5 +402,29 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	@Override
 	public void keyTyped(KeyEvent event) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void focusGained(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setFont(Display.FOCUS_FONT);
+			button.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue, 1, true), new EmptyBorder(5,5,5,5)));
+			button.setForeground(Color.blue);
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setFont(Display.DEFAULT_FONT);
+			button.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1, true), new EmptyBorder(5,5,5,5)));
+			button.setForeground(Color.black);
+		}
 	} 
 }

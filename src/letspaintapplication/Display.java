@@ -17,8 +17,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-//import com.apple.eawt.Application;
+import com.apple.eawt.Application;
 
+@SuppressWarnings("restriction")
 public class Display extends JFrame implements WindowListener
 {
 	/**
@@ -27,6 +28,8 @@ public class Display extends JFrame implements WindowListener
 	private static final long serialVersionUID = 5657371353338627325L;
 	private static Whiteboard whiteboard;
 	private static Clip clip;
+	public final static Font DEFAULT_FONT=new Font("Sans Serif", Font.PLAIN, 18);
+	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.ITALIC, 18);
 	
 //	private URL getResource(String file)
 //	{
@@ -49,8 +52,6 @@ public class Display extends JFrame implements WindowListener
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Color focusColor=new Color(0,0,255);
-		UIManager.put("Button.focus", focusColor);
 		setBackground(new Color(193, 217, 230));
 		Dimension size=java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(size.width,size.height);
@@ -88,7 +89,7 @@ public class Display extends JFrame implements WindowListener
 			   {
 			      image = ImageIO.read(imgURL);
 			      this.setIconImage(image);
-			      //Application.getApplication().setDockIconImage(image);
+			      Application.getApplication().setDockIconImage(image);
 			    } 
 			    catch (IOException e)
 			    {

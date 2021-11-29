@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 
-public class DrawTools extends JPanel implements ActionListener, MouseMotionListener, MouseListener,  KeyListener
+public class DrawTools extends JPanel implements ActionListener, MouseMotionListener, MouseListener,  KeyListener, FocusListener
 {
 	/**
 	 * 
@@ -42,7 +42,8 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		orange=new JButton("orange");
 	    orange.addActionListener(this);
 	    orange.addKeyListener(this);
-	    orange.setBackground(color);
+	    orange.addFocusListener(this);
+	    //orange.setBackground(color);
 	    orange.setOpaque(true);
 	    orange.setBorderPainted(false);
 	    orange.setFont(font);
@@ -50,7 +51,8 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    blue=new JButton("blue");
 	    blue.addActionListener(this);
 	    blue.addKeyListener(this);
-	    blue.setBackground(color);
+	    blue.addFocusListener(this);
+	    //blue.setBackground(color);
 	    blue.setOpaque(true);
 	    blue.setBorderPainted(false);
 	    blue.setFont(font);
@@ -58,7 +60,8 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    black=new JButton("black");
 	    black.addActionListener(this);
 	    black.addKeyListener(this);
-	    black.setBackground(color);
+	    black.addFocusListener(this);
+	    //black.setBackground(color);
 	    black.setOpaque(true);
 	    black.setBorderPainted(false);
 	    black.setFont(font);
@@ -66,7 +69,9 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		green=new JButton("green");
 		green.addKeyListener(this);
 	    green.addActionListener(this);
-	    green.setBackground(color);
+	    green.addFocusListener(this);
+	    green.setBorder(BorderFactory.createLineBorder(Color.black,1,true));
+	    //green.setBackground(color);
 	    green.setOpaque(true);
 	    green.setBorderPainted(false);
 	    green.setFont(font);
@@ -386,5 +391,21 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		buttonSelected=selectedButton;
 		buttonSelected.setBackground(newColor);
 		w.requestFocusInWindow();
+	}
+
+	@Override
+	public void focusGained(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setBorderPainted(true);
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 }
