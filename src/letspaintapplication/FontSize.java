@@ -45,7 +45,7 @@ public class FontSize extends JPanel implements ItemListener, FocusListener
 	
 	private void addLabels()
 	{
-		JLabels=new String[40];
+		JLabels=new String[42];
 		for(int i=0; i<JLabels.length; i++)
 		{
 			//Functions.Functions.printMessage("Add Label "+i);
