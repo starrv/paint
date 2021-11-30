@@ -380,6 +380,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 			JButton button=(JButton)event.getComponent();
 			button.setBorderPainted(true);
 			button.setFont(Display.FOCUS_FONT);
+			button.setForeground(Color.blue);
 		}
 	}
 
@@ -391,6 +392,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 			JButton button=(JButton)event.getComponent();
 			button.setBorderPainted(false);
 			button.setFont(Display.DEFAULT_FONT);
+			button.setForeground(Color.black);
 		}
 	}
 }

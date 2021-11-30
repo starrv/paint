@@ -30,8 +30,8 @@ public class Display extends JFrame implements WindowListener
 	private static final long serialVersionUID = 5657371353338627325L;
 	private static Whiteboard whiteboard;
 	private static Clip clip;
-	public final static Font DEFAULT_FONT=new Font("Sans Serif", Font.PLAIN, 18);
-	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.ITALIC, 18);
+	public final static Font DEFAULT_FONT=new Font("Sans Serif", Font.BOLD, 18);
+	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.BOLD, 20);
 	private final static int PADDING=5;
 	public final static Border DEFAULT_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
 	public final static Border FOCUS_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
