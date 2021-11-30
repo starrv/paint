@@ -3,10 +3,9 @@ package letspaintapplication;
 import javax.swing.*;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.*;
 
-public class FontType extends JPanel implements ItemListener
+public class FontType extends JPanel implements ItemListener, FocusListener
 {
 	/**
 	 * 
@@ -17,7 +16,6 @@ public class FontType extends JPanel implements ItemListener
 	private Whiteboard w;
 	//private JLabel label;
 	private JComboBox<String> fonts;
-	private Font font=new Font("Sans Serif", Font.BOLD, 20);
 	private Color color=new Color(217, 187, 169);
 	
 	public FontType(Whiteboard w)
@@ -29,8 +27,9 @@ public class FontType extends JPanel implements ItemListener
 		String[] JButtonLabels={"arial", "times new roman", "comic sans ms", "sans serif", "calibri", "verdana"};
 		fonts=new JComboBox<String>(JButtonLabels);
 		fonts.addItemListener(this)	;	
+		fonts.addFocusListener(this);
 		fonts.setSelectedIndex(0);
-		fonts.setFont(font);
+		fonts.setFont(Display.DEFAULT_FONT);
 		add(fonts);
 		setBackground(color);
 		setOpaque(true);
@@ -151,46 +150,77 @@ public class FontType extends JPanel implements ItemListener
 			
 			//Functions.printMessage("arial");
 			w.setFontFamily("Arial");
+			w.requestFocusInWindow();
 		}
 		else if(event.getItem().equals("times new roman"))
 		{
 			//Functions.printMessage("times new roman");
 			w.setFontFamily("Times New Roman");
+			w.requestFocusInWindow();
 		}
 		else if(event.getItem().equals("comic sans ms"))
 		{
 			w.setFontFamily("Comic Sans MS");
+			w.requestFocusInWindow();
 			//Functions.printMessage("comic sans ms");
 		}
 		else if(event.getItem().equals("sans serif"))
 		{
 			w.setFontFamily("Sans_Serif");
+			w.requestFocusInWindow();
 			//Functions.printMessage("sans serif");
 		}
 		else if(event.getItem().equals("calibri"))
 		{
 			//Functions.printMessage("calibri");
 			w.setFontFamily("Calibri");
+			w.requestFocusInWindow();
 		}
 		else if(event.getItem().equals("couriers"))
 		{
 			//Functions.printMessage("couriers");
 			w.setFontFamily("Couriers");
+			w.requestFocusInWindow();
 		}
 		else if(event.getItem().equals("cursive"))
 		{
 			//Functions.printMessage("cursive");
 			w.setFontFamily("Cursive");
+			w.requestFocusInWindow();
 		}
 		else if(event.getItem().equals("monospace"))
 		{
 			//Functions.printMessage("monospace");
 			w.setFontFamily("MONOSPACE");
+			w.requestFocusInWindow();
 		}
 		else if(event.getItem().equals("verdana"))
 		{
 			//Functions.printMessage("verdana");
 			w.setFontFamily("Verdana");
+			w.requestFocusInWindow();
+		}
+	}
+	@Override
+	public void focusGained(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
+		{
+			JComboBox<?> box=(JComboBox<?>)event.getComponent();
+			box.setFont(Display.FOCUS_FONT);
+			box.setForeground(Color.blue);
+			box.setBorder(BorderFactory.createLineBorder(Color.blue,1,true));
+		}
+	}
+	@Override
+	public void focusLost(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
+		{
+			JComboBox<?> box=(JComboBox<?>)event.getComponent();
+			box.setFont(Display.DEFAULT_FONT);
+			box.setForeground(Color.black);
+			box.setBorder(BorderFactory.createEmptyBorder());
 		}
 	}
 }

@@ -2,7 +2,6 @@ package letspaintapplication;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
@@ -47,6 +46,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	{
 		String[] labels={"new file", "save as", "open file", "save", "delete", "undo", "print", "play music", "stop music"};
 		JButtonBox=new JButton[labels.length];
+		Color buttonColor=new Color(245, 233, 225);
 		for(int i=0; i<labels.length;i++)
 		{
 			JButtonBox[i]=new JButton(labels[i]);
@@ -55,9 +55,9 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 			JButtonBox[i].addKeyListener(this);
 			JButtonBox[i].addFocusListener(this);
 			JButtonBox[i].setFont(Display.DEFAULT_FONT);
-			JButtonBox[i].setBackground(new Color(245, 233, 225));
+			JButtonBox[i].setBackground(buttonColor);
 			JButtonBox[i].setOpaque(true);
-			JButtonBox[i].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.gray, 1, true), new EmptyBorder(5,5,5,5)));
+			JButtonBox[i].setBorder(Display.DEFAULT_BUTTON_BORDER);
 			add(JButtonBox[i]);
 		}
 	}
@@ -411,7 +411,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		{
 			JButton button=(JButton)event.getComponent();
 			button.setFont(Display.FOCUS_FONT);
-			button.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue, 1, true), new EmptyBorder(5,5,5,5)));
+			button.setBorder(Display.FOCUS_BUTTON_BORDER);
 			button.setForeground(Color.blue);
 		}
 	}
@@ -423,7 +423,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		{
 			JButton button=(JButton)event.getComponent();
 			button.setFont(Display.DEFAULT_FONT);
-			button.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1, true), new EmptyBorder(5,5,5,5)));
+			button.setBorder(Display.DEFAULT_BUTTON_BORDER);
 			button.setForeground(Color.black);
 		}
 	} 

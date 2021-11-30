@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 
-public class Cursors extends JPanel implements ActionListener, KeyListener
+public class Cursors extends JPanel implements ActionListener, KeyListener, FocusListener
 {
 	/**
 	 * 
@@ -15,10 +15,8 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 	private JButton textCursor, drawCursor, pointerCursor,eraseCursor, paintCursor, paintFillCursor, paintAllCursor, eraseAllCursor, buttonSelected;
 	private Whiteboard w;
 	private JLabel title;
-	private Color buttonSelectedColor=new Color(77, 106, 148);
-	private Color buttonSelectedTextColor=Color.white;
+	private Color buttonSelectedColor=new Color(230, 223, 213);
 	private Color color=new Color(217, 187, 169);
-	private Font font=new Font("Sans Serif", Font.BOLD, 20);
 	
 	
 	public Cursors(Whiteboard w)
@@ -27,7 +25,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		setLayout(new FlowLayout());
 		
 		title=new JLabel("Tools: ");
-		title.setFont(font);
+		title.setFont(Display.DEFAULT_FONT);
 		title.setBorder(new EmptyBorder(1,1,1,1));
 		add(title);
 		setBackground(color);
@@ -36,10 +34,11 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		textCursor=new JButton("text");
 		textCursor.addActionListener(this);
 		textCursor.addKeyListener(this);
+		textCursor.addFocusListener(this);
 		textCursor.setBackground(color);
 		textCursor.setOpaque(true);
 		textCursor.setBorderPainted(false);
-		textCursor.setFont(font);
+		textCursor.setFont(Display.DEFAULT_FONT);
 		int borderWidth=30;
 		title.setBackground(Color.yellow);
 		title.setOpaque(true);
@@ -50,58 +49,65 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		drawCursor=new JButton("draw");
 		drawCursor.addActionListener(this);
 		drawCursor.addKeyListener(this);
+		drawCursor.addFocusListener(this);
 		drawCursor.setBackground(color);
 		drawCursor.setOpaque(true);
 		drawCursor.setBorderPainted(false);
-		drawCursor.setFont(font);
+		drawCursor.setFont(Display.DEFAULT_FONT);
 		
 		pointerCursor=new JButton("pointer");
 		pointerCursor.addActionListener(this);
 		pointerCursor.addKeyListener(this);
+		pointerCursor.addFocusListener(this);
 		pointerCursor.setBackground(color);
 		pointerCursor.setOpaque(true);
 		pointerCursor.setBorderPainted(false);
-		pointerCursor.setFont(font);
+		pointerCursor.setFont(Display.DEFAULT_FONT);
 		
 		eraseCursor=new JButton("erase");
 		eraseCursor.addActionListener(this);
 		eraseCursor.addKeyListener(this);
+		eraseCursor.addFocusListener(this);
 		eraseCursor.setBackground(color);
 		eraseCursor.setOpaque(true);
 		eraseCursor.setBorderPainted(false);
-		eraseCursor.setFont(font);
+		eraseCursor.setFont(Display.DEFAULT_FONT);
 		
 		paintCursor=new JButton("paint");
 		paintCursor.addActionListener(this);
 		paintCursor.addKeyListener(this);
+		paintCursor.addFocusListener(this);
 		paintCursor.setBackground(color);
 		paintCursor.setOpaque(true);
 		paintCursor.setBorderPainted(false);
-		paintCursor.setFont(font);
+		paintCursor.setFont(Display.DEFAULT_FONT);
 		
 		paintFillCursor=new JButton("paint fill");
 		paintFillCursor.addActionListener(this);
 		paintFillCursor.addKeyListener(this);
+		paintFillCursor.addFocusListener(this);
 		paintFillCursor.setBackground(color);
 		paintFillCursor.setOpaque(true);
 		paintFillCursor.setBorderPainted(false);
-		paintFillCursor.setFont(font);
+		paintFillCursor.setFont(Display.DEFAULT_FONT);
 		
 		paintAllCursor=new JButton("paint all");
 		paintAllCursor.addActionListener(this);
 		paintAllCursor.addKeyListener(this);
+		paintAllCursor.addFocusListener(this);
 		paintAllCursor.setBackground(color);
 		paintAllCursor.setOpaque(true);
 		paintAllCursor.setBorderPainted(false);
-		paintAllCursor.setFont(font);
+		paintAllCursor.setFont(Display.DEFAULT_FONT);
 		
 		eraseAllCursor=new JButton("erase all");
 		eraseAllCursor.addActionListener(this);
 		eraseAllCursor.addKeyListener(this);
+		eraseAllCursor.addFocusListener(this);
 		eraseAllCursor.setBackground(color);
 		eraseAllCursor.setOpaque(true);
 		eraseAllCursor.setBorderPainted(false);
-		eraseAllCursor.setFont(font);
+		eraseAllCursor.setFont(Display.DEFAULT_FONT);
 		
 		this.w=w;
 		add(textCursor);
@@ -120,7 +126,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("paint");
 		buttonSelected=paintCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 	}
@@ -264,7 +269,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("text");
 		buttonSelected=textCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
@@ -279,7 +283,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("draw");
 		buttonSelected=drawCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
@@ -294,7 +297,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("pointer");
 		buttonSelected=pointerCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
@@ -309,7 +311,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("erase");
 		buttonSelected=eraseCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
@@ -324,7 +325,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("paint");
 		buttonSelected=paintCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
@@ -339,7 +339,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("paint fill");
 		buttonSelected=paintFillCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
@@ -354,7 +353,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("paint all");
 		buttonSelected=paintAllCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
@@ -369,9 +367,30 @@ public class Cursors extends JPanel implements ActionListener, KeyListener
 		w.setButtonSelected("erase all");
 		buttonSelected=eraseAllCursor;
 		buttonSelected.setBackground(buttonSelectedColor);
-		buttonSelected.setForeground(buttonSelectedTextColor);
 		buttonSelected.setOpaque(true);
 		buttonSelected.setBorderPainted(false);
 		w.requestFocusInWindow();
+	}
+
+	@Override
+	public void focusGained(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setBorderPainted(true);
+			button.setFont(Display.FOCUS_FONT);
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setBorderPainted(false);
+			button.setFont(Display.DEFAULT_FONT);
+		}
 	}
 }

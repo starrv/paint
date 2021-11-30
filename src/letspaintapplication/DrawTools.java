@@ -21,7 +21,6 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	private Whiteboard w;
 	private JLabel title;
 	private Color color = new Color(217, 187, 169);
-	private Font font=new Font("Sans Serif", Font.BOLD, 20);
 	
 	public DrawTools(Whiteboard w)
 	{
@@ -29,7 +28,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		setLayout(new GridLayout(0,1));
 		this.w=w;
 		title=new JLabel("Draw Colors:");
-		title.setFont(font);
+		title.setFont(Display.DEFAULT_FONT);
 		add(title);
 		setBackground(color);
 		setOpaque(true);
@@ -43,119 +42,128 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    orange.addActionListener(this);
 	    orange.addKeyListener(this);
 	    orange.addFocusListener(this);
-	    //orange.setBackground(color);
+	    orange.setBackground(color);
 	    orange.setOpaque(true);
 	    orange.setBorderPainted(false);
-	    orange.setFont(font);
+	    orange.setFont(Display.DEFAULT_FONT);
 	    
 	    blue=new JButton("blue");
 	    blue.addActionListener(this);
 	    blue.addKeyListener(this);
 	    blue.addFocusListener(this);
-	    //blue.setBackground(color);
+	    blue.setBackground(color);
 	    blue.setOpaque(true);
 	    blue.setBorderPainted(false);
-	    blue.setFont(font);
+	    blue.setFont(Display.DEFAULT_FONT);
 	    
 	    black=new JButton("black");
 	    black.addActionListener(this);
 	    black.addKeyListener(this);
 	    black.addFocusListener(this);
-	    //black.setBackground(color);
+	    black.setBackground(color);
 	    black.setOpaque(true);
 	    black.setBorderPainted(false);
-	    black.setFont(font);
+	    black.setFont(Display.DEFAULT_FONT);
 	    
 		green=new JButton("green");
 		green.addKeyListener(this);
 	    green.addActionListener(this);
 	    green.addFocusListener(this);
-	    green.setBorder(BorderFactory.createLineBorder(Color.black,1,true));
-	    //green.setBackground(color);
+	    green.setBackground(color);
 	    green.setOpaque(true);
 	    green.setBorderPainted(false);
-	    green.setFont(font);
+	    green.setFont(Display.DEFAULT_FONT);
 	    
 	    yellow=new JButton("yellow");
 	    yellow.addActionListener(this);
 	    yellow.addKeyListener(this);
+	    yellow.addFocusListener(this);
 	    yellow.setBackground(color);
 	    yellow.setOpaque(true);
 	    yellow.setBorderPainted(false);
-	    yellow.setFont(font);
+	    yellow.setFont(Display.DEFAULT_FONT);
 	    
 	    white=new JButton("white");
 	    white.addActionListener(this);
 	    white.addKeyListener(this);
+	    white.addFocusListener(this);
 	    white.setBackground(color);
 	    white.setOpaque(true);
 	    white.setBorderPainted(false);
-	    white.setFont(font);
+	    white.setFont(Display.DEFAULT_FONT);
 	    
 	    red=new JButton("red");
 	    red.addActionListener(this);
 	    red.addKeyListener(this);
+	    red.addFocusListener(this);
 	    red.setBackground(color);
 	    red.setOpaque(true);
 	    red.setBorderPainted(false);
-	    red.setFont(font);
+	    red.setFont(Display.DEFAULT_FONT);
 	    
 	    darkGray=new JButton("dark gray");
 	    darkGray.addActionListener(this);
 	    darkGray.addKeyListener(this);
+	    darkGray.addFocusListener(this);
 	    darkGray.setBackground(color);
 	    darkGray.setOpaque(true);
 	    darkGray.setBorderPainted(false);
-	    darkGray.setFont(font);
+	    darkGray.setFont(Display.DEFAULT_FONT);
 	    
 	    lightGray=new JButton("light gray");
 	    lightGray.addActionListener(this);
 	    lightGray.addKeyListener(this);
+	    lightGray.addFocusListener(this);
 	    lightGray.setBackground(color);
 	    lightGray.setOpaque(true);
 	    lightGray.setBorderPainted(false);
-	    lightGray.setFont(font);
+	    lightGray.setFont(Display.DEFAULT_FONT);
 	    
 	    pink=new JButton("pink");
 	    pink.addActionListener(this);
 	    pink.addKeyListener(this);
+	    pink.addFocusListener(this);
 	    pink.setBackground(color);
 	    pink.setOpaque(true);
 	    pink.setBorderPainted(false);
-	    pink.setFont(font);
+	    pink.setFont(Display.DEFAULT_FONT);
 	    
 	    magenta=new JButton("magenta");
 	    magenta.addActionListener(this);
 	    magenta.addKeyListener(this);
+	    magenta.addFocusListener(this);
 	    magenta.setBackground(color);
 	    magenta.setOpaque(true);
 	    magenta.setBorderPainted(false);
-	    magenta.setFont(font);
+	    magenta.setFont(Display.DEFAULT_FONT);
 	    
 	    
 	    cyan=new JButton("cyan");
 	    cyan.addActionListener(this);
 	    cyan.addKeyListener(this);
+	    cyan.addFocusListener(this);
 	    cyan.setBackground(color);
 	    cyan.setOpaque(true);
 	    cyan.setBorderPainted(false);
-	    cyan.setFont(font);
+	    cyan.setFont(Display.DEFAULT_FONT);
 	    
 	    chocolate1=new JButton("chocolate");
 	    chocolate1.addActionListener(this);
 	    chocolate1.addKeyListener(this);
+	    chocolate1.addFocusListener(this);
 	    chocolate1.setBackground(color);
 	    chocolate1.setOpaque(true);
 	    chocolate1.setBorderPainted(false);
-	    chocolate1.setFont(font);
+	    chocolate1.setFont(Display.DEFAULT_FONT);
 	    
 	    peach1=new JButton("peach");
 	    peach1.addActionListener(this);
 	    peach1.addKeyListener(this);
+	    peach1.addFocusListener(this);
 	    peach1.setBackground(color);
 	    peach1.setOpaque(true);
 	    peach1.setBorderPainted(false);
-	    peach1.setFont(font);
+	    peach1.setFont(Display.DEFAULT_FONT);
 	    
 	    add(green);
 	    add(yellow);
@@ -205,7 +213,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		}
 		else if(event.getActionCommand()=="black")
 		{
-			changeDrawColor(Color.black,black);
+			changeDrawColorToBlack(Color.black,black);
 			
 		}
 		else if(event.getActionCommand()=="light gray")
@@ -234,7 +242,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		}
 		else if(event.getActionCommand()=="white")
 		{
-			changeDrawColorToWhite(Color.white,white);
+			changeDrawColor(Color.white,white);
 		}
 		else if(event.getActionCommand()=="chocolate")
 		{
@@ -324,7 +332,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 			}
 			else if(event.getComponent().equals(black))
 			{
-				changeDrawColor(Color.black,black);
+				changeDrawColorToBlack(Color.black,black);
 			}
 			else if(event.getComponent().equals(lightGray))
 			{
@@ -352,7 +360,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 			}
 			else if(event.getComponent().equals(white))
 			{
-				changeDrawColorToWhite(Color.white,white);
+				changeDrawColor(Color.white,white);
 			}		
 			else if(event.getComponent().equals(chocolate1))
 			{
@@ -375,21 +383,23 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	private void changeDrawColor(Color newColor, JButton selectedButton)
 	{
 		buttonSelected.setBackground(color);
-		buttonSelected.setForeground(Color.black);
+		if(buttonSelected.equals(black))
+		{
+			buttonSelected.setForeground(Color.black);
+		}
+		w.setDrawColor(newColor);
+		buttonSelected=selectedButton;
+		buttonSelected.setBackground(newColor);
+		w.requestFocusInWindow();
+	}
+	
+	private void changeDrawColorToBlack(Color newColor, JButton selectedButton)
+	{
+		buttonSelected.setBackground(color);
 		w.setDrawColor(newColor);
 		buttonSelected=selectedButton;
 		buttonSelected.setBackground(newColor);
 		buttonSelected.setForeground(Color.white);
-		w.requestFocusInWindow();
-	}
-	
-	private void changeDrawColorToWhite(Color newColor, JButton selectedButton)
-	{
-		buttonSelected.setBackground(color);
-		buttonSelected.setForeground(Color.black);
-		w.setDrawColor(newColor);
-		buttonSelected=selectedButton;
-		buttonSelected.setBackground(newColor);
 		w.requestFocusInWindow();
 	}
 
@@ -400,12 +410,27 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 		{
 			JButton button=(JButton)event.getComponent();
 			button.setBorderPainted(true);
+			button.setFont(Display.FOCUS_FONT);
+			button.setForeground(Color.blue);
 		}
 	}
 
 	@Override
 	public void focusLost(FocusEvent event) {
 		// TODO Auto-generated method stub
-		
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setBorderPainted(false);
+			button.setFont(Display.DEFAULT_FONT);
+			if(button.equals(black) && buttonSelected.equals(black))
+			{
+				button.setForeground(Color.white);
+			}
+			else
+			{
+				button.setForeground(Color.black);
+			}	
+		}
 	}
 }

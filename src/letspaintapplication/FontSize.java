@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class FontSize extends JPanel implements ItemListener
+public class FontSize extends JPanel implements ItemListener, FocusListener
 {
 	
 	/**
@@ -18,21 +18,21 @@ public class FontSize extends JPanel implements ItemListener
 	//private JButton buttonSelected;
 	private String[] JLabels;
 	private JLabel label;
-	private Font font=new Font("Sans Serif", Font.BOLD, 20);
 	
 	public FontSize(Whiteboard w)
 	{
 		this.w=w;
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		label=new JLabel("Font Size: ");
-		label.setFont(font);
+		label.setFont(Display.DEFAULT_FONT);
 		//add(label);
 		addLabels();
 		fontSizeList=new JComboBox<String>(JLabels);
 		fontSizeList.addItemListener(this);
+		fontSizeList.addFocusListener(this);
 		int fontSizeIndex=14;
 		fontSizeList.setSelectedIndex(fontSizeIndex);
-		fontSizeList.setFont(font);
+		fontSizeList.setFont(Display.DEFAULT_FONT);
 		add(fontSizeList);
 		w.setFontSize(Integer.parseInt(JLabels[fontSizeIndex]));
 		setBackground(new Color(217, 187, 169));
@@ -63,9 +63,35 @@ public class FontSize extends JPanel implements ItemListener
 			{
 				//Functions.Functions.printMessage(JLabels[i]);
 				w.setFontSize(Integer.parseInt(JLabels[i]));
+				w.requestFocusInWindow();
+				break;
 			}
 		}
 		
+	}
+
+	@Override
+	public void focusGained(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
+		{
+			JComboBox<?> box=(JComboBox<?>)event.getComponent();
+			box.setFont(Display.FOCUS_FONT);
+			box.setForeground(Color.blue);
+			box.setBorder(BorderFactory.createLineBorder(Color.blue,1,true));
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
+		{
+			JComboBox<?> box=(JComboBox<?>)event.getComponent();
+			box.setFont(Display.DEFAULT_FONT);
+			box.setForeground(Color.black);
+			box.setBorder(BorderFactory.createEmptyBorder());
+		}
 	}
 	
 	/*private void addButtons()

@@ -17,6 +17,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import com.apple.eawt.Application;
 
 @SuppressWarnings("restriction")
@@ -30,6 +32,9 @@ public class Display extends JFrame implements WindowListener
 	private static Clip clip;
 	public final static Font DEFAULT_FONT=new Font("Sans Serif", Font.PLAIN, 18);
 	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.ITALIC, 18);
+	private final static int PADDING=5;
+	public final static Border DEFAULT_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
+	public final static Border FOCUS_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
 	
 //	private URL getResource(String file)
 //	{
