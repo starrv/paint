@@ -19,9 +19,9 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-//import com.apple.eawt.Application;
+import com.apple.eawt.Application;
 
-//@SuppressWarnings("restriction")
+@SuppressWarnings("restriction")
 public class Display extends JFrame implements WindowListener
 {
 	/**
@@ -94,7 +94,7 @@ public class Display extends JFrame implements WindowListener
 			   {
 			      image = ImageIO.read(imgURL);
 			      this.setIconImage(image);
-			      //Application.getApplication().setDockIconImage(image);
+			      Application.getApplication().setDockIconImage(image);
 			    } 
 			    catch (IOException e)
 			    {
