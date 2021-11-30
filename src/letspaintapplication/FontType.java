@@ -3,6 +3,7 @@ package letspaintapplication;
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.*;
 
 public class FontType extends JPanel implements ItemListener, FocusListener
@@ -24,7 +25,9 @@ public class FontType extends JPanel implements ItemListener, FocusListener
 		//label=new JLabel("Font Family: ");
 		//label.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		//add(label);
-		String[] JButtonLabels={"arial", "times new roman", "comic sans ms", "sans serif", "calibri", "verdana"};
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		//String[] JButtonLabels={"arial", "times new roman", "comic sans ms", "calibri", "verdana", "cursive"};
+		String[] JButtonLabels=ge.getAvailableFontFamilyNames();
 		fonts=new JComboBox<String>(JButtonLabels);
 		fonts.addItemListener(this)	;	
 		fonts.addFocusListener(this);
@@ -145,9 +148,11 @@ public class FontType extends JPanel implements ItemListener, FocusListener
 	public void itemStateChanged(ItemEvent event)
 	{
 		// TODO Auto-generated method stub
-		if(event.getItem().equals("arial"))
+		w.setFontFamily((String)event.getItem());
+		w.requestFocusInWindow();
+		
+		/*if(event.getItem().equals("arial"))
 		{
-			
 			//Functions.printMessage("arial");
 			w.setFontFamily("Arial");
 			w.requestFocusInWindow();
@@ -199,8 +204,9 @@ public class FontType extends JPanel implements ItemListener, FocusListener
 			//Functions.printMessage("verdana");
 			w.setFontFamily("Verdana");
 			w.requestFocusInWindow();
-		}
+		}*/
 	}
+	
 	@Override
 	public void focusGained(FocusEvent event) {
 		// TODO Auto-generated method stub
