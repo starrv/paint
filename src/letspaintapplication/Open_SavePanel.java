@@ -31,6 +31,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	private PlainPanel panel;
 	private PrinterJob job = PrinterJob.getPrinterJob();
 	private File currentDirectory;
+	private JFileChooser chooser = new JFileChooser(saveFile);
 
 	public Open_SavePanel(Whiteboard w, PlainPanel panel)
 	{
@@ -124,17 +125,15 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	
 	private void saveAs()
 	{
-		JFileChooser chooser = new JFileChooser(saveFile);
-		if(currentDirectory!=null)
-		{
-			chooser.setCurrentDirectory(currentDirectory);
-		}
+		//JFileChooser chooser = new JFileChooser(saveFile);
+		chooser.setSelectedFile(saveFile);
 	    FileNameExtensionFilter filter = new FileNameExtensionFilter(
 	        "JPG & GIF & PNG Images","jpg","jpeg","gif","png");
 	    chooser.setFileFilter(filter);
 	    chooser.setAcceptAllFileFilterUsed(false);
 	    chooser.setFileHidingEnabled(true);
 	    chooser.setSelectedFile(new File(panel.getDocumentLabel()));
+	    
 	    int returnVal = chooser.showSaveDialog(findParentFrame());
 	    if(returnVal == JFileChooser.APPROVE_OPTION) 
 	    {
@@ -188,6 +187,10 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		    		saveAs();
 		    	}	    	
 	    	}
+	    }
+	    else if(returnVal == JFileChooser.CANCEL_OPTION)
+	    {
+	    	 JOptionPane.showMessageDialog(findParentFrame(),"save as cancelled");
 	    }
 	    w.requestFocusInWindow();
 	}
@@ -310,11 +313,13 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 
 	private void openFile()
 	{
-		JFileChooser chooser = new JFileChooser(saveFile);
+		//JFileChooser chooser = new JFileChooser(saveFile);
+		chooser.setSelectedFile(saveFile);
 	    FileNameExtensionFilter filter = new FileNameExtensionFilter(
 	        "JPG & PNG & GIF Images", "jpg", "gif","png","jpeg");
 	    chooser.setFileFilter(filter);
 	    chooser.setAcceptAllFileFilterUsed(false);
+	    
 	    int returnVal = chooser.showOpenDialog(findParentFrame());
 	    if(returnVal == JFileChooser.APPROVE_OPTION) 
 	    {
@@ -333,6 +338,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    	w.saveOpenedImage(image);
 	    	JOptionPane.showMessageDialog(findParentFrame(), "File opened");
 	    }
+	   
 	    w.requestFocusInWindow();
 	}
 	
@@ -354,7 +360,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		// TODO Auto-generated method stub
 		if(event.getKeyCode()==KeyEvent.VK_ENTER)
 		{
-			if(event.getComponent().getName()=="new file")
+			if(event.getComponent().getName()=="new")
 			{
 				newFile();
 			}
@@ -362,7 +368,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 			{
 				saveAs();
 			}
-			else if(event.getComponent().getName()=="open file")
+			else if(event.getComponent().getName()=="open")
 			{
 				openFile();
 			}
