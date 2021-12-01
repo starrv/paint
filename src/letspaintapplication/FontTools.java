@@ -273,7 +273,7 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	public void keyPressed(KeyEvent event) 
 	{
 		// TODO Auto-generated method stub
-		if(event.getKeyCode()==KeyEvent.VK_ENTER)
+		/*if(event.getKeyCode()==Display.CONFIRM_KEY)
 		{
 			if(event.getComponent().equals(green))
 			{
@@ -331,7 +331,7 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 			{
 				changeFontColor(peach,peach1);
 			}
-		}
+		}*/
 	}
 
 	@Override

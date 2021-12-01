@@ -30,8 +30,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	private File saveFile, openFile;
 	private PlainPanel panel;
 	private PrinterJob job = PrinterJob.getPrinterJob();
-	private File currentDirectory;
-	private JFileChooser chooser = new JFileChooser(saveFile);
+	private JFileChooser chooser = new JFileChooser(saveFile);;
 
 	public Open_SavePanel(Whiteboard w, PlainPanel panel)
 	{
@@ -118,6 +117,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		    } catch (PrinterException e) {
 		        JOptionPane.showMessageDialog(findParentFrame(), "An error has occurred: "+e.getMessage());
 		        e.printStackTrace();
+		        Functions.printMessage(e.getMessage());
 		    }
 		}
 		w.requestFocusInWindow();
@@ -155,14 +155,15 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		    	{
 		    	   ImageIO.write(image, getExtension(file.getPath()), file);  // ignore returned boolean
 		    	   JOptionPane.showMessageDialog(findParentFrame(), "File saved");
-		    	   currentDirectory=chooser.getCurrentDirectory();
 		    	} catch(IOException e) 
 		    	{
 		    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + file.getPath()+": "+e.getMessage());
+		    	 Functions.printMessage(e.getMessage());
 		    	}
 		    	catch(IllegalArgumentException e) 
 		    	{
 		    	 JOptionPane.showMessageDialog(findParentFrame(), "Nothing to save thus far " + file.getPath()+": "+e.getMessage());
+		    	 Functions.printMessage(e.getMessage());
 		    	}
 		    }
 	    	else{
@@ -180,6 +181,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 			    	} catch(IOException e) 
 			    	{
 			    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + file.getPath()+": "+e.getMessage());
+			    	 Functions.printMessage(e.getMessage());
 			    	}
 		    	}
 		    	else
@@ -187,10 +189,6 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		    		saveAs();
 		    	}	    	
 	    	}
-	    }
-	    else if(returnVal == JFileChooser.CANCEL_OPTION)
-	    {
-	    	 JOptionPane.showMessageDialog(findParentFrame(),"save as cancelled");
 	    }
 	    w.requestFocusInWindow();
 	}
@@ -302,6 +300,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    	} catch(IOException e) 
 	    	{
 	    	 JOptionPane.showMessageDialog(findParentFrame(), "Write error for " + saveFile.getPath()+": "+e.getMessage());
+	    	 Functions.printMessage(e.getMessage());
 	    	}
 		}
 		else
@@ -330,15 +329,15 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    	BufferedImage image=null;
 	    	try {
 				image=ImageIO.read(openFile);
+				w.getGraphics().drawImage(image, 0, 0, w);
+		    	w.saveOpenedImage(image);
+		    	JOptionPane.showMessageDialog(findParentFrame(), "File opened");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(findParentFrame(), "Read error for "+openFile+".  Error message: "+e.getMessage());
+				Functions.printMessage(e.getMessage());
 			}
-	    	w.getGraphics().drawImage(image, 0, 0, w);
-	    	w.saveOpenedImage(image);
-	    	JOptionPane.showMessageDialog(findParentFrame(), "File opened");
 	    }
-	   
 	    w.requestFocusInWindow();
 	}
 	
@@ -358,45 +357,45 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	public void keyPressed(KeyEvent event) 
 	{
 		// TODO Auto-generated method stub
-		if(event.getKeyCode()==KeyEvent.VK_ENTER)
-		{
-			if(event.getComponent().getName()=="new")
-			{
-				newFile();
-			}
-			else if(event.getComponent().getName()=="save as")
-			{
-				saveAs();
-			}
-			else if(event.getComponent().getName()=="open")
-			{
-				openFile();
-			}
-			else if(event.getComponent().getName()=="save")
-			{
-				save();
-			}
-			else if(event.getComponent().getName()=="delete")
-			{
-				delete();
-			}
-			else if(event.getComponent().getName()=="undo")
-			{
-				w.undo();
-			}
-			else if(event.getComponent().getName()=="print")
-			{
-				print();
-			}
-			else if(event.getComponent().getName()=="play music")
-			{
-				Display.playMusic();
-			}
-			else if(event.getComponent().getName()=="stop music")
-			{
-				Display.stopMusic();
-			}
-		}
+//		if(event.getKeyCode()==Display.CONFIRM_KEY)
+//		{
+//			if(event.getComponent().getName()=="new")
+//			{
+//				newFile();
+//			}
+//			else if(event.getComponent().getName()=="save as")
+//			{
+//				saveAs();
+//			}
+//			else if(event.getComponent().getName()=="open")
+//			{
+//				openFile();
+//			}
+//			else if(event.getComponent().getName()=="save")
+//			{
+//				save();
+//			}
+//			else if(event.getComponent().getName()=="delete")
+//			{
+//				delete();
+//			}
+//			else if(event.getComponent().getName()=="undo")
+//			{
+//				w.undo();
+//			}
+//			else if(event.getComponent().getName()=="print")
+//			{
+//				print();
+//			}
+//			else if(event.getComponent().getName()=="play music")
+//			{
+//				Display.playMusic();
+//			}
+//			else if(event.getComponent().getName()=="stop music")
+//			{
+//				Display.stopMusic();
+//			}
+//		}
 	}
 
 	@Override

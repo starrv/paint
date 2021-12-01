@@ -310,67 +310,67 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	{
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		if(event.getKeyCode()==KeyEvent.VK_ENTER)
-		{
-			if(event.getComponent().equals(green))
-			{
-				changeDrawColor(Color.green,green);
-			
-			}
-			else if(event.getComponent().equals(yellow))
-			{
-				changeDrawColor(Color.yellow,yellow);
-			}
-			else if(event.getComponent().equals(orange))
-			{
-				changeDrawColor(Color.orange,orange);
-			}
-			else if(event.getComponent().equals(blue))
-			{
-				changeDrawColor(Color.blue,blue);
-				
-			}
-			else if(event.getComponent().equals(black))
-			{
-				changeDrawColorToBlack(Color.black,black);
-			}
-			else if(event.getComponent().equals(lightGray))
-			{
-				changeDrawColor(Color.lightGray,lightGray);
-			}
-			else if(event.getComponent().equals(darkGray))
-			{
-				changeDrawColor(Color.darkGray,darkGray);
-			}
-			else if(event.getComponent().equals(red))
-			{
-				changeDrawColor(Color.red,red);
-			}
-			else if(event.getComponent().equals(pink))
-			{
-				changeDrawColor(Color.pink,pink);
-			}
-			else if(event.getComponent().equals(magenta))
-			{
-				changeDrawColor(Color.magenta,magenta);
-			}
-			else if(event.getComponent().equals(cyan))
-			{
-				changeDrawColor(Color.cyan,cyan);
-			}
-			else if(event.getComponent().equals(white))
-			{
-				changeDrawColor(Color.white,white);
-			}		
-			else if(event.getComponent().equals(chocolate1))
-			{
-				changeDrawColor(chocolate,chocolate1);
-			}
-			else if(event.getComponent().equals(peach1))
-			{
-				changeDrawColor(peach,peach1);
-			}
-		}
+//		if(event.getKeyCode()==Display.CONFIRM_KEY)
+//		{
+//			if(event.getComponent().equals(green))
+//			{
+//				changeDrawColor(Color.green,green);
+//			
+//			}
+//			else if(event.getComponent().equals(yellow))
+//			{
+//				changeDrawColor(Color.yellow,yellow);
+//			}
+//			else if(event.getComponent().equals(orange))
+//			{
+//				changeDrawColor(Color.orange,orange);
+//			}
+//			else if(event.getComponent().equals(blue))
+//			{
+//				changeDrawColor(Color.blue,blue);
+//				
+//			}
+//			else if(event.getComponent().equals(black))
+//			{
+//				changeDrawColorToBlack(Color.black,black);
+//			}
+//			else if(event.getComponent().equals(lightGray))
+//			{
+//				changeDrawColor(Color.lightGray,lightGray);
+//			}
+//			else if(event.getComponent().equals(darkGray))
+//			{
+//				changeDrawColor(Color.darkGray,darkGray);
+//			}
+//			else if(event.getComponent().equals(red))
+//			{
+//				changeDrawColor(Color.red,red);
+//			}
+//			else if(event.getComponent().equals(pink))
+//			{
+//				changeDrawColor(Color.pink,pink);
+//			}
+//			else if(event.getComponent().equals(magenta))
+//			{
+//				changeDrawColor(Color.magenta,magenta);
+//			}
+//			else if(event.getComponent().equals(cyan))
+//			{
+//				changeDrawColor(Color.cyan,cyan);
+//			}
+//			else if(event.getComponent().equals(white))
+//			{
+//				changeDrawColor(Color.white,white);
+//			}		
+//			else if(event.getComponent().equals(chocolate1))
+//			{
+//				changeDrawColor(chocolate,chocolate1);
+//			}
+//			else if(event.getComponent().equals(peach1))
+//			{
+//				changeDrawColor(peach,peach1);
+//			}
+//		}
 		
 	}
 

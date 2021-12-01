@@ -1,6 +1,7 @@
 package letspaintapplication;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
@@ -88,7 +89,7 @@ public class Display extends JFrame implements WindowListener
 		   URL imgURL = getClass().getResource(url);
 		   if (imgURL != null) 
 		   {
-			   Functions.printMessage("Icon image found");
+			   //Functions.printMessage("Icon image found");
 			   BufferedImage image=null;
 			   try
 			   {
@@ -99,6 +100,7 @@ public class Display extends JFrame implements WindowListener
 			    catch (IOException e)
 			    {
 			      e.printStackTrace();
+			      Functions.printMessage(e.getMessage());
 			    }
 		   } 
 		   else

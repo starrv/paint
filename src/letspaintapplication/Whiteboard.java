@@ -175,29 +175,29 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
-		if(event.getKeyCode()==KeyEvent.VK_ENTER) 
-		{
-			if(buttonSelected=="paint")
-			{
-				paint(getXLocation,getYLocation);
-			}
-			else if(buttonSelected=="paint fill")
-			{
-				paintFill(getXLocation,getYLocation);
-			}
-			else if(buttonSelected=="paint all")
-			{
-				paintAll();
-			}
-			else if(buttonSelected=="erase")
-			{
-				erase(getXLocation,getYLocation);
-			}
-			else if(buttonSelected=="erase all")
-			{
-				eraseAll();
-			}
-		}
+//		if(event.getKeyCode()==Display.CONFIRM_KEY) 
+//		{
+//			if(buttonSelected=="paint")
+//			{
+//				paint(getXLocation,getYLocation);
+//			}
+//			else if(buttonSelected=="paint fill")
+//			{
+//				paintFill(getXLocation,getYLocation);
+//			}
+//			else if(buttonSelected=="paint all")
+//			{
+//				paintAll();
+//			}
+//			else if(buttonSelected=="erase")
+//			{
+//				erase(getXLocation,getYLocation);
+//			}
+//			else if(buttonSelected=="erase all")
+//			{
+//				eraseAll();
+//			}
+//		}
 		
 		/*	if(buttonSelected.equals("text"))
 		{
