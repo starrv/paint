@@ -32,7 +32,6 @@ public class Print implements Printable, ImageObserver
 	    // to avoid clipping.
 	    Graphics2D g2d = (Graphics2D)g;
 	    g2d.translate(pf.getImageableX(), pf.getImageableY());
-	    Functions.printMessage("width: "+pf.getImageableWidth()+", height: "+pf.getImageableHeight());
 
 	    // Now we perform our rendering
 	    BufferedImage theImage=w.getImage();

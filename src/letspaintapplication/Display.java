@@ -19,9 +19,9 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 
-@SuppressWarnings("restriction")
+//@SuppressWarnings("restriction")
 public class Display extends JFrame implements WindowListener
 {
 	/**
@@ -31,7 +31,7 @@ public class Display extends JFrame implements WindowListener
 	private static Whiteboard whiteboard;
 	private static Clip clip;
 	public final static Font DEFAULT_FONT=new Font("Sans Serif", Font.BOLD, 18);
-	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.BOLD, 20);
+	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.ITALIC, 18);
 	private final static int PADDING=5;
 	public final static Border DEFAULT_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
 	public final static Border FOCUS_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
@@ -43,8 +43,8 @@ public class Display extends JFrame implements WindowListener
 	
 	public Display()
 	{
-		setName("LetsPaint");
-		setTitle("LetsPaint");
+		setName("Let's Paint");
+		setTitle("Let's Paint");
 		TrigLookUpTable.populate();
 		PrintStream o=null;
 		try
@@ -64,7 +64,7 @@ public class Display extends JFrame implements WindowListener
 		//URL url = getResource("PaintIcon.png");
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 		setLayout(new BorderLayout());
-		setFont(new Font("Sans Serif", Font.BOLD, 20));
+		setFont(DEFAULT_FONT);
 		whiteboard=new Whiteboard(getWidth(),getHeight(),this);
 		add(whiteboard, BorderLayout.CENTER);
 		FontTools fontTools=new FontTools(whiteboard);
@@ -94,7 +94,7 @@ public class Display extends JFrame implements WindowListener
 			   {
 			      image = ImageIO.read(imgURL);
 			      this.setIconImage(image);
-			      Application.getApplication().setDockIconImage(image);
+			      //Application.getApplication().setDockIconImage(image);
 			    } 
 			    catch (IOException e)
 			    {

@@ -12,7 +12,7 @@ public class FontStyle extends JPanel implements FocusListener
 	 */
 	private static final long serialVersionUID = -3436811857983119324L;
 	private Whiteboard w;
-	private JCheckBox plainCheckBox, boldCheckBox, italicsCheckBox;
+	private JCheckBox boldCheckBox, italicsCheckBox;
 	private Color color=new Color(217, 187, 169);
 	
 	public FontStyle(Whiteboard w)
@@ -20,11 +20,6 @@ public class FontStyle extends JPanel implements FocusListener
 		this.w=w;
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		//add(label);
-		plainCheckBox=new JCheckBox("regular", true);
-		plainCheckBox.setFont(Display.DEFAULT_FONT);
-		plainCheckBox.addItemListener(new regularItemListener());
-		plainCheckBox.addFocusListener(this);
-		add(plainCheckBox);
 		
 		boldCheckBox=new JCheckBox("bold", false);
 		boldCheckBox.addItemListener(new boldItemListener());
@@ -77,22 +72,7 @@ public class FontStyle extends JPanel implements FocusListener
 			w.setFontStyle(Font.ITALIC);
 		}
 	}*/
-	private class regularItemListener implements ItemListener
-	{
-		@Override
-		public void itemStateChanged(ItemEvent event) 
-		{
-			// TODO Auto-generated method stub
-			if(event.getStateChange()==ItemEvent.SELECTED)
-			{
-				w.setFontStyle(Font.PLAIN);
-			}
-			else if(event.getStateChange()==ItemEvent.DESELECTED)
-			{
-				w.unSetFontStyle(Font.PLAIN);
-			}
-		}
-	}
+	
 	
 	private class boldItemListener implements ItemListener
 	{

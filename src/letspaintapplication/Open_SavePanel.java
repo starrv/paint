@@ -44,7 +44,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	
 	private void addButtons()
 	{
-		String[] labels={"new file", "save as", "open file", "save", "delete", "undo", "print", "play music", "stop music"};
+		String[] labels={"new", "save as", "open", "save", "delete", "undo", "print", "play music", "stop music"};
 		JButtonBox=new JButton[labels.length];
 		Color buttonColor=new Color(245, 233, 225);
 		for(int i=0; i<labels.length;i++)
@@ -67,7 +67,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	public void actionPerformed(ActionEvent event)
 	{
 		// TODO Auto-generated method stub
-		if(event.getActionCommand().equals("new file"))
+		if(event.getActionCommand().equals("new"))
 		{
 			newFile();
 		}
@@ -77,7 +77,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 			/*JFileChooser saveFileDialog = new JFileChooser(new File("C:/Users/Owner/Downloads/document1.jpg"));
 			saveFileDialog.showSaveDialog(this);*/
 		}
-		else if(event.getActionCommand().equals("open file"))
+		else if(event.getActionCommand().equals("open"))
 		{
 			openFile();
 		}
