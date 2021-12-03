@@ -88,7 +88,7 @@ public class Display extends JFrame implements WindowListener
 		   URL imgURL = getClass().getResource(url);
 		   if (imgURL != null) 
 		   {
-			   Functions.printMessage("Icon image found");
+			   //Functions.printMessage("Icon image found");
 			   BufferedImage image=null;
 			   try
 			   {
@@ -99,6 +99,7 @@ public class Display extends JFrame implements WindowListener
 			    catch (IOException e)
 			    {
 			      e.printStackTrace();
+			      Functions.printMessage(e.getMessage());
 			    }
 		   } 
 		   else

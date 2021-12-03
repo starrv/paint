@@ -205,45 +205,45 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 	{
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		if(event.getKeyCode()==KeyEvent.VK_ENTER) 
-		{
-			if(event.getComponent().equals(textCursor))
-			{
-				changeCursorToText();
-			}
-			else if(event.getComponent().equals(drawCursor))
-			{
-				changeCursorToDraw();
-			}
-			else if(event.getComponent().equals(pointerCursor))
-			{
-				changeCursorToPointer();
-			}
-			else if(event.getComponent().equals(eraseCursor))
-			{
-				changeCursorToEraser();
-			}
-			else if(event.getComponent().equals(paintCursor))
-			{
-				changeCursorToPaint();
-			}
-			else if(event.getComponent().equals(paintFillCursor))
-			{
-				changeCursorToPaintFill();
-			}
-			else if(event.getComponent().equals(paintAllCursor))
-			{
-				changeCursorToPaintAll();
-			}
-			else if(event.getComponent().equals(eraseCursor))
-			{
-				changeCursorToEraser();
-			}
-			else if(event.getComponent().equals(eraseAllCursor))
-			{
-				changeCursorToEraserAll();
-			}
-		}
+//		if(event.getKeyCode()==Display.CONFIRM_KEY) 
+//		{
+//			if(event.getComponent().equals(textCursor))
+//			{
+//				changeCursorToText();
+//			}
+//			else if(event.getComponent().equals(drawCursor))
+//			{
+//				changeCursorToDraw();
+//			}
+//			else if(event.getComponent().equals(pointerCursor))
+//			{
+//				changeCursorToPointer();
+//			}
+//			else if(event.getComponent().equals(eraseCursor))
+//			{
+//				changeCursorToEraser();
+//			}
+//			else if(event.getComponent().equals(paintCursor))
+//			{
+//				changeCursorToPaint();
+//			}
+//			else if(event.getComponent().equals(paintFillCursor))
+//			{
+//				changeCursorToPaintFill();
+//			}
+//			else if(event.getComponent().equals(paintAllCursor))
+//			{
+//				changeCursorToPaintAll();
+//			}
+//			else if(event.getComponent().equals(eraseCursor))
+//			{
+//				changeCursorToEraser();
+//			}
+//			else if(event.getComponent().equals(eraseAllCursor))
+//			{
+//				changeCursorToEraserAll();
+//			}
+//		}
 		
 	}
 

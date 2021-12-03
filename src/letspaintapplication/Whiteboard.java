@@ -175,7 +175,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
-		if(event.getKeyCode()==KeyEvent.VK_ENTER) 
+		if(event.getKeyCode()==KeyEvent.VK_SPACE) 
 		{
 			if(buttonSelected=="paint")
 			{
