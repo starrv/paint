@@ -21,7 +21,6 @@ import javax.swing.border.Border;
 
 //import com.apple.eawt.Application;
 
-//@SuppressWarnings("restriction")
 public class Display extends JFrame implements WindowListener
 {
 	/**
