@@ -2,6 +2,7 @@ package letspaintapplication;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serial;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -11,6 +12,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 5217787022390475320L;
 	private JButton textCursor, drawCursor, pointerCursor,eraseCursor, paintCursor, paintFillCursor, paintAllCursor, eraseAllCursor, buttonSelected;
 	private Whiteboard w;
@@ -134,35 +136,35 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 	public void actionPerformed(ActionEvent event) 
 	{
 		// TODO Auto-generated method stub
-		if(event.getActionCommand()=="text")
+		if(event.getActionCommand().equals("text"))
 		{
 			changeCursorToText();
 		}
-		else if(event.getActionCommand()=="draw")
+		else if(event.getActionCommand().equals("draw"))
 		{
 			changeCursorToDraw();
 		}
-		else if(event.getActionCommand()=="pointer")
+		else if(event.getActionCommand().equals("pointer"))
 		{
 			changeCursorToPointer();
 		}
-		else if(event.getActionCommand()=="erase")
+		else if(event.getActionCommand().equals("erase"))
 		{
 			changeCursorToEraser();
 		}
-		else if(event.getActionCommand()=="paint")
+		else if(event.getActionCommand().equals("paint"))
 		{
 			changeCursorToPaint();
 		}
-		else if(event.getActionCommand()=="paint fill")
+		else if(event.getActionCommand().equals("paint fill"))
 		{
 			changeCursorToPaintFill();
 		}
-		else if(event.getActionCommand()=="paint all")
+		else if(event.getActionCommand().equals("paint all"))
 		{
 			changeCursorToPaintAll();
 		}
-		else if(event.getActionCommand()=="erase all")
+		else if(event.getActionCommand().equals("erase all"))
 		{
 			changeCursorToEraserAll();
 		}
@@ -170,7 +172,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 	
 	private Cursor createPaintBrushCursor()
 	{
-		
 		Toolkit toolkit=Toolkit.getDefaultToolkit();
 	  	Image image=toolkit.getImage(Cursors.class.getClassLoader().getResource("brush.png"));
 		//image.getGraphics().setColor(w.getBackground());
