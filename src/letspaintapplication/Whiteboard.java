@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
+import java.util.Stack;
 
 import javax.swing.*;
 
@@ -30,6 +31,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	protected int getXLocation, getYLocation;
 	protected BufferedImage image, backUpImage;
 	protected Graphics2D buffer, backup, g2;
+	protected Stack<BufferedImage> backUpImages=new Stack<>();
 	protected String hello;
 	protected Ellipse2D o;
 	protected Color drawColor, fontColor, backGround;
@@ -63,7 +65,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
     Font font = new Font("Sans Serif", Font.BOLD, 20);
     setFont(font);
     fm = getFontMetrics(font);
-    setBorder(BorderFactory.createLineBorder(Color.black, 5, true));
+    //setBorder(BorderFactory.createLineBorder(Color.black, 5, true));
     setOpaque(true);
     setVisible(true);
     //o=new Ellipse2D.Double(getXLocation, getYLocation, 10, 10);
@@ -141,9 +143,13 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   }
   public void undo()
   {
-	  getGraphics().drawImage(backUpImage, 0,0,this);
-	  buffer.drawImage(backUpImage,0,0,this);
-	  requestFocusInWindow();
+	  if(!backUpImages.empty()){
+		  backUpImage=backUpImages.pop();
+		  Functions.printMessage("Number of back up images after undo: "+backUpImages.size());
+		  getGraphics().drawImage(backUpImage, 0,0,this);
+		  buffer.drawImage(backUpImage,0,0,this);
+		  requestFocusInWindow();
+	  }
   }
   // Record position that mouse entered window or
   // where user pressed mouse button.
@@ -268,23 +274,21 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	
 	public void eraseAll()
 	{
-		if(backUpImage==null)
-		{
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-		}
-		backup=backUpImage.createGraphics();
-		backup.drawImage(image, 0, 0,null);
-		
 		Graphics g = getGraphics();
 		g.setColor(Color.white);
 		g.fillRect(0,0,imageWidth,imageHeight);
+
+		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
 		if(image==null)
 		{
-		  image=(BufferedImage) createImage(imageWidth, imageHeight);
+			image=(BufferedImage) createImage(imageWidth, imageHeight);
 		}
 		buffer = image.createGraphics();
 		buffer.setColor(Color.white);
 		buffer.fillRect(0,0,imageWidth,imageHeight);
+		backUpImages.push(backUpImage);
 	}
 
 	@Override
@@ -374,7 +378,10 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	public void mouseReleased(MouseEvent event) 
 	{
 		// TODO Auto-generated method stub
-		
+		if(buttonSelected.equals("paint")){
+			backUpImages.push(backUpImage);
+			backUpImage=null;
+		}
 	}
 	@Override
 	public void repaint()
@@ -405,10 +412,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		Graphics g = getGraphics();
 	    g.setColor(drawColor);
 	    g.fillRect(0,0,imageWidth,imageHeight);
-	    if(backUpImage==null)
-		{
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-		}
+	  	backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
 		backup.drawImage(image, 0, 0,null);
 	    if(image==null)
@@ -418,6 +422,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer = image.createGraphics();
 	    buffer.setColor(drawColor);
 	    buffer.fillRect(0,0,imageWidth,imageHeight);
+		backUpImages.push(backUpImage);
+		backUpImage=null;
 	}
 	
 	private void paintFill(int x, int y)
@@ -459,10 +465,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    }
 	    g.fillPolygon(xCoords, yCoords,xCoords.length);
 	    
-	    if(backUpImage==null)
-		{
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-		}
+	    backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
 		backup.drawImage(image, 0, 0,null);
 		
@@ -473,6 +476,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer = image.createGraphics();
 	    buffer.setColor(drawColor);
 	    buffer.fillPolygon(xCoords, yCoords,xCoords.length);
+		backUpImages.push(backUpImage);
 	    modelDialog.setVisible(false);
 	}
 	
@@ -482,10 +486,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    g.setColor(drawColor);
 	    g.drawLine(lastX, lastY, x, y);
 	    
-	    if(backUpImage==null)
-		{
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-		}
+	    backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
 		backup.drawImage(image, 0, 0,null);
 	    if(image==null)
@@ -497,6 +498,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer = image.createGraphics();
 	    buffer.setColor(drawColor);
 	    buffer.drawLine(lastX, lastY, x, y);
+		//backUpImages.push(backUpImage);
 	    
 	    record(x, y);
 	}
@@ -506,10 +508,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    Graphics g = getGraphics();
 	    g.setColor(Color.white);
 	    g.fillRect(x, y, 20,20);
-	    if(backUpImage==null)
-		{
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-		}
+	   	backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
 		backup.drawImage(image, 0, 0,null);
 	    if(image==null)
@@ -519,6 +518,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer = image.createGraphics();
 	    buffer.setColor(Color.white);
 	    buffer.fillRect(x, y, 20,20);
+		//backUpImages.push(backUpImage);
 	}
 	
 	private void paint(int x, int y)
@@ -529,15 +529,21 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    g.fillRect(x, y, 20,20);
 	    
 	    //back up image
-		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-		backup=backUpImage.createGraphics();
-		backup.drawImage(image, 0, 0,null);
-	    
-		//image to draw on repaint
-		if(image==null)
-	    {
-	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-	    }
+		if(backUpImage==null){
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+
+			backup=backUpImage.createGraphics();
+
+
+			backup.drawImage(image, 0, 0,null);
+			//image to draw on repaint
+			if(image==null)
+			{
+				image=(BufferedImage) createImage(imageWidth, imageHeight);
+			}
+		}
+
+
 	   // Functions.printMessage(image);
 	    buffer = image.createGraphics();
 	    buffer.setColor(drawColor);
@@ -582,6 +588,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			getXLocation+=25;
 		else
 			getXLocation+=15;
+		backUpImages.push(backUpImage);
 	}
 	
 	private boolean isEdge(double x, double y, BufferedImage theImage, Color initColor)

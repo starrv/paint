@@ -56,7 +56,7 @@ public class Display extends JFrame implements WindowListener
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setBackground(new Color(193, 217, 230));
+		setBackground(Color.white);
 		Dimension size=java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(size.width,size.height);
 		setImageIcon("PaintIcon.png");
