@@ -288,6 +288,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		buffer.setColor(Color.white);
 		buffer.fillRect(0,0,imageWidth,imageHeight);
 		backUpImages.push(backUpImage);
+		backUpImage=null;
 	}
 
 	@Override
