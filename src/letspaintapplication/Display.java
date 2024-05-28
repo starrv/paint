@@ -45,17 +45,6 @@ public class Display extends JFrame implements WindowListener
 		setName("Let's Paint");
 		setTitle("Let's Paint");
 		TrigLookUpTable.populate();
-		PrintStream o=null;
-		try
-		{
-			o = new PrintStream(new FileOutputStream("./log.txt",true));
-			System.setOut(o); 
-		} 
-		catch (FileNotFoundException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		setBackground(Color.white);
 		Dimension size=java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(size.width,size.height);
