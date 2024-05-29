@@ -29,9 +29,10 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	private static final long serialVersionUID = -7519408491395424533L;
 	protected int lastX=0, lastY=0;
 	protected int getXLocation, getYLocation;
-	protected BufferedImage image, backUpImage;
+	protected BufferedImage image, backUpImage, currentImg;
 	protected Graphics2D buffer, backup, g2;
 	protected Stack<BufferedImage> backUpImages=new Stack<>();
+	protected Stack<BufferedImage> redoImages=new Stack<>();
 	protected String hello;
 	protected Ellipse2D o;
 	protected Color drawColor, fontColor, backGround;
@@ -144,16 +145,36 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   public void undo()
   {
 	  if(!backUpImages.empty()){
+		  redoImages.push(currentImg);
+		  Color redoColor=new Color(currentImg.getRGB(200,200));
+		  Functions.printMessage("Redo Images size after addition: "+redoImages.size());
+		  Functions.printMessage("Redo image color: "+redoColor);
 		  backUpImage=backUpImages.pop();
 		  getGraphics().drawImage(backUpImage, 0,0,this);
 		  buffer.drawImage(backUpImage,0,0,this);
+		  currentImg=backUpImage;
 		  requestFocusInWindow();
+		  backUpImage=null;
 	  }
   }
   // Record position that mouse entered window or
   // where user pressed mouse button.
- 
- 
+
+ public void redo(){
+	if(!redoImages.empty()){
+		backUpImage=redoImages.pop();
+		Color redoColor=new Color(backUpImage.getRGB(200,200));
+		Functions.printMessage("Redo Images size after deletion: "+redoImages.size());
+		Functions.printMessage("Redo image color: "+redoColor);
+		getGraphics().drawImage(backUpImage, 0,0,this);
+		buffer.drawImage(backUpImage,0,0,this);
+		currentImg=backUpImage;
+		requestFocusInWindow();
+		backUpImage=null;
+	}
+}
+
+
   public BufferedImage getImage()
   {
 	   return image;
@@ -269,26 +290,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		{
 			type(event);
 		}
-	}
-	
-	public void eraseAll()
-	{
-		Graphics g = getGraphics();
-		g.setColor(Color.white);
-		g.fillRect(0,0,imageWidth,imageHeight);
-
-		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
-		backup=backUpImage.createGraphics();
-		backup.drawImage(image, 0, 0,null);
-		if(image==null)
-		{
-			image=(BufferedImage) createImage(imageWidth, imageHeight);
-		}
-		buffer = image.createGraphics();
-		buffer.setColor(Color.white);
-		buffer.fillRect(0,0,imageWidth,imageHeight);
-		backUpImages.push(backUpImage);
-		backUpImage=null;
 	}
 
 	@Override
@@ -410,8 +411,12 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	private void paintAll()
 	{
 		Graphics g = getGraphics();
-	    g.setColor(drawColor);
-	    g.fillRect(0,0,imageWidth,imageHeight);
+		currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		Graphics2D g2=currentImg.createGraphics();
+		g2.setColor(drawColor);
+		g2.fillRect(0,0,imageWidth,imageHeight);
+		g.drawImage(currentImg,0,0,null);
+
 	  	backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
 		backup.drawImage(image, 0, 0,null);
@@ -433,7 +438,11 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		modelDialog.setLocationRelativeTo(this);
 		modelDialog.setVisible(true);
 		Graphics g = getGraphics();
-		g.setColor(drawColor);
+		if(currentImg==null){
+			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		Graphics2D g2=currentImg.createGraphics();
+		g2.setColor(drawColor);
 	    int initX=x;
 	    int initY=y;
 	    BufferedImage theImage=getImage();
@@ -463,7 +472,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    	xCoords[i]=(int)curX;
 	    	yCoords[i]=(int)curY;
 	    }
-	    g.fillPolygon(xCoords, yCoords,xCoords.length);
+	    g2.fillPolygon(xCoords, yCoords,xCoords.length);
+		g.drawImage(currentImg,0,0,null);
 	    
 	    backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
@@ -480,12 +490,51 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		backUpImage=null;
 	    modelDialog.setVisible(false);
 	}
+
+	private void paint(int x, int y)
+	{
+		//image to draw on screen
+		Graphics2D g = (Graphics2D)getGraphics();
+		if(currentImg==null){
+			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		Graphics2D g2=currentImg.createGraphics();
+		g2.setColor(drawColor);
+		g2.fillRect(x, y, 20,20);
+		g.drawImage(currentImg,0,0,null);
+
+		//back up image
+		if(backUpImage==null){
+			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+
+			backup=backUpImage.createGraphics();
+
+
+			backup.drawImage(image, 0, 0,null);
+			//image to draw on repaint
+			if(image==null)
+			{
+				image=(BufferedImage) createImage(imageWidth, imageHeight);
+			}
+		}
+
+
+		// Functions.printMessage(image);
+		buffer = image.createGraphics();
+		buffer.setColor(drawColor);
+		buffer.fillRect(x, y, 20,20);
+	}
 	
 	private void draw(int x, int y)
 	{
 	    Graphics2D g = (Graphics2D)getGraphics();
-	    g.setColor(drawColor);
-	    g.drawLine(lastX, lastY, x, y);
+		if(currentImg==null){
+			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		Graphics2D g2=currentImg.createGraphics();
+	    g2.setColor(drawColor);
+	    g2.drawLine(lastX, lastY, x, y);
+		g.drawImage(currentImg,0,0,null);
 
 		if(backUpImage==null){
 			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -504,12 +553,63 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    
 	    record(x, y);
 	}
+
+	private void type(KeyEvent event)
+	{
+		//image to draw on screen
+		Graphics2D g = (Graphics2D)getGraphics();
+		currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		Graphics2D g2=currentImg.createGraphics();
+		g2.setColor(fontColor);
+		Font font=new Font(fontFamily, fontStyle, fontSize);
+		g2.setFont(font);
+		g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
+		g.drawImage(currentImg,0,0,null);
+
+		//backup image
+		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		backup=backUpImage.createGraphics();
+		backup.drawImage(image, 0, 0,null);
+
+		//image to draw on repaint
+		if(image==null)
+		{
+			image=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		buffer = image.createGraphics();
+		buffer.setColor(fontColor);
+		buffer.setFont(new Font(fontFamily, fontStyle, fontSize));
+		buffer.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
+
+		if(fontSize>=65)
+			getXLocation+=75;
+		else if(fontSize>=55 && fontSize<65)
+			getXLocation+=65;
+		else if(fontSize>=45 && fontSize<55)
+			getXLocation+=55;
+		else if(fontSize>=35 && fontSize<45)
+			getXLocation+=45;
+		else if(fontSize>=25 && fontSize<35)
+			getXLocation+=35;
+		else if(fontSize>=15 && fontSize<25)
+			getXLocation+=25;
+		else
+			getXLocation+=15;
+		backUpImages.push(backUpImage);
+		backUpImage=null;
+	}
 	
 	private void erase(int x, int y)
 	{
-	    Graphics g = getGraphics();
-	    g.setColor(Color.white);
-	    g.fillRect(x, y, 20,20);
+		Graphics2D g = (Graphics2D)getGraphics();
+		if(currentImg==null){
+			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		Graphics2D g2=currentImg.createGraphics();
+	    g2.setColor(Color.white);
+	    g2.fillRect(x, y, 20,20);
+		g.drawImage(currentImg,0,0,null);
+
 		if(backUpImage==null){
 			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 			backup=backUpImage.createGraphics();
@@ -525,74 +625,23 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer.fillRect(x, y, 20,20);
 		//backUpImages.push(backUpImage);
 	}
-	
-	private void paint(int x, int y)
+
+	public void eraseAll()
 	{
-		//image to draw on screen
-	    Graphics g = getGraphics();
-	    g.setColor(drawColor);
-	    g.fillRect(x, y, 20,20);
-	    
-	    //back up image
-		if(backUpImage==null){
-			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
+		Graphics g = getGraphics();
+		g.setColor(Color.white);
+		g.fillRect(0,0,imageWidth,imageHeight);
 
-			backup=backUpImage.createGraphics();
-
-
-			backup.drawImage(image, 0, 0,null);
-			//image to draw on repaint
-			if(image==null)
-			{
-				image=(BufferedImage) createImage(imageWidth, imageHeight);
-			}
-		}
-
-
-	   // Functions.printMessage(image);
-	    buffer = image.createGraphics();
-	    buffer.setColor(drawColor);
-	    buffer.fillRect(x, y, 20,20);
-	}
-	
-	private void type(KeyEvent event)
-	{
-		//image to draw on screen
-		Graphics2D g2=(Graphics2D)getGraphics();
-		g2.setColor(fontColor);
-		Font font=new Font(fontFamily, fontStyle, fontSize);
-		g2.setFont(font);
-		g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
-		
-		//backup image
 		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
 		backup.drawImage(image, 0, 0,null);
-		
-		//image to draw on repaint
 		if(image==null)
-	    {
-	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-	    }
-	    buffer = image.createGraphics();
-		buffer.setColor(fontColor);
-		buffer.setFont(new Font(fontFamily, fontStyle, fontSize));
-		buffer.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
-		
-		if(fontSize>=65)
-			getXLocation+=75;
-		else if(fontSize>=55 && fontSize<65)
-			getXLocation+=65;
-		else if(fontSize>=45 && fontSize<55)
-			getXLocation+=55;
-		else if(fontSize>=35 && fontSize<45)
-			getXLocation+=45;
-		else if(fontSize>=25 && fontSize<35)
-			getXLocation+=35;
-		else if(fontSize>=15 && fontSize<25)
-			getXLocation+=25;
-		else
-			getXLocation+=15;
+		{
+			image=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		buffer = image.createGraphics();
+		buffer.setColor(Color.white);
+		buffer.fillRect(0,0,imageWidth,imageHeight);
 		backUpImages.push(backUpImage);
 		backUpImage=null;
 	}

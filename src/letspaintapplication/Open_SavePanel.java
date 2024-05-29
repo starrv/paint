@@ -44,7 +44,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	
 	private void addButtons()
 	{
-		String[] labels={"new", "save as", "open", "save", "delete", "undo", "print", "play music", "stop music"};
+		String[] labels={"new", "save as", "open", "save", "delete", "undo", "redo", "print", "play music", "stop music"};
 		JButtonBox=new JButton[labels.length];
 		Color buttonColor=new Color(245, 233, 225);
 		for(int i=0; i<labels.length;i++)
@@ -104,6 +104,10 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		else if(event.getActionCommand().equals("undo"))
 		{
 			w.undo();
+		}
+		else if(event.getActionCommand().equals("redo"))
+		{
+			w.redo();
 		}
 	}
 	
