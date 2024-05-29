@@ -146,9 +146,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   {
 	  if(!backUpImages.empty()){
 		  redoImages.push(currentImg);
-		  Color redoColor=new Color(currentImg.getRGB(200,200));
-		  Functions.printMessage("Redo Images size after addition: "+redoImages.size());
-		  Functions.printMessage("Redo image color: "+redoColor);
 		  backUpImage=backUpImages.pop();
 		  getGraphics().drawImage(backUpImage, 0,0,this);
 		  buffer.drawImage(backUpImage,0,0,this);
@@ -163,9 +160,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
  public void redo(){
 	if(!redoImages.empty()){
 		backUpImage=redoImages.pop();
-		Color redoColor=new Color(backUpImage.getRGB(200,200));
-		Functions.printMessage("Redo Images size after deletion: "+redoImages.size());
-		Functions.printMessage("Redo image color: "+redoColor);
 		getGraphics().drawImage(backUpImage, 0,0,this);
 		buffer.drawImage(backUpImage,0,0,this);
 		currentImg=backUpImage;
@@ -411,7 +405,9 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	private void paintAll()
 	{
 		Graphics g = getGraphics();
-		currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		if(currentImg==null){
+			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
 		Graphics2D g2=currentImg.createGraphics();
 		g2.setColor(drawColor);
 		g2.fillRect(0,0,imageWidth,imageHeight);
@@ -558,7 +554,9 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	{
 		//image to draw on screen
 		Graphics2D g = (Graphics2D)getGraphics();
-		currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		if(currentImg==null){
+			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
 		Graphics2D g2=currentImg.createGraphics();
 		g2.setColor(fontColor);
 		Font font=new Font(fontFamily, fontStyle, fontSize);
@@ -628,9 +626,14 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 
 	public void eraseAll()
 	{
-		Graphics g = getGraphics();
-		g.setColor(Color.white);
-		g.fillRect(0,0,imageWidth,imageHeight);
+		Graphics2D g = (Graphics2D)getGraphics();
+		if(currentImg==null){
+			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
+		}
+		Graphics2D g2=currentImg.createGraphics();
+		g2.setColor(Color.white);
+		g2.fillRect(0,0,imageWidth,imageHeight);
+		g.drawImage(currentImg,0,0,null);
 
 		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
