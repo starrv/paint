@@ -159,6 +159,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 
  public void redo(){
 	if(!redoImages.empty()){
+		backUpImages.push(currentImg);
 		backUpImage=redoImages.pop();
 		getGraphics().drawImage(backUpImage, 0,0,this);
 		buffer.drawImage(backUpImage,0,0,this);
