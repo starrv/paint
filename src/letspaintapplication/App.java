@@ -17,23 +17,16 @@ public class App {
 	}
 
 	private static void init(){
-		String javaVersion=System.getProperty("java.version");
-		if(javaVersion!=null){
-			PrintStream o=null;
-			try
-			{
-				o = new PrintStream(new FileOutputStream("./log.txt",true));
-				System.setOut(o);
-			}
-			catch (FileNotFoundException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		PrintStream o=null;
+		try
+		{
+			o = new PrintStream(new FileOutputStream("./log.txt",true));
+			System.setOut(o);
 		}
-		else{
-			JOptionPane.showMessageDialog(null,"You must have Java installed to use this application.  Please go to https://www.java.com/en/ to download.");
-			System.exit(0);
+		catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
