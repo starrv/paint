@@ -4,8 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 
-public class FontStyle extends JPanel implements FocusListener
+public class FontStyle extends JPanel implements FocusListener,MouseListener
 {
 	/**
 	 * 
@@ -14,6 +15,9 @@ public class FontStyle extends JPanel implements FocusListener
 	private Whiteboard w;
 	private JCheckBox boldCheckBox, italicsCheckBox;
 	private Color color=new Color(217, 187, 169);
+	private Color buttonColor=new Color(245, 233, 225);
+	private final Color SELECTED_COLOR=new Color(247, 245, 240);
+	private int borderWidth=4;
 	
 	public FontStyle(Whiteboard w)
 	{
@@ -24,18 +28,54 @@ public class FontStyle extends JPanel implements FocusListener
 		boldCheckBox=new JCheckBox("bold", false);
 		boldCheckBox.addItemListener(new boldItemListener());
 		boldCheckBox.addFocusListener(this);
+		boldCheckBox.addMouseListener(this);
 		boldCheckBox.setFont(Display.DEFAULT_FONT);
+		boldCheckBox.setBackground(buttonColor);
+		CompoundBorder compoundBorder=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),BorderFactory.createEmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
+		boldCheckBox.setBorder(compoundBorder);
+		boldCheckBox.setBorderPainted(true);
 		add(boldCheckBox);
 		
 		italicsCheckBox=new JCheckBox("italics", false);
 		italicsCheckBox.addItemListener(new italicsItemListener());
 		italicsCheckBox.addFocusListener(this);
+		italicsCheckBox.addMouseListener(this);
 		italicsCheckBox.setFont(Display.DEFAULT_FONT);
+		italicsCheckBox.setBackground(buttonColor);
+		compoundBorder=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),BorderFactory.createEmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
+		italicsCheckBox.setBorder(compoundBorder);
+		italicsCheckBox.setBorderPainted(true);
 		add(italicsCheckBox);
-		
+
 		setBackground(color);
 		setOpaque(true);
+		setAlignmentY(CENTER_ALIGNMENT);
 		//w.setFontStyle(Font.PLAIN);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		e.getComponent().setBackground(SELECTED_COLOR);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		e.getComponent().setBackground(buttonColor);
 	}
 	
 	/*private void addButtons()
@@ -114,9 +154,7 @@ public class FontStyle extends JPanel implements FocusListener
 		if(event.getComponent().getClass().getName().equals("javax.swing.JCheckBox"))
 		{
 			JCheckBox checkBox=(JCheckBox)event.getComponent();
-			checkBox.setFont(Display.FOCUS_FONT);
-			checkBox.setBorder(BorderFactory.createLineBorder(Color.blue, 1, true));
-			checkBox.setForeground(Color.blue);
+			checkBox.setBackground(SELECTED_COLOR);
 		}
 	}
 
@@ -126,9 +164,7 @@ public class FontStyle extends JPanel implements FocusListener
 		if(event.getComponent().getClass().getName().equals("javax.swing.JCheckBox"))
 		{
 			JCheckBox checkBox=(JCheckBox)event.getComponent();
-			checkBox.setFont(Display.DEFAULT_FONT);
-			checkBox.setBorder(BorderFactory.createLineBorder(Color.gray, 1, true));
-			checkBox.setForeground(Color.black);
+			checkBox.setBackground(buttonColor);
 		}
 	} 
 }

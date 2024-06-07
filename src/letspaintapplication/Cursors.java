@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 
-public class Cursors extends JPanel implements ActionListener, KeyListener, FocusListener
+public class Cursors extends JPanel implements ActionListener, KeyListener, FocusListener,MouseListener
 {
 	/**
 	 * 
@@ -17,9 +17,9 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 	private JButton textCursor, drawCursor, pointerCursor,eraseCursor, paintCursor, paintFillCursor, paintAllCursor, eraseAllCursor, buttonSelected;
 	private Whiteboard w;
 	private JLabel title;
-	private Color buttonSelectedColor=new Color(230, 223, 213);
+	private Color buttonSelectedColor=Color.white;
 	private Color color=new Color(217, 187, 169);
-	
+	private Color buttonHoverColor=new Color(245, 233, 225);
 	
 	public Cursors(Whiteboard w)
 	{
@@ -37,11 +37,12 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		textCursor.addActionListener(this);
 		textCursor.addKeyListener(this);
 		textCursor.addFocusListener(this);
+		textCursor.addMouseListener(this);
 		textCursor.setBackground(color);
 		textCursor.setOpaque(true);
 		textCursor.setBorderPainted(false);
 		textCursor.setFont(Display.DEFAULT_FONT);
-		int borderWidth=30;
+		int borderWidth=1;
 		title.setBackground(Color.yellow);
 		title.setOpaque(true);
 		title.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 5, true),new EmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth)));
@@ -52,6 +53,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		drawCursor.addActionListener(this);
 		drawCursor.addKeyListener(this);
 		drawCursor.addFocusListener(this);
+		drawCursor.addMouseListener(this);
 		drawCursor.setBackground(color);
 		drawCursor.setOpaque(true);
 		drawCursor.setBorderPainted(false);
@@ -61,6 +63,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		pointerCursor.addActionListener(this);
 		pointerCursor.addKeyListener(this);
 		pointerCursor.addFocusListener(this);
+		pointerCursor.addMouseListener(this);
 		pointerCursor.setBackground(color);
 		pointerCursor.setOpaque(true);
 		pointerCursor.setBorderPainted(false);
@@ -70,6 +73,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		eraseCursor.addActionListener(this);
 		eraseCursor.addKeyListener(this);
 		eraseCursor.addFocusListener(this);
+		eraseCursor.addMouseListener(this);
 		eraseCursor.setBackground(color);
 		eraseCursor.setOpaque(true);
 		eraseCursor.setBorderPainted(false);
@@ -79,6 +83,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		paintCursor.addActionListener(this);
 		paintCursor.addKeyListener(this);
 		paintCursor.addFocusListener(this);
+		paintCursor.addMouseListener(this);
 		paintCursor.setBackground(color);
 		paintCursor.setOpaque(true);
 		paintCursor.setBorderPainted(false);
@@ -88,6 +93,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		paintFillCursor.addActionListener(this);
 		paintFillCursor.addKeyListener(this);
 		paintFillCursor.addFocusListener(this);
+		paintFillCursor.addMouseListener(this);
 		paintFillCursor.setBackground(color);
 		paintFillCursor.setOpaque(true);
 		paintFillCursor.setBorderPainted(false);
@@ -97,6 +103,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		paintAllCursor.addActionListener(this);
 		paintAllCursor.addKeyListener(this);
 		paintAllCursor.addFocusListener(this);
+		paintAllCursor.addMouseListener(this);
 		paintAllCursor.setBackground(color);
 		paintAllCursor.setOpaque(true);
 		paintAllCursor.setBorderPainted(false);
@@ -106,6 +113,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		eraseAllCursor.addActionListener(this);
 		eraseAllCursor.addKeyListener(this);
 		eraseAllCursor.addFocusListener(this);
+		eraseAllCursor.addMouseListener(this);
 		eraseAllCursor.setBackground(color);
 		eraseAllCursor.setOpaque(true);
 		eraseAllCursor.setBorderPainted(false);
@@ -394,6 +402,35 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 			button.setBorderPainted(false);
 			button.setFont(Display.DEFAULT_FONT);
 			button.setForeground(Color.black);
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if(!e.getComponent().equals(buttonSelected)){
+			e.getComponent().setBackground(buttonHoverColor);
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if(!e.getComponent().equals(buttonSelected)){
+			e.getComponent().setBackground(color);
 		}
 	}
 }

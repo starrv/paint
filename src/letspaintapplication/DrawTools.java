@@ -42,128 +42,156 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    orange.addActionListener(this);
 	    orange.addKeyListener(this);
 	    orange.addFocusListener(this);
+		orange.addMouseListener(this);
 	    orange.setBackground(color);
 	    orange.setOpaque(true);
 	    orange.setBorderPainted(false);
 	    orange.setFont(Display.DEFAULT_FONT);
+		orange.setName("orange");
 	    
 	    blue=new JButton("blue");
 	    blue.addActionListener(this);
 	    blue.addKeyListener(this);
 	    blue.addFocusListener(this);
+		blue.addMouseListener(this);
 	    blue.setBackground(color);
 	    blue.setOpaque(true);
 	    blue.setBorderPainted(false);
 	    blue.setFont(Display.DEFAULT_FONT);
+		blue.setName("blue");
 	    
 	    black=new JButton("black");
 	    black.addActionListener(this);
 	    black.addKeyListener(this);
 	    black.addFocusListener(this);
+		black.addMouseListener(this);
 	    black.setBackground(color);
 	    black.setOpaque(true);
 	    black.setBorderPainted(false);
 	    black.setFont(Display.DEFAULT_FONT);
+		black.setName("black");
 	    
 		green=new JButton("green");
 		green.addKeyListener(this);
 	    green.addActionListener(this);
 	    green.addFocusListener(this);
+		green.addMouseListener(this);
 	    green.setBackground(color);
 	    green.setOpaque(true);
 	    green.setBorderPainted(false);
 	    green.setFont(Display.DEFAULT_FONT);
+		green.setName("green");
 	    
 	    yellow=new JButton("yellow");
 	    yellow.addActionListener(this);
 	    yellow.addKeyListener(this);
 	    yellow.addFocusListener(this);
+		yellow.addMouseListener(this);
 	    yellow.setBackground(color);
 	    yellow.setOpaque(true);
 	    yellow.setBorderPainted(false);
 	    yellow.setFont(Display.DEFAULT_FONT);
+		yellow.setName("yellow");
 	    
 	    white=new JButton("white");
 	    white.addActionListener(this);
 	    white.addKeyListener(this);
 	    white.addFocusListener(this);
+		white.addMouseListener(this);
 	    white.setBackground(color);
 	    white.setOpaque(true);
 	    white.setBorderPainted(false);
 	    white.setFont(Display.DEFAULT_FONT);
+		white.setName("white");
 	    
 	    red=new JButton("red");
 	    red.addActionListener(this);
 	    red.addKeyListener(this);
 	    red.addFocusListener(this);
+		red.addMouseListener(this);
 	    red.setBackground(color);
 	    red.setOpaque(true);
 	    red.setBorderPainted(false);
 	    red.setFont(Display.DEFAULT_FONT);
+		red.setName("red");
 	    
 	    darkGray=new JButton("dark gray");
 	    darkGray.addActionListener(this);
 	    darkGray.addKeyListener(this);
 	    darkGray.addFocusListener(this);
+		darkGray.addMouseListener(this);
 	    darkGray.setBackground(color);
 	    darkGray.setOpaque(true);
 	    darkGray.setBorderPainted(false);
 	    darkGray.setFont(Display.DEFAULT_FONT);
+		darkGray.setName("darkGray");
 	    
 	    lightGray=new JButton("light gray");
 	    lightGray.addActionListener(this);
 	    lightGray.addKeyListener(this);
 	    lightGray.addFocusListener(this);
+		lightGray.addMouseListener(this);
 	    lightGray.setBackground(color);
 	    lightGray.setOpaque(true);
 	    lightGray.setBorderPainted(false);
 	    lightGray.setFont(Display.DEFAULT_FONT);
+		lightGray.setName("lightGray");
 	    
 	    pink=new JButton("pink");
 	    pink.addActionListener(this);
 	    pink.addKeyListener(this);
 	    pink.addFocusListener(this);
+		pink.addMouseListener(this);
 	    pink.setBackground(color);
 	    pink.setOpaque(true);
 	    pink.setBorderPainted(false);
 	    pink.setFont(Display.DEFAULT_FONT);
+		pink.setName("pink");
 	    
 	    magenta=new JButton("magenta");
 	    magenta.addActionListener(this);
 	    magenta.addKeyListener(this);
 	    magenta.addFocusListener(this);
+		magenta.addMouseListener(this);
 	    magenta.setBackground(color);
 	    magenta.setOpaque(true);
 	    magenta.setBorderPainted(false);
 	    magenta.setFont(Display.DEFAULT_FONT);
+		magenta.setName("magenta");
 	    
 	    
 	    cyan=new JButton("cyan");
 	    cyan.addActionListener(this);
 	    cyan.addKeyListener(this);
 	    cyan.addFocusListener(this);
+		cyan.addMouseListener(this);
 	    cyan.setBackground(color);
 	    cyan.setOpaque(true);
 	    cyan.setBorderPainted(false);
 	    cyan.setFont(Display.DEFAULT_FONT);
+		cyan.setName("cyan");
 	    
 	    chocolate1=new JButton("chocolate");
 	    chocolate1.addActionListener(this);
 	    chocolate1.addKeyListener(this);
 	    chocolate1.addFocusListener(this);
+		chocolate1.addMouseListener(this);
 	    chocolate1.setBackground(color);
 	    chocolate1.setOpaque(true);
 	    chocolate1.setBorderPainted(false);
 	    chocolate1.setFont(Display.DEFAULT_FONT);
+		chocolate1.setName("chocolate1");
 	    
 	    peach1=new JButton("peach");
 	    peach1.addActionListener(this);
 	    peach1.addKeyListener(this);
 	    peach1.addFocusListener(this);
 	    peach1.setBackground(color);
+		peach1.addMouseListener(this);
 	    peach1.setOpaque(true);
 	    peach1.setBorderPainted(false);
 	    peach1.setFont(Display.DEFAULT_FONT);
+		peach1.setName("peach1");
 	    
 	    add(green);
 	    add(yellow);
@@ -278,13 +306,70 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
+		Component component=e.getComponent();
+		if(!component.equals(buttonSelected)){
+			String buttonName=component.getName();
+			switch (buttonName){
+				case("green"):
+					component.setBackground(Color.green);
+					break;
+				case("yellow"):
+					component.setBackground(Color.yellow);
+					break;
+				case("orange"):
+					component.setBackground(Color.orange);
+					break;
+				case("blue"):
+					component.setBackground(Color.blue);
+					break;
+				case("black"):
+					component.setBackground(Color.black);
+					component.setForeground(Color.white);
+					break;
+				case("pink"):
+					component.setBackground(Color.pink);
+					break;
+				case("red"):
+					component.setBackground(Color.red);
+					break;
+				case("lightGray"):
+					component.setBackground(Color.lightGray);
+					break;
+				case("darkGray"):
+					component.setBackground(Color.darkGray);
+					component.setForeground(Color.white);
+					break;
+				case("magenta"):
+					component.setBackground(Color.magenta);
+					break;
+				case("cyan"):
+					component.setBackground(Color.cyan);
+					break;
+				case("chocolate1"):
+					component.setBackground(chocolate);
+					component.setForeground(Color.white);
+					break;
+				case("peach1"):
+					component.setBackground(peach);
+					break;
+				default:
+					component.setBackground(Color.white);
+			}
+
+		}
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		Component component=e.getComponent();
+		if(!component.equals(buttonSelected)){
+			component.setBackground(color);
+			if(component.getName().equals("black") || component.getName().equals("darkGray") || component.getName().equals("chocolate1")){
+				component.setForeground(Color.black);
+			}
+		}
 	}
 
 	@Override

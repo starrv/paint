@@ -1,8 +1,7 @@
 package letspaintapplication;
 
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,7 +20,7 @@ import javax.swing.border.Border;
 
 //import com.apple.eawt.Application;
 
-public class Display extends JFrame implements WindowListener
+public class Display extends JFrame implements WindowListener, ComponentListener
 {
 	/**
 	 * 
@@ -31,6 +30,7 @@ public class Display extends JFrame implements WindowListener
 	private static Clip clip;
 	public final static Font DEFAULT_FONT=new Font("Sans Serif", Font.BOLD, 18);
 	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.ITALIC, 18);
+	public final static Font SMALL_FONT=new Font("Sans Serif",Font.PLAIN,14);
 	private final static int PADDING=5;
 	public final static Border DEFAULT_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
 	public final static Border FOCUS_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
@@ -53,19 +53,22 @@ public class Display extends JFrame implements WindowListener
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 		setLayout(new BorderLayout());
 		setFont(DEFAULT_FONT);
-		whiteboard=new Whiteboard(getWidth(),getHeight(),this);
-		add(whiteboard, BorderLayout.CENTER);
+		whiteboard=new Whiteboard(2*getWidth(),2*getHeight(),this);
 		FontTools fontTools=new FontTools(whiteboard);
-		add(fontTools, BorderLayout.EAST);
 		PlainPanel panel=new PlainPanel(whiteboard);
+		panel.setSize(getWidth(),getHeight()/4);
 		panel.setBorder(BorderFactory.createLineBorder(Color.black,5,true));
-		add(panel,BorderLayout.NORTH);
+		panel.setPreferredSize(new Dimension(getWidth(), getHeight()/6));
 		DrawTools drawTools=new DrawTools(whiteboard);
-		add(drawTools,BorderLayout.WEST);
 		Cursors cursors=new Cursors(whiteboard);
-		add(cursors,BorderLayout.SOUTH);
+		cursors.setPreferredSize(new Dimension(getWidth(),getHeight()/6));
 		setVisible(true);
 		addWindowListener(this);
+		add(cursors,BorderLayout.SOUTH);
+		add(panel,BorderLayout.NORTH);
+		add(fontTools, BorderLayout.EAST);
+		add(drawTools,BorderLayout.WEST);
+		add(whiteboard, BorderLayout.CENTER);
 		whiteboard.eraseAll();//this.setIgnoreRepaint(true);
 		//Functions.Functions.printMessage(whiteboard.getIgnoreRepaint()+" to ignore repaint");
 		//playMusic();
@@ -169,6 +172,26 @@ public class Display extends JFrame implements WindowListener
 	   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 	   LocalDateTime now = LocalDateTime.now();  
 	   System.out.print("@ "+dtf.format(now)+": ");  
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+		//whiteboard.setSize(e.getComponent().getWidth(),e.getComponent().getHeight());
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+
 	}
 }
 

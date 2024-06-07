@@ -2,11 +2,10 @@ package letspaintapplication;
 
 import javax.swing.*;
 
-import java.awt.Color;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.awt.event.*;
 
-public class FontType extends JPanel implements ItemListener, FocusListener
+public class FontType extends JPanel implements ItemListener, FocusListener, MouseListener
 {
 	/**
 	 * 
@@ -18,6 +17,8 @@ public class FontType extends JPanel implements ItemListener, FocusListener
 	//private JLabel label;
 	private JComboBox<String> fonts;
 	private Color color=new Color(217, 187, 169);
+	private final Color DEFAULT_COLOR;
+	private final Color SELECTED_COLOR=new Color(247, 245, 240);
 	
 	public FontType(Whiteboard w)
 	{
@@ -29,13 +30,19 @@ public class FontType extends JPanel implements ItemListener, FocusListener
 		//String[] JButtonLabels={"arial", "times new roman", "comic sans ms", "calibri", "verdana", "cursive"};
 		String[] JButtonLabels=ge.getAvailableFontFamilyNames();
 		fonts=new JComboBox<String>(JButtonLabels);
+		DEFAULT_COLOR=fonts.getBackground();
 		fonts.addItemListener(this)	;	
 		fonts.addFocusListener(this);
 		fonts.setSelectedIndex(0);
 		fonts.setFont(Display.DEFAULT_FONT);
 		add(fonts);
-		setBackground(color);
+		setBackground(Color.white);
 		setOpaque(true);
+		Component[] components=fonts.getComponents();
+		for (int i=0; i<components.length; i++){
+			components[i].addMouseListener(this);
+		}
+		setSize(getWidth(),4);
 	}
 	/*
 	private void addButtons()
@@ -213,8 +220,8 @@ public class FontType extends JPanel implements ItemListener, FocusListener
 		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
 		{
 			JComboBox<?> box=(JComboBox<?>)event.getComponent();
-			box.setFont(Display.FOCUS_FONT);
-			box.setForeground(Color.blue);
+			//box.setFont(Display.FOCUS_FONT);
+			//box.setForeground(Color.blue);
 			box.setBorder(BorderFactory.createLineBorder(Color.blue,1,true));
 		}
 	}
@@ -224,9 +231,34 @@ public class FontType extends JPanel implements ItemListener, FocusListener
 		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
 		{
 			JComboBox<?> box=(JComboBox<?>)event.getComponent();
-			box.setFont(Display.DEFAULT_FONT);
-			box.setForeground(Color.black);
+			//box.setFont(Display.DEFAULT_FONT);
+			//box.setForeground(Color.black);
 			box.setBorder(BorderFactory.createEmptyBorder());
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		e.getComponent().setBackground(SELECTED_COLOR);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		e.getComponent().setBackground(DEFAULT_COLOR);
 	}
 }

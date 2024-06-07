@@ -90,7 +90,21 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
  	 cursor=c;
  	 setCursor(c);
   }
-  
+
+  public void setCurrentImg(BufferedImage newCurrentImg){
+	  this.currentImg=newCurrentImg;
+  }
+
+  public BufferedImage getCurrentImg(){
+	  return this.currentImg;
+  }
+
+  public void reset(){
+	  backUpImage=null;
+	  backUpImages=new Stack<>();
+	  redoImages=new Stack<>();
+  }
+
   public void setFontColor(Color c)
   {
 	  fontColor=c;

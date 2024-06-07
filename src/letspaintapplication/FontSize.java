@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class FontSize extends JPanel implements ItemListener, FocusListener
+public class FontSize extends JPanel implements ItemListener, FocusListener, MouseListener
 {
 	
 	/**
@@ -17,17 +17,23 @@ public class FontSize extends JPanel implements ItemListener, FocusListener
 	//private JButton[] JButtonBox;
 	//private JButton buttonSelected;
 	private String[] JLabels;
-	private JLabel label;
+	//private JLabel label;
+	private final Color DEFAULT_LIST_COLOR;
+	private final Color SELECTED_COLOR=new Color(247, 245, 240);
 	
 	public FontSize(Whiteboard w)
 	{
 		this.w=w;
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		label=new JLabel("Font Size: ");
+
+
+		/*label=new JLabel("Font Size: ");
 		label.setFont(Display.DEFAULT_FONT);
-		//add(label);
+		add(label);*/
+
 		addLabels();
 		fontSizeList=new JComboBox<String>(JLabels);
+		DEFAULT_LIST_COLOR=fontSizeList.getBackground();
 		fontSizeList.addItemListener(this);
 		fontSizeList.addFocusListener(this);
 		int fontSizeIndex=14;
@@ -35,8 +41,13 @@ public class FontSize extends JPanel implements ItemListener, FocusListener
 		fontSizeList.setFont(Display.DEFAULT_FONT);
 		add(fontSizeList);
 		w.setFontSize(Integer.parseInt(JLabels[fontSizeIndex]));
-		setBackground(new Color(217, 187, 169));
+		//setBackground(new Color(217, 187, 169));
 		setOpaque(true);
+		Component[] components=fontSizeList.getComponents();
+		for (int i=0; i<components.length; i++){
+			components[i].addMouseListener(this);
+		}
+		setAlignmentY(CENTER_ALIGNMENT);
 		//addButtons();
 		//buttonSelected=JButtonBox[1];
 		//Functions.Functions.printMessage(JButtonBox[1]);
@@ -76,8 +87,8 @@ public class FontSize extends JPanel implements ItemListener, FocusListener
 		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
 		{
 			JComboBox<?> box=(JComboBox<?>)event.getComponent();
-			box.setFont(Display.FOCUS_FONT);
-			box.setForeground(Color.blue);
+			//box.setFont(Display.FOCUS_FONT);
+			//box.setForeground(Color.blue);
 			box.setBorder(BorderFactory.createLineBorder(Color.blue,1,true));
 		}
 	}
@@ -88,10 +99,35 @@ public class FontSize extends JPanel implements ItemListener, FocusListener
 		if(event.getComponent().getClass().getName().equals("javax.swing.JComboBox"))
 		{
 			JComboBox<?> box=(JComboBox<?>)event.getComponent();
-			box.setFont(Display.DEFAULT_FONT);
-			box.setForeground(Color.black);
+			//box.setFont(Display.DEFAULT_FONT);
+			//box.setForeground(Color.black);
 			box.setBorder(BorderFactory.createEmptyBorder());
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		e.getComponent().setBackground(SELECTED_COLOR);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		e.getComponent().setBackground(DEFAULT_LIST_COLOR);
 	}
 	
 	/*private void addButtons()

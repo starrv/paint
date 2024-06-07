@@ -2,6 +2,8 @@ package letspaintapplication;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
@@ -15,7 +17,7 @@ import java.util.StringTokenizer;
 
 
 
-public class Open_SavePanel extends JPanel implements ActionListener, KeyListener, FocusListener
+public class Open_SavePanel extends JPanel implements ActionListener, KeyListener, FocusListener, MouseListener
 {
 	
 	/**
@@ -31,6 +33,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	private PlainPanel panel;
 	private PrinterJob job = PrinterJob.getPrinterJob();
 	private JFileChooser chooser = new JFileChooser(saveFile);;
+	private Color buttonColor=new Color(245, 233, 225);
 
 	public Open_SavePanel(Whiteboard w, PlainPanel panel)
 	{
@@ -40,13 +43,15 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 		this.panel=panel;
 		job.setPrintable(new Print(w));
 		setOpaque(true);
+		setBackground(panel.getBackground());
+		final int borderWidth=10;
+		setBorder(BorderFactory.createEmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
 	}
 	
 	private void addButtons()
 	{
 		String[] labels={"new", "save as", "open", "save", "delete", "undo", "redo", "print", "play music", "stop music"};
 		JButtonBox=new JButton[labels.length];
-		Color buttonColor=new Color(245, 233, 225);
 		for(int i=0; i<labels.length;i++)
 		{
 			JButtonBox[i]=new JButton(labels[i]);
@@ -54,6 +59,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 			JButtonBox[i].addActionListener(this);
 			JButtonBox[i].addKeyListener(this);
 			JButtonBox[i].addFocusListener(this);
+			JButtonBox[i].addMouseListener(this);
 			JButtonBox[i].setFont(Display.DEFAULT_FONT);
 			JButtonBox[i].setBackground(buttonColor);
 			JButtonBox[i].setOpaque(true);
@@ -334,7 +340,9 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    	try {
 				image=ImageIO.read(openFile);
 				w.getGraphics().drawImage(image, 0, 0, w);
-		    	w.saveOpenedImage(image);
+				w.setCurrentImg(image);
+				w.reset();
+		    	//w.saveOpenedImage(image);
 		    	JOptionPane.showMessageDialog(findParentFrame(), "File opened");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -435,5 +443,42 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 			button.setBorder(Display.DEFAULT_BUTTON_BORDER);
 			button.setForeground(Color.black);
 		}
-	} 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent event) {
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setFont(Display.FOCUS_FONT);
+			button.setBorder(Display.FOCUS_BUTTON_BORDER);
+			button.setForeground(Color.blue);
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent event) {
+		if(event.getComponent().getClass().getName().equals("javax.swing.JButton"))
+		{
+			JButton button=(JButton)event.getComponent();
+			button.setFont(Display.DEFAULT_FONT);
+			button.setBorder(Display.DEFAULT_BUTTON_BORDER);
+			button.setForeground(Color.black);
+		}
+	}
 }

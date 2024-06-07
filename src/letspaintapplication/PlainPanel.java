@@ -26,8 +26,10 @@ public class PlainPanel extends JPanel
 		setBackground(new Color(217, 187, 169));
 		setOpaque(true);
 		toolBar=new JToolBar("Tools");
-		toolBar.setBackground(color);
+		//toolBar.setLayout(new BoxLayout(toolBar,BoxLayout.X_AXIS));
+		toolBar.setLayout(new FlowLayout());
 		toolBar.setOpaque(true);
+		toolBar.setBackground(color);
 		firstLabel=new JLabel("File Name:");
 		firstLabel.setFont(Display.DEFAULT_FONT);
 		firstLabel.setBackground(color);
@@ -42,12 +44,18 @@ public class PlainPanel extends JPanel
 		toolBar.add(new FontType(w));
 		toolBar.add(new FontSize(w));
 		toolBar.add(new FontStyle(w));
-		toolBar.add(new Open_SavePanel(w, this));
+
+		Open_SavePanel openSavePanel=new Open_SavePanel(w, this);
+		JScrollPane jScrollPane=new JScrollPane(openSavePanel);
+		jScrollPane.remove(jScrollPane.getVerticalScrollBar());
+		jScrollPane.remove(jScrollPane.getHorizontalScrollBar());
+		toolBar.add(jScrollPane);
+
 		toolBar.addSeparator();
 		add(toolBar);
 		add(new JLabel());
-		int borderWidth=5;
-		setBorder(new EmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
+		int borderWidth=1;
+		//setBorder(new EmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
 	}
 	
 	public void changeDocumentLabel(String name)
