@@ -110,6 +110,10 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	  redoImages=new Stack<>();
   }
 
+  public void createNewImage(){
+	  reset();
+  }
+
   public void setFontColor(Color c)
   {
 	  fontColor=c;
@@ -117,16 +121,16 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 
   public void saveOpenedImage(BufferedImage openedImage){
 	  reset();
-	  currentImg=openedImage;
 	  Functions.printMessage("Current Image: "+currentImg);
-	  getGraphics().drawImage(currentImg,0,0,this);
+	  getGraphics().drawImage(openedImage,0,0,this);
+	  currentImg=openedImage;
 	  if(image==null)
 	  {
 		  image=(BufferedImage)createImage(imageWidth,imageHeight);
 		  buffer=image.createGraphics();
 	  }
-	  buffer.drawImage(currentImg,0,0,null);
-	  backUpImages.push(currentImg);
+	  buffer.drawImage(openedImage,0,0,null);
+	  //backUpImages.push(openedImage);
 	  Functions.printMessage("Back up Images: "+backUpImages);
   }
 
@@ -487,6 +491,9 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    int initX=x;
 	    int initY=y;
 	    BufferedImage theImage=getImage();
+		if(theImage==null){
+			theImage=(BufferedImage)createImage(imageWidth,imageHeight);
+		}
 	    Color initColor=Color.getColor(null,theImage.getRGB(initX, initY));
 	    double curX;
 	    double curY;

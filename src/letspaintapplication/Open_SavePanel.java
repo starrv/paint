@@ -290,7 +290,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	
 	private void newFile()
 	{
-		w.eraseAll();
+		w.createNewImage();
 		panel.changeDocumentLabel(PlainPanel.DEFAULT_DOCUMENT_LABEL);
 		JOptionPane.showMessageDialog(null, "new file created");
 		saveFile=null;
