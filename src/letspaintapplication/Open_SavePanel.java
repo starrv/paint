@@ -339,11 +339,8 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    	BufferedImage image=null;
 	    	try {
 				image=ImageIO.read(openFile);
-				w.getGraphics().drawImage(image, 0, 0, w);
-				w.setCurrentImg(image);
-				w.reset();
-		    	//w.saveOpenedImage(image);
-		    	JOptionPane.showMessageDialog(findParentFrame(), "File opened");
+				w.saveOpenedImage(image);
+				JOptionPane.showMessageDialog(findParentFrame(), "File opened");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(findParentFrame(), "Read error for "+openFile+".  Error message: "+e.getMessage());

@@ -34,7 +34,7 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	private final static int PADDING=5;
 	public final static Border DEFAULT_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
 	public final static Border FOCUS_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
-	
+	public final static Color DEFAULT_COLOR=Color.black;
 //	private URL getResource(String file)
 //	{
 //		return getClass().getClassLoader().getResource(file);
@@ -42,6 +42,7 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	
 	public Display()
 	{
+		setForeground(DEFAULT_COLOR);
 		setName("Let's Paint");
 		setTitle("Let's Paint");
 		TrigLookUpTable.populate();
@@ -53,23 +54,45 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 		setLayout(new BorderLayout());
 		setFont(DEFAULT_FONT);
-		whiteboard=new Whiteboard(2*getWidth(),2*getHeight(),this);
+
+		whiteboard=new Whiteboard(getWidth(),getHeight(),this);
+
 		FontTools fontTools=new FontTools(whiteboard);
+		JScrollPane jScrollPaneFontTools=new JScrollPane(fontTools);
+		jScrollPaneFontTools.remove(jScrollPaneFontTools.getHorizontalScrollBar());
+		jScrollPaneFontTools.remove(jScrollPaneFontTools.getVerticalScrollBar());
+
 		PlainPanel panel=new PlainPanel(whiteboard);
 		panel.setSize(getWidth(),getHeight()/4);
 		panel.setBorder(BorderFactory.createLineBorder(Color.black,5,true));
 		panel.setPreferredSize(new Dimension(getWidth(), getHeight()/6));
+		JScrollPane jScrollPanePanel=new JScrollPane(panel);
+		jScrollPanePanel.remove(jScrollPanePanel.getVerticalScrollBar());
+		jScrollPanePanel.remove(jScrollPanePanel.getHorizontalScrollBar());
+
 		DrawTools drawTools=new DrawTools(whiteboard);
+		JScrollPane jScrollPaneDrawTools=new JScrollPane(drawTools);
+		jScrollPaneDrawTools.remove(jScrollPaneDrawTools.getHorizontalScrollBar());
+		jScrollPaneDrawTools.remove(jScrollPaneDrawTools.getVerticalScrollBar());
+
 		Cursors cursors=new Cursors(whiteboard);
+		JScrollPane jScrollPaneCursors=new JScrollPane(cursors);
+		jScrollPaneCursors.remove(jScrollPaneCursors.getHorizontalScrollBar());
+		jScrollPaneCursors.remove(jScrollPaneCursors.getVerticalScrollBar());
 		cursors.setPreferredSize(new Dimension(getWidth(),getHeight()/6));
+
 		setVisible(true);
 		addWindowListener(this);
-		add(cursors,BorderLayout.SOUTH);
-		add(panel,BorderLayout.NORTH);
-		add(fontTools, BorderLayout.EAST);
-		add(drawTools,BorderLayout.WEST);
+
+		add(jScrollPaneCursors,BorderLayout.SOUTH);
+		add(jScrollPanePanel,BorderLayout.NORTH);
+		add(jScrollPaneFontTools, BorderLayout.EAST);
+		add(jScrollPaneDrawTools,BorderLayout.WEST);
 		add(whiteboard, BorderLayout.CENTER);
-		whiteboard.eraseAll();//this.setIgnoreRepaint(true);
+
+		whiteboard.eraseAll();
+
+		// this.setIgnoreRepaint(true);
 		//Functions.Functions.printMessage(whiteboard.getIgnoreRepaint()+" to ignore repaint");
 		//playMusic();
 	}
