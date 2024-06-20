@@ -3,10 +3,7 @@ package letspaintapplication;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +17,7 @@ import javax.swing.border.Border;
 
 //import com.apple.eawt.Application;
 
-public class Display extends JFrame implements WindowListener, ComponentListener
+public class Display extends JFrame implements WindowListener, ComponentListener, MouseListener, KeyListener
 {
 	/**
 	 * 
@@ -34,7 +31,9 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	private final static int PADDING=5;
 	public final static Border DEFAULT_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
 	public final static Border FOCUS_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
-	
+	public final static Color DEFAULT_COLOR=Color.black;
+	private final static int SCROLL_BAR_WIDTH=15;
+	private final static int SCROLL_BAR_HEIGHT=15;
 //	private URL getResource(String file)
 //	{
 //		return getClass().getClassLoader().getResource(file);
@@ -42,6 +41,7 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	
 	public Display()
 	{
+		setForeground(DEFAULT_COLOR);
 		setName("Let's Paint");
 		setTitle("Let's Paint");
 		TrigLookUpTable.populate();
@@ -53,23 +53,55 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 		setLayout(new BorderLayout());
 		setFont(DEFAULT_FONT);
-		whiteboard=new Whiteboard(2*getWidth(),2*getHeight(),this);
+
+		whiteboard=new Whiteboard(getWidth(),getHeight(),this);
+
 		FontTools fontTools=new FontTools(whiteboard);
+		JScrollPane jScrollPaneFontTools=new JScrollPane(fontTools);
+		jScrollPaneFontTools.getVerticalScrollBar().setPreferredSize(new Dimension(SCROLL_BAR_WIDTH,jScrollPaneFontTools.getHeight()));
+		jScrollPaneFontTools.getVerticalScrollBar().setUI(new CustomVerticalScrollBarUI());
+		jScrollPaneFontTools.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		jScrollPaneFontTools.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPaneFontTools.setWheelScrollingEnabled(true);
+
 		PlainPanel panel=new PlainPanel(whiteboard);
-		panel.setSize(getWidth(),getHeight()/4);
+		panel.setName("Plain Panel");
 		panel.setBorder(BorderFactory.createLineBorder(Color.black,5,true));
-		panel.setPreferredSize(new Dimension(getWidth(), getHeight()/6));
+		JScrollPane jScrollPanePanel=new JScrollPane(panel);
+		jScrollPanePanel.getHorizontalScrollBar().setPreferredSize(new Dimension(jScrollPanePanel.getWidth(),SCROLL_BAR_HEIGHT));
+		jScrollPanePanel.getHorizontalScrollBar().setUI(new CustomHorizontalScrollBarUI());
+		jScrollPanePanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jScrollPanePanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		jScrollPanePanel.setWheelScrollingEnabled(true);
+
 		DrawTools drawTools=new DrawTools(whiteboard);
+		JScrollPane jScrollPaneDrawTools=new JScrollPane(drawTools);
+		jScrollPaneDrawTools.getVerticalScrollBar().setPreferredSize(new Dimension(SCROLL_BAR_WIDTH,jScrollPaneDrawTools.getHeight()));
+		jScrollPaneDrawTools.getVerticalScrollBar().setUI(new CustomVerticalScrollBarUI());
+		jScrollPaneDrawTools.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		jScrollPaneDrawTools.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPaneDrawTools.setWheelScrollingEnabled(true);
+
 		Cursors cursors=new Cursors(whiteboard);
-		cursors.setPreferredSize(new Dimension(getWidth(),getHeight()/6));
+		JScrollPane jScrollPaneCursors=new JScrollPane(cursors);
+		jScrollPaneCursors.getHorizontalScrollBar().setPreferredSize(new Dimension(jScrollPaneDrawTools.getWidth(),SCROLL_BAR_HEIGHT));
+		jScrollPaneCursors.getHorizontalScrollBar().setUI(new CustomHorizontalScrollBarUI());
+		jScrollPaneCursors.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jScrollPaneCursors.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		cursors.setPreferredSize(new Dimension(getWidth(),getHeight()/8));
+		jScrollPaneCursors.setWheelScrollingEnabled(true);
+
 		setVisible(true);
-		addWindowListener(this);
-		add(cursors,BorderLayout.SOUTH);
-		add(panel,BorderLayout.NORTH);
-		add(fontTools, BorderLayout.EAST);
-		add(drawTools,BorderLayout.WEST);
+
 		add(whiteboard, BorderLayout.CENTER);
-		whiteboard.eraseAll();//this.setIgnoreRepaint(true);
+		add(jScrollPaneCursors,BorderLayout.SOUTH);
+		add(jScrollPanePanel,BorderLayout.NORTH);
+		add(jScrollPaneFontTools, BorderLayout.EAST);
+		add(jScrollPaneDrawTools,BorderLayout.WEST);
+
+		whiteboard.eraseAll();
+
+		// this.setIgnoreRepaint(true);
 		//Functions.Functions.printMessage(whiteboard.getIgnoreRepaint()+" to ignore repaint");
 		//playMusic();
 	}
@@ -191,6 +223,46 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 
 	@Override
 	public void componentHidden(ComponentEvent e) {
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent event) {
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 
 	}
 }

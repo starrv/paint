@@ -24,11 +24,12 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	
 	public DrawTools(Whiteboard w)
 	{
-		addMouseMotionListener(this);
-		setLayout(new GridLayout(0,1));
+		//setLayout(new GridLayout(0,1));
+		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.w=w;
 		title=new JLabel("Draw Colors:");
 		title.setFont(Display.DEFAULT_FONT);
+		title.setAlignmentX(CENTER_ALIGNMENT);
 		add(title);
 		setBackground(color);
 		setOpaque(true);
@@ -48,6 +49,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    orange.setBorderPainted(false);
 	    orange.setFont(Display.DEFAULT_FONT);
 		orange.setName("orange");
+		orange.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    blue=new JButton("blue");
 	    blue.addActionListener(this);
@@ -59,6 +61,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    blue.setBorderPainted(false);
 	    blue.setFont(Display.DEFAULT_FONT);
 		blue.setName("blue");
+		blue.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    black=new JButton("black");
 	    black.addActionListener(this);
@@ -70,6 +73,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    black.setBorderPainted(false);
 	    black.setFont(Display.DEFAULT_FONT);
 		black.setName("black");
+		black.setAlignmentX(CENTER_ALIGNMENT);
 	    
 		green=new JButton("green");
 		green.addKeyListener(this);
@@ -81,6 +85,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    green.setBorderPainted(false);
 	    green.setFont(Display.DEFAULT_FONT);
 		green.setName("green");
+		green.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    yellow=new JButton("yellow");
 	    yellow.addActionListener(this);
@@ -92,6 +97,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    yellow.setBorderPainted(false);
 	    yellow.setFont(Display.DEFAULT_FONT);
 		yellow.setName("yellow");
+		yellow.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    white=new JButton("white");
 	    white.addActionListener(this);
@@ -103,6 +109,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    white.setBorderPainted(false);
 	    white.setFont(Display.DEFAULT_FONT);
 		white.setName("white");
+		white.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    red=new JButton("red");
 	    red.addActionListener(this);
@@ -114,6 +121,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    red.setBorderPainted(false);
 	    red.setFont(Display.DEFAULT_FONT);
 		red.setName("red");
+		red.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    darkGray=new JButton("dark gray");
 	    darkGray.addActionListener(this);
@@ -125,6 +133,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    darkGray.setBorderPainted(false);
 	    darkGray.setFont(Display.DEFAULT_FONT);
 		darkGray.setName("darkGray");
+		darkGray.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    lightGray=new JButton("light gray");
 	    lightGray.addActionListener(this);
@@ -136,6 +145,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    lightGray.setBorderPainted(false);
 	    lightGray.setFont(Display.DEFAULT_FONT);
 		lightGray.setName("lightGray");
+		lightGray.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    pink=new JButton("pink");
 	    pink.addActionListener(this);
@@ -147,6 +157,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    pink.setBorderPainted(false);
 	    pink.setFont(Display.DEFAULT_FONT);
 		pink.setName("pink");
+		pink.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    magenta=new JButton("magenta");
 	    magenta.addActionListener(this);
@@ -158,6 +169,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    magenta.setBorderPainted(false);
 	    magenta.setFont(Display.DEFAULT_FONT);
 		magenta.setName("magenta");
+		magenta.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    
 	    cyan=new JButton("cyan");
@@ -170,6 +182,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    cyan.setBorderPainted(false);
 	    cyan.setFont(Display.DEFAULT_FONT);
 		cyan.setName("cyan");
+		cyan.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    chocolate1=new JButton("chocolate");
 	    chocolate1.addActionListener(this);
@@ -181,6 +194,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    chocolate1.setBorderPainted(false);
 	    chocolate1.setFont(Display.DEFAULT_FONT);
 		chocolate1.setName("chocolate1");
+		chocolate1.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    peach1=new JButton("peach");
 	    peach1.addActionListener(this);
@@ -192,6 +206,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	    peach1.setBorderPainted(false);
 	    peach1.setFont(Display.DEFAULT_FONT);
 		peach1.setName("peach1");
+		peach1.setAlignmentX(CENTER_ALIGNMENT);
 	    
 	    add(green);
 	    add(yellow);
@@ -375,7 +390,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -387,12 +402,13 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent event) 
 	{
+
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 //		if(event.getKeyCode()==Display.CONFIRM_KEY)

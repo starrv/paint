@@ -24,8 +24,8 @@ public class FontSize extends JPanel implements ItemListener, FocusListener, Mou
 	public FontSize(Whiteboard w)
 	{
 		this.w=w;
+		//setLayout(new FlowLayout());
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-
 
 		/*label=new JLabel("Font Size: ");
 		label.setFont(Display.DEFAULT_FONT);
@@ -41,7 +41,7 @@ public class FontSize extends JPanel implements ItemListener, FocusListener, Mou
 		fontSizeList.setFont(Display.DEFAULT_FONT);
 		add(fontSizeList);
 		w.setFontSize(Integer.parseInt(JLabels[fontSizeIndex]));
-		//setBackground(new Color(217, 187, 169));
+		setBackground(new Color(217, 187, 169));
 		setOpaque(true);
 		Component[] components=fontSizeList.getComponents();
 		for (int i=0; i<components.length; i++){

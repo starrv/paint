@@ -38,20 +38,19 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	public Open_SavePanel(Whiteboard w, PlainPanel panel)
 	{
 		this.w=w;
+		//setLayout(new FlowLayout());
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		addButtons();
 		this.panel=panel;
 		job.setPrintable(new Print(w));
 		setOpaque(true);
 		setBackground(panel.getBackground());
-		final int borderWidth=10;
-		setBorder(BorderFactory.createEmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
 	}
 	
 	private void addButtons()
 	{
 		String[] labels={"new", "save as", "open", "save", "delete", "undo", "redo", "print", "play music", "stop music"};
-		JButtonBox=new JButton[labels.length];
+		JButtonBox=new JButton[labels.length+1];
 		for(int i=0; i<labels.length;i++)
 		{
 			JButtonBox[i]=new JButton(labels[i]);
@@ -290,7 +289,7 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	
 	private void newFile()
 	{
-		w.eraseAll();
+		w.createNewImage();
 		panel.changeDocumentLabel(PlainPanel.DEFAULT_DOCUMENT_LABEL);
 		JOptionPane.showMessageDialog(null, "new file created");
 		saveFile=null;
@@ -339,11 +338,8 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	    	BufferedImage image=null;
 	    	try {
 				image=ImageIO.read(openFile);
-				w.getGraphics().drawImage(image, 0, 0, w);
-				w.setCurrentImg(image);
-				w.reset();
-		    	//w.saveOpenedImage(image);
-		    	JOptionPane.showMessageDialog(findParentFrame(), "File opened");
+				w.saveOpenedImage(image);
+				JOptionPane.showMessageDialog(findParentFrame(), "File opened");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(findParentFrame(), "Read error for "+openFile+".  Error message: "+e.getMessage());

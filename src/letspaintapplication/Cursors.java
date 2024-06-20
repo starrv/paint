@@ -28,7 +28,6 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		
 		title=new JLabel("Tools: ");
 		title.setFont(Display.DEFAULT_FONT);
-		title.setBorder(new EmptyBorder(1,1,1,1));
 		add(title);
 		setBackground(color);
 		setOpaque(true);

@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
+import java.io.BufferedReader;
+import java.security.Key;
 import java.util.Stack;
 
 import javax.swing.*;
@@ -44,7 +46,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   
   public Whiteboard(int w, int h, JFrame frame) 
   {
-	setName("LetsPaint");
+	setName("Whiteboard");
 	cursor=new Cursor(Cursor.DEFAULT_CURSOR);
 	setSize(w,h);
 	imageWidth=getWidth();
@@ -99,17 +101,40 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	  return this.currentImg;
   }
 
-  public void reset(){
+  private void reset(){
+	  eraseAll();
+	  currentImg=null;
 	  backUpImage=null;
+	  buffer=null;
+	  image=null;
 	  backUpImages=new Stack<>();
 	  redoImages=new Stack<>();
+  }
+
+  public void createNewImage(){
+	  reset();
   }
 
   public void setFontColor(Color c)
   {
 	  fontColor=c;
   }
-  public void saveOpenedImage(BufferedImage openedImage)
+
+  public void saveOpenedImage(BufferedImage openedImage){
+	  reset();
+	  Functions.printMessage("Current Image: "+currentImg);
+	  getGraphics().drawImage(openedImage,0,0,this);
+	  currentImg=openedImage;
+	  if(image==null)
+	  {
+		  image=(BufferedImage)createImage(imageWidth,imageHeight);
+		  buffer=image.createGraphics();
+	  }
+	  buffer.drawImage(openedImage,0,0,null);
+	  //backUpImages.push(openedImage);
+  }
+
+  /*public void saveOpenedImage(BufferedImage openedImage)
   {
 	if(image==null)
 	{
@@ -119,7 +144,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	eraseAll();
 	buffer.drawImage(openedImage,0,0,null);
 	getGraphics().drawImage(image,0,0,this);
-  }
+  }*/
   
   public void setDrawColor(Color c)
   {
@@ -210,7 +235,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
-		if(event.getKeyCode()==KeyEvent.VK_SPACE) 
+		if(event.getKeyCode()==KeyEvent.VK_ENTER)
 		{
 			if(buttonSelected=="paint")
 			{
@@ -419,6 +444,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	
 	private void paintAll()
 	{
+		if(!redoImages.empty())redoImages=new Stack<>();
 		Graphics g = getGraphics();
 		if(currentImg==null){
 			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -444,6 +470,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	
 	private void paintFill(int x, int y)
 	{
+		if(!redoImages.empty())redoImages=new Stack<>();
+		Functions.printMessage("Calculating painting range....");
 		final JDialog modelDialog = new JDialog(frame, "Calculating painting range....");
 		modelDialog.setBounds(this.getWidth()/2,this.getHeight()/2, 500, 100);
 		modelDialog.setLocationRelativeTo(this);
@@ -457,6 +485,9 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    int initX=x;
 	    int initY=y;
 	    BufferedImage theImage=getImage();
+		if(theImage==null){
+			theImage=(BufferedImage)createImage(imageWidth,imageHeight);
+		}
 	    Color initColor=Color.getColor(null,theImage.getRGB(initX, initY));
 	    double curX;
 	    double curY;
@@ -485,6 +516,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    }
 	    g2.fillPolygon(xCoords, yCoords,xCoords.length);
 		g.drawImage(currentImg,0,0,null);
+		Functions.printMessage("Current Image: "+currentImg);
 	    
 	    backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
@@ -498,6 +530,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer.setColor(drawColor);
 	    buffer.fillPolygon(xCoords, yCoords,xCoords.length);
 		backUpImages.push(backUpImage);
+		Functions.printMessage("Back up Images: "+backUpImages);
 		backUpImage=null;
 	    modelDialog.setVisible(false);
 	}
@@ -505,6 +538,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	private void paint(int x, int y)
 	{
 		//image to draw on screen
+		if(!redoImages.empty())redoImages=new Stack<>();
 		Graphics2D g = (Graphics2D)getGraphics();
 		if(currentImg==null){
 			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -538,6 +572,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	
 	private void draw(int x, int y)
 	{
+		if(!redoImages.empty())redoImages=new Stack<>();
 	    Graphics2D g = (Graphics2D)getGraphics();
 		if(currentImg==null){
 			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -568,6 +603,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	private void type(KeyEvent event)
 	{
 		//image to draw on screen
+		if(!redoImages.empty())redoImages=new Stack<>();
 		Graphics2D g = (Graphics2D)getGraphics();
 		if(currentImg==null){
 			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -614,6 +650,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	
 	private void erase(int x, int y)
 	{
+		if(!redoImages.empty())redoImages=new Stack<>();
 		Graphics2D g = (Graphics2D)getGraphics();
 		if(currentImg==null){
 			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -641,6 +678,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 
 	public void eraseAll()
 	{
+		if(!redoImages.empty())redoImages=new Stack<>();
 		Graphics2D g = (Graphics2D)getGraphics();
 		if(currentImg==null){
 			currentImg=(BufferedImage) createImage(imageWidth, imageHeight);

@@ -23,6 +23,8 @@ public class FontType extends JPanel implements ItemListener, FocusListener, Mou
 	public FontType(Whiteboard w)
 	{
 		this.w=w;
+		//setLayout(new FlowLayout());
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		//label=new JLabel("Font Family: ");
 		//label.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		//add(label);
@@ -36,7 +38,7 @@ public class FontType extends JPanel implements ItemListener, FocusListener, Mou
 		fonts.setSelectedIndex(0);
 		fonts.setFont(Display.DEFAULT_FONT);
 		add(fonts);
-		setBackground(Color.white);
+		setBackground(color);
 		setOpaque(true);
 		Component[] components=fonts.getComponents();
 		for (int i=0; i<components.length; i++){
