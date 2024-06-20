@@ -22,6 +22,7 @@ public class FontStyle extends JPanel implements FocusListener,MouseListener
 	public FontStyle(Whiteboard w)
 	{
 		this.w=w;
+		//setLayout(new FlowLayout());
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		//add(label);
 		

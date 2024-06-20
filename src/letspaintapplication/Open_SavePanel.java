@@ -38,20 +38,19 @@ public class Open_SavePanel extends JPanel implements ActionListener, KeyListene
 	public Open_SavePanel(Whiteboard w, PlainPanel panel)
 	{
 		this.w=w;
+		//setLayout(new FlowLayout());
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		addButtons();
 		this.panel=panel;
 		job.setPrintable(new Print(w));
 		setOpaque(true);
 		setBackground(panel.getBackground());
-		final int borderWidth=10;
-		setBorder(BorderFactory.createEmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
 	}
 	
 	private void addButtons()
 	{
 		String[] labels={"new", "save as", "open", "save", "delete", "undo", "redo", "print", "play music", "stop music"};
-		JButtonBox=new JButton[labels.length];
+		JButtonBox=new JButton[labels.length+1];
 		for(int i=0; i<labels.length;i++)
 		{
 			JButtonBox[i]=new JButton(labels[i]);

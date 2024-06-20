@@ -9,6 +9,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import java.io.BufferedReader;
+import java.security.Key;
 import java.util.Stack;
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
   
   public Whiteboard(int w, int h, JFrame frame) 
   {
-	setName("LetsPaint");
+	setName("Whiteboard");
 	cursor=new Cursor(Cursor.DEFAULT_CURSOR);
 	setSize(w,h);
 	imageWidth=getWidth();
@@ -131,7 +132,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	  }
 	  buffer.drawImage(openedImage,0,0,null);
 	  //backUpImages.push(openedImage);
-	  Functions.printMessage("Back up Images: "+backUpImages);
   }
 
   /*public void saveOpenedImage(BufferedImage openedImage)
@@ -186,14 +186,11 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	  if(!backUpImages.empty()){
 		  redoImages.push(currentImg);
 		  backUpImage=backUpImages.pop();
-		  Functions.printMessage("Back up Image retrieved: "+backUpImage);
 		  getGraphics().drawImage(backUpImage, 0,0,this);
 		  buffer.drawImage(backUpImage,0,0,this);
 		  currentImg=backUpImage;
-		  Functions.printMessage("Current Image: "+currentImg);
 		  requestFocusInWindow();
 		  backUpImage=null;
-		  Functions.printMessage("Back up Images: "+backUpImages);
 	  }
   }
   // Record position that mouse entered window or
@@ -203,14 +200,11 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	if(!redoImages.empty()){
 		backUpImages.push(currentImg);
 		backUpImage=redoImages.pop();
-		Functions.printMessage("Redo Image retrieved: "+backUpImage);
 		getGraphics().drawImage(backUpImage, 0,0,this);
 		buffer.drawImage(backUpImage,0,0,this);
 		currentImg=backUpImage;
-		Functions.printMessage("Current Image: "+currentImg);
 		requestFocusInWindow();
 		backUpImage=null;
-		Functions.printMessage("Back up Images: "+backUpImages);
 	}
 }
 
@@ -241,7 +235,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
-		if(event.getKeyCode()==KeyEvent.VK_SPACE) 
+		if(event.getKeyCode()==KeyEvent.VK_ENTER)
 		{
 			if(buttonSelected=="paint")
 			{

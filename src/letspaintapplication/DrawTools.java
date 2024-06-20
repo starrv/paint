@@ -24,7 +24,6 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	
 	public DrawTools(Whiteboard w)
 	{
-		addMouseMotionListener(this);
 		//setLayout(new GridLayout(0,1));
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.w=w;
@@ -391,7 +390,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -403,12 +402,13 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent event) 
 	{
+
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 //		if(event.getKeyCode()==Display.CONFIRM_KEY)

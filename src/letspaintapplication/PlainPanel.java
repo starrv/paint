@@ -4,9 +4,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
-public class PlainPanel extends JPanel
+public class PlainPanel extends JPanel implements KeyListener, MouseListener
 {
 	/**
 	 * 
@@ -22,12 +26,14 @@ public class PlainPanel extends JPanel
 	
 	public PlainPanel(Whiteboard w)
 	{
+		//setLayout(new FlowLayout());
 		setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 		setBackground(new Color(217, 187, 169));
 		setOpaque(true);
 		toolBar=new JToolBar("Tools");
-		//toolBar.setLayout(new BoxLayout(toolBar,BoxLayout.X_AXIS));
-		toolBar.setLayout(new FlowLayout());
+		//toolBar.setLayout(new FlowLayout());
+		toolBar.setLayout(new BoxLayout(toolBar,BoxLayout.X_AXIS));
+		toolBar.setName("toolbar");
 		toolBar.setOpaque(true);
 		toolBar.setBackground(color);
 		firstLabel=new JLabel("File Name:");
@@ -46,15 +52,13 @@ public class PlainPanel extends JPanel
 		toolBar.add(new FontStyle(w));
 
 		Open_SavePanel openSavePanel=new Open_SavePanel(w, this);
-		JScrollPane jScrollPane=new JScrollPane(openSavePanel);
-		jScrollPane.remove(jScrollPane.getVerticalScrollBar());
-		jScrollPane.remove(jScrollPane.getHorizontalScrollBar());
-		toolBar.add(jScrollPane);
+		toolBar.add(openSavePanel);
+		final int borderWidth=25;
+		toolBar.setBorder(BorderFactory.createEmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
 
-		toolBar.addSeparator();
 		add(toolBar);
-		add(new JLabel());
-		int borderWidth=1;
+		//add(new JLabel());
+		//int borderWidth=1;
 		//setBorder(new EmptyBorder(borderWidth,borderWidth,borderWidth,borderWidth));
 	}
 	
@@ -67,5 +71,41 @@ public class PlainPanel extends JPanel
 	{
 		return label.getText();
 	}
-	
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
 }
