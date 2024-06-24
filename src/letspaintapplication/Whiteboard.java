@@ -122,9 +122,11 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 
   public void saveOpenedImage(BufferedImage openedImage){
 	  reset();
-	  Functions.printMessage("Current Image: "+currentImg);
-	  getGraphics().drawImage(openedImage,0,0,this);
-	  currentImg=openedImage;
+	  BufferedImage newImg=(BufferedImage) createImage(imageWidth,imageHeight);
+	  Graphics newImgGraphics=newImg.getGraphics();
+	  newImgGraphics.drawImage(openedImage,0,0,null);
+	  getGraphics().drawImage(newImg,0,0,null);
+	  currentImg=newImg;
 	  if(image==null)
 	  {
 		  image=(BufferedImage)createImage(imageWidth,imageHeight);
