@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 
 //import com.apple.eawt.Application;
 
-public class Display extends JFrame implements WindowListener, ComponentListener, MouseListener, KeyListener
+public class Display extends JFrame implements WindowListener
 {
 	/**
 	 * 
@@ -35,6 +35,7 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	public final static Color DEFAULT_COLOR=Color.black;
 	private final static int SCROLL_BAR_WIDTH=15;
 	private final static int SCROLL_BAR_HEIGHT=15;
+
 //	private URL getResource(String file)
 //	{
 //		return getClass().getClassLoader().getResource(file);
@@ -42,6 +43,7 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	
 	public Display()
 	{
+		addWindowListener(this);
 		setForeground(DEFAULT_COLOR);
 		setName("Let's Paint");
 		setTitle("Let's Paint");
@@ -165,39 +167,39 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+
+	}
+
 	@Override
 	public void windowClosed(WindowEvent event) 
 	{
 		// TODO Auto-generated method stub
-		stopMusic();
 		System.exit(0);
 		//JOptionPane.showMessageDialog(this, "music stopped");
 	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+
+	}
+
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		stopMusic();
-		System.exit(0);
-		//JOptionPane.showMessageDialog(this, "music stopped");
-	}
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	static void printTime()
@@ -207,64 +209,5 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	   System.out.print("@ "+dtf.format(now)+": ");  
 	}
 
-	@Override
-	public void componentResized(ComponentEvent e) {
-		//whiteboard.setSize(e.getComponent().getWidth(),e.getComponent().getHeight());
-	}
-
-	@Override
-	public void componentMoved(ComponentEvent e) {
-
-	}
-
-	@Override
-	public void componentShown(ComponentEvent e) {
-
-	}
-
-	@Override
-	public void componentHidden(ComponentEvent e) {
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent event) {
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-
-	}
 }
 
