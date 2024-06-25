@@ -199,7 +199,9 @@ public class Display extends JFrame implements WindowListener
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		// TODO Auto-generated method stub
+		Functions.printMessage("Window closing....");
 		stopMusic();
+		System.exit(0);
 	}
 	
 	static void printTime()
