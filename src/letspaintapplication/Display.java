@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,12 +23,12 @@ public class Display extends JFrame implements WindowListener, ComponentListener
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 5657371353338627325L;
 	private static Whiteboard whiteboard;
 	private static Clip clip;
 	public final static Font DEFAULT_FONT=new Font("Sans Serif", Font.BOLD, 18);
 	public final static Font FOCUS_FONT=new Font("Sans Serif", Font.ITALIC, 18);
-	public final static Font SMALL_FONT=new Font("Sans Serif",Font.PLAIN,14);
 	private final static int PADDING=5;
 	public final static Border DEFAULT_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
 	public final static Border FOCUS_BUTTON_BORDER=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.blue,1,true),BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
