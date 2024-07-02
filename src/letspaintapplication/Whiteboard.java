@@ -124,15 +124,15 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	  reset();
 	  BufferedImage newImg=(BufferedImage) createImage(imageWidth,imageHeight);
 	  Graphics newImgGraphics=newImg.getGraphics();
-	  newImgGraphics.drawImage(openedImage,0,0,null);
-	  getGraphics().drawImage(newImg,0,0,null);
+	  newImgGraphics.drawImage(openedImage,0,0,this);
+	  getGraphics().drawImage(newImg,0,0,this);
 	  currentImg=newImg;
 	  if(image==null)
 	  {
 		  image=(BufferedImage)createImage(imageWidth,imageHeight);
 		  buffer=image.createGraphics();
 	  }
-	  buffer.drawImage(openedImage,0,0,null);
+	  buffer.drawImage(openedImage,0,0,this);
 	  //backUpImages.push(openedImage);
   }
 
@@ -454,11 +454,11 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		Graphics2D g2=currentImg.createGraphics();
 		g2.setColor(drawColor);
 		g2.fillRect(0,0,imageWidth,imageHeight);
-		g.drawImage(currentImg,0,0,null);
+		g.drawImage(currentImg,0,0,this);
 
 	  	backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
-		backup.drawImage(image, 0, 0,null);
+		backup.drawImage(image, 0, 0,this);
 	    if(image==null)
 	    {
 	    	image=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -517,12 +517,11 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    	yCoords[i]=(int)curY;
 	    }
 	    g2.fillPolygon(xCoords, yCoords,xCoords.length);
-		g.drawImage(currentImg,0,0,null);
-		Functions.printMessage("Current Image: "+currentImg);
+		g.drawImage(currentImg,0,0,this);
 	    
 	    backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
-		backup.drawImage(image, 0, 0,null);
+		backup.drawImage(image, 0, 0,this);
 		
 	    if(image==null)
 	    {
@@ -532,7 +531,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    buffer.setColor(drawColor);
 	    buffer.fillPolygon(xCoords, yCoords,xCoords.length);
 		backUpImages.push(backUpImage);
-		Functions.printMessage("Back up Images: "+backUpImages);
 		backUpImage=null;
 	    modelDialog.setVisible(false);
 	}
@@ -548,7 +546,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		Graphics2D g2=currentImg.createGraphics();
 		g2.setColor(drawColor);
 		g2.fillRect(x, y, 20,20);
-		g.drawImage(currentImg,0,0,null);
+		g.drawImage(currentImg,0,0,this);
 
 		//back up image
 		if(backUpImage==null){
@@ -557,7 +555,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			backup=backUpImage.createGraphics();
 
 
-			backup.drawImage(image, 0, 0,null);
+			backup.drawImage(image, 0, 0,this);
 			//image to draw on repaint
 			if(image==null)
 			{
@@ -582,12 +580,12 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		Graphics2D g2=currentImg.createGraphics();
 	    g2.setColor(drawColor);
 	    g2.drawLine(lastX, lastY, x, y);
-		g.drawImage(currentImg,0,0,null);
+		g.drawImage(currentImg,0,0,this);
 
 		if(backUpImage==null){
 			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
+			backup.drawImage(image, 0, 0,this);
 			if(image==null)
 			{
 				image=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -615,12 +613,12 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		Font font=new Font(fontFamily, fontStyle, fontSize);
 		g2.setFont(font);
 		g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
-		g.drawImage(currentImg,0,0,null);
+		g.drawImage(currentImg,0,0,this);
 
 		//backup image
 		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
-		backup.drawImage(image, 0, 0,null);
+		backup.drawImage(image, 0, 0,this);
 
 		//image to draw on repaint
 		if(image==null)
@@ -660,12 +658,12 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		Graphics2D g2=currentImg.createGraphics();
 	    g2.setColor(Color.white);
 	    g2.fillRect(x, y, 20,20);
-		g.drawImage(currentImg,0,0,null);
+		g.drawImage(currentImg,0,0,this);
 
 		if(backUpImage==null){
 			backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
+			backup.drawImage(image, 0, 0,this);
 			if(image==null)
 			{
 				image=(BufferedImage) createImage(imageWidth, imageHeight);
@@ -688,11 +686,11 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		Graphics2D g2=currentImg.createGraphics();
 		g2.setColor(Color.white);
 		g2.fillRect(0,0,imageWidth,imageHeight);
-		g.drawImage(currentImg,0,0,null);
+		g.drawImage(currentImg,0,0,this);
 
 		backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
-		backup.drawImage(image, 0, 0,null);
+		backup.drawImage(image, 0, 0,this);
 		if(image==null)
 		{
 			image=(BufferedImage) createImage(imageWidth, imageHeight);
