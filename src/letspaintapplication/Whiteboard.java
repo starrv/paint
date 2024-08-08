@@ -68,11 +68,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
     Font font = new Font("Sans Serif", Font.BOLD, 20);
     setFont(font);
     fm = getFontMetrics(font);
-    //setBorder(BorderFactory.createLineBorder(Color.black, 5, true));
     setOpaque(true);
     setVisible(true);
-    //o=new Ellipse2D.Double(getXLocation, getYLocation, 10, 10);
-    
   }
   
  @Override
@@ -80,7 +77,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
  {
 	 Graphics2D g2=(Graphics2D)g;
 	 g2.drawImage(image, 0, 0, this);
-	 //Functions.printMessage("repaint from paint");
   }
  
   public void setButtonSelected(String s)
@@ -333,6 +329,18 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		// TODO Auto-generated method stub
 		requestFocus(); // Plan ahead for typing
 	    record(event.getX(), event.getY());
+		if(buttonSelected.equals("paint all") || buttonSelected.equals("paint fill") || buttonSelected.equals("paint"))
+		{
+			setCursor2(Cursors.createPaintBrushCursor());
+		}
+		else if(buttonSelected.equals("draw"))
+		{
+			setCursor2(Cursors.createPencilCursor());
+		}
+		else if(buttonSelected.equals("erase") || buttonSelected.equals("erase all"))
+		{
+			setCursor2(Cursors.createEraserCursor());
+		}
 	}
 	
 	@Override
