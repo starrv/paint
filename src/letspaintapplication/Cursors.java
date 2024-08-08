@@ -177,7 +177,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 		}
 	}
 	
-	private Cursor createPaintBrushCursor()
+	public static  Cursor createPaintBrushCursor()
 	{
 		Toolkit toolkit=Toolkit.getDefaultToolkit();
 	  	Image image=toolkit.getImage(Cursors.class.getClassLoader().getResource("brush.png"));
@@ -187,7 +187,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 	  	return c;
 	}
 	
-	private Cursor createPencilCursor()
+	public static Cursor createPencilCursor()
 	{
 	  	Toolkit toolkit=Toolkit.getDefaultToolkit();
 	  	Image image=toolkit.getImage(Cursors.class.getClassLoader().getResource("pencil.png"));
@@ -197,7 +197,7 @@ public class Cursors extends JPanel implements ActionListener, KeyListener, Focu
 	  	return c;
 	}
 	
-	private Cursor createEraserCursor()
+	public static Cursor createEraserCursor()
 	{
 		Toolkit toolkit=Toolkit.getDefaultToolkit();
 	  	Image image=toolkit.getImage(Cursors.class.getClassLoader().getResource("erase.png"));

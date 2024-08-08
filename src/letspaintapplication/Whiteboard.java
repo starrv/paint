@@ -518,7 +518,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    }
 	    g2.fillPolygon(xCoords, yCoords,xCoords.length);
 		g.drawImage(currentImg,0,0,this);
-	    
 	    backUpImage=(BufferedImage) createImage(imageWidth, imageHeight);
 		backup=backUpImage.createGraphics();
 		backup.drawImage(image, 0, 0,this);
@@ -533,6 +532,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		backUpImages.push(backUpImage);
 		backUpImage=null;
 	    modelDialog.setVisible(false);
+		setCursor2(Cursors.createPaintBrushCursor());
 	}
 
 	private void paint(int x, int y)
