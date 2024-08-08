@@ -133,20 +133,7 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 		  buffer=image.createGraphics();
 	  }
 	  buffer.drawImage(openedImage,0,0,this);
-	  //backUpImages.push(openedImage);
   }
-
-  /*public void saveOpenedImage(BufferedImage openedImage)
-  {
-	if(image==null)
-	{
-		image=(BufferedImage)createImage(imageWidth,imageHeight);
-		buffer=image.createGraphics();
-	}
-	eraseAll();
-	buffer.drawImage(openedImage,0,0,null);
-	getGraphics().drawImage(image,0,0,this);
-  }*/
   
   public void setDrawColor(Color c)
   {
@@ -260,55 +247,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 				eraseAll();
 			}
 		}
-		
-		/*	if(buttonSelected.equals("text"))
-		{
-			//Functions.printMessage("text written");
-			Graphics2D g2=(Graphics2D)getGraphics();
-			g2.setColor(fontColor);
-			Font font=new Font(fontFamily, fontStyle, fontSize);
-			g2.setFont(font);
-		//	Functions.printMessage(g.getFont()+" + "+getFontStyle());
-			if(event.getKeyCode()!=KeyEvent.VK_BACK_SPACE && event.getKeyCode()!=KeyEvent.VK_DELETE)
-			{	
-				g2.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
-				Functions.printMessage("key pressed is not delete or backspace, its "+event.getKeyCode());
-			}
-			else
-				g2.drawString("", getXLocation, getYLocation);
-			if(backUpImage==null)
-			{
-				backUpImage=(BufferedImage) createImage(1350, 1350);
-			}
-			backup=backUpImage.createGraphics();
-			backup.drawImage(image, 0, 0,null);
-			if(image==null)
-		    {
-		    	image=(BufferedImage) createImage(imageWidth, imageHeight);
-		    }
-		    buffer = image.createGraphics();
-			buffer.setColor(fontColor);
-			buffer.setFont(new Font(fontFamily, fontStyle, fontSize));
-		//	Functions.printMessage(g.getFont()+" + "+getFontStyle());
-			if(event.getKeyCode()!=KeyEvent.VK_BACK_SPACE && event.getKeyCode()!=KeyEvent.VK_DELETE)
-				buffer.drawString(""+event.getKeyChar(), getXLocation, getYLocation);
-			else
-				buffer.drawString("", getXLocation, getYLocation);
-			if(fontSize>=65)
-				getXLocation+=75;
-			else if(fontSize>=55 && fontSize<65)
-				getXLocation+=65;
-			else if(fontSize>=45 && fontSize<55)
-				getXLocation+=55;
-			else if(fontSize>=35 && fontSize<45)
-				getXLocation+=45;
-			else if(fontSize>=25 && fontSize<35)
-				getXLocation+=35;
-			else if(fontSize>=15 && fontSize<25)
-				getXLocation+=25;
-			else
-				getXLocation+=15;
-		}*/
 		
 	}
 	
