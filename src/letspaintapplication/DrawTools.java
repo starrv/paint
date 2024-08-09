@@ -14,8 +14,7 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	 */
 	private static final long serialVersionUID = -7682524187297422375L;
 	private JButton green, yellow, orange, blue, black, white, red, pink, lightGray, darkGray, magenta, cyan, chocolate1, peach1, buttonSelected;
-	//private Graphics buffer;
-	//private Image image;
+
 	private Color chocolate=new Color(125,30,45);
 	private Color peach=new Color(225,200,195);
 	private Whiteboard w;
@@ -24,7 +23,6 @@ public class DrawTools extends JPanel implements ActionListener, MouseMotionList
 	
 	public DrawTools(Whiteboard w)
 	{
-		//setLayout(new GridLayout(0,1));
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.w=w;
 		title=new JLabel("Draw Colors:");

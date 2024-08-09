@@ -8,7 +8,6 @@ public class CustomVerticalScrollBarBottomButtonUI extends BasicButtonUI {
 
     @Override
     public void paint(Graphics g, JComponent c) {
-        //super.paint(g, c);
         g.setColor(Color.black);
         int[] xCoordsBottomArrow={0,c.getWidth()/2,c.getWidth()};
         int[] yCoordsBottomArrow={0,c.getHeight(),0};

@@ -16,8 +16,6 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-//import com.apple.eawt.Application;
-
 public class Display extends JFrame implements WindowListener
 {
 	/**
@@ -36,10 +34,6 @@ public class Display extends JFrame implements WindowListener
 	private final static int SCROLL_BAR_WIDTH=15;
 	private final static int SCROLL_BAR_HEIGHT=15;
 
-//	private URL getResource(String file)
-//	{
-//		return getClass().getClassLoader().getResource(file);
-//	}
 	
 	public Display()
 	{
@@ -52,8 +46,6 @@ public class Display extends JFrame implements WindowListener
 		Dimension size=java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(size.width,size.height);
 		setImageIcon("PaintIcon.png");
-		//URL url = getResource("PaintIcon.png");
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 		setLayout(new BorderLayout());
 		setFont(DEFAULT_FONT);
 
@@ -103,10 +95,6 @@ public class Display extends JFrame implements WindowListener
 		add(jScrollPaneDrawTools,BorderLayout.WEST);
 
 		whiteboard.eraseAll();
-
-		// this.setIgnoreRepaint(true);
-		//Functions.Functions.printMessage(whiteboard.getIgnoreRepaint()+" to ignore repaint");
-		//playMusic();
 	}
 	
 	private void setImageIcon(String url)
@@ -114,13 +102,11 @@ public class Display extends JFrame implements WindowListener
 		   URL imgURL = getClass().getResource(url);
 		   if (imgURL != null) 
 		   {
-			   //Functions.printMessage("Icon image found");
 			   BufferedImage image=null;
 			   try
 			   {
 			      image = ImageIO.read(imgURL);
 			      this.setIconImage(image);
-			      //Application.getApplication().setDockIconImage(image);
 			    } 
 			    catch (IOException e)
 			    {
@@ -144,7 +130,6 @@ public class Display extends JFrame implements WindowListener
 			clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.loop(Clip.LOOP_CONTINUOUSLY);
-	       // JOptionPane.showMessageDialog(null, "Music started");
 		} 
 		catch(Exception ex) 
 		{
@@ -156,12 +141,12 @@ public class Display extends JFrame implements WindowListener
 	
 	public static void stopMusic()
 	{
-		if(clip!=null)
+		if(clip!=null) {
 			clip.stop();
-		//JOptionPane.showMessageDialog(null,"music stopped");
-		whiteboard.requestFocusInWindow();
+			whiteboard.requestFocusInWindow();
+		}
 	}
-	//C:/Users/Owner/workspace1/Paint/src/paint/Maid with the Flaxen Hair.mp3
+
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
@@ -178,7 +163,6 @@ public class Display extends JFrame implements WindowListener
 	{
 		// TODO Auto-generated method stub
 		System.exit(0);
-		//JOptionPane.showMessageDialog(this, "music stopped");
 	}
 
 	@Override

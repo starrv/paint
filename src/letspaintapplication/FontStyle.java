@@ -79,42 +79,6 @@ public class FontStyle extends JPanel implements FocusListener,MouseListener
 		e.getComponent().setBackground(buttonColor);
 	}
 	
-	/*private void addButtons()
-	{
-		String[] JButtonLabels={"regular", "bold", "italics"};
-		JButtonBox=new JButton[JButtonLabels.length];
-		for(int i=0; i<JButtonBox.length; i++)
-		{
-			Functions.printMessage("Add button "+i);
-			JButtonBox[i]=new JButton(JButtonLabels[i]);
-			JButtonBox[i].setBackground(Color.black);
-			JButtonBox[i].setForeground(Color.white);
-			JButtonBox[i].addActionListener(this);
-			add(JButtonBox[i]);		
-		}
-	}*/
-	
-
-/*
-	@Override
-	public void actionPerformed(ActionEvent event) 
-	{
-		// TODO Auto-generated method stub
-		if(event.getActionCommand().equals("regular"))
-		{
-			w.setFontStyle(Font.PLAIN);
-		}
-		else if(event.getActionCommand().equals("bold"))
-		{
-			w.setFontStyle(Font.BOLD);
-		}
-		else if(event.getActionCommand().equals("italics"))
-		{
-			w.setFontStyle(Font.ITALIC);
-		}
-	}*/
-	
-	
 	private class boldItemListener implements ItemListener
 	{
 		@Override

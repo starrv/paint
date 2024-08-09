@@ -14,8 +14,6 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	 */
 	private static final long serialVersionUID = 4011362814260279589L;
 	private JButton green, yellow, orange, blue, black, white, red, pink, lightGray, darkGray, magenta, cyan, buttonSelected, chocolate1, peach1;
-	//private Graphics buffer;
-	//private Image image;
 	private Color chocolate=new Color(125,30,45);
 	private Color peach=new Color(225,200,195);
 	private Whiteboard w;
@@ -25,7 +23,6 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	public FontTools(Whiteboard w)
 	{
 		addMouseMotionListener(this);
-		//setLayout(new GridLayout(0,1));
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.w=w;
 		title=new JLabel("Font Colors:");
@@ -317,65 +314,7 @@ public class FontTools extends JPanel implements ActionListener, MouseMotionList
 	public void keyPressed(KeyEvent event) 
 	{
 		// TODO Auto-generated method stub
-		/*if(event.getKeyCode()==Display.CONFIRM_KEY)
-		{
-			if(event.getComponent().equals(green))
-			{
-				changeFontColor(Color.green,green);
-			}
-			else if(event.getComponent().equals(yellow))
-			{
-				changeFontColor(Color.yellow,yellow);
-			}
-			else if(event.getComponent().equals(orange))
-			{
-				changeFontColor(Color.orange,orange);
-			}
-			else if(event.getComponent().equals(blue))
-			{
-				changeFontColor(Color.blue,blue);
-			}
-			else if(event.getComponent().equals(black))
-			{
-				changeFontColorToBlack(Color.black,black);
-			}
-			else if(event.getComponent().equals(lightGray))
-			{
-				changeFontColor(Color.lightGray,lightGray);
-			}
-			else if(event.getComponent().equals(darkGray))
-			{
-				changeFontColor(Color.darkGray,darkGray);
-			}
-			else if(event.getComponent().equals(red))
-			{
-				changeFontColor(Color.red,red);
-			}
-			else if(event.getComponent().equals(pink))
-			{
-				changeFontColor(Color.pink,pink);
-			}
-			else if(event.getComponent().equals(magenta))
-			{
-				changeFontColor(Color.magenta,magenta);
-			}
-			else if(event.getComponent().equals(cyan))
-			{
-				changeFontColor(Color.cyan,cyan);
-			}
-			else if(event.getComponent().equals(white))
-			{
-				changeFontColor(Color.white,white);
-			}		
-			else if(event.getComponent().equals(chocolate1))
-			{
-				changeFontColor(chocolate,chocolate1);
-			}
-			else if(event.getComponent().equals(peach1))
-			{
-				changeFontColor(peach,peach1);
-			}
-		}*/
+
 	}
 
 	@Override

@@ -366,11 +366,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			backUpImage=null;
 		}
 	}
-	@Override
-	public void repaint()
-	{
-		//Functions.printMessage("repaint");
-	}
 	
 	@Override
 	public int getNumberOfPages() {
@@ -509,8 +504,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 			}
 		}
 
-
-		// Functions.printMessage(image);
 		buffer = image.createGraphics();
 		buffer.setColor(drawColor);
 		buffer.fillRect(x, y, 20,20);
