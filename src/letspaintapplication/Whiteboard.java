@@ -452,7 +452,6 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    	{
 		    	curX+=distX;
 		    	curY+=distY;
-		    	//g.drawLine((int)curX,(int)curY,(int)curX,(int)curY);
 	    	}
 	    	xCoords[i]=(int)curX;
 	    	yCoords[i]=(int)curY;
