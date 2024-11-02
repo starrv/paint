@@ -414,9 +414,8 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	private void paintFill(int x, int y)
 	{
 		if(!redoImages.empty())redoImages=new Stack<>();
-		Functions.printMessage("Calculating painting range....");
 		final JDialog modelDialog = new JDialog(frame, "Calculating painting range....");
-		modelDialog.setBounds(this.getWidth()/2,this.getHeight()/2, 500, 100);
+		modelDialog.setBounds(this.getWidth()/2,this.getHeight()/2, this.getWidth()/2, this.getHeight()/10);
 		modelDialog.setLocationRelativeTo(this);
 		modelDialog.setVisible(true);
 		Graphics g = getGraphics();
@@ -437,10 +436,9 @@ public class Whiteboard extends JPanel implements MouseListener, MouseMotionList
 	    final int R=1;
 	    double distX;
 	    double distY;
-	    int[] xCoords=new int[360];
-	    int[] yCoords=new int[360];
-	    
-	    for(int i=0; i<360; i+=1)
+	    int[] xCoords=new int[TrigLookUpTable.cos.length];
+	    int[] yCoords=new int[TrigLookUpTable.cos.length];
+	    for(int i=0; i<TrigLookUpTable.cos.length; i++)
 	    {
 	    	distX=R*TrigLookUpTable.cos[i];
 		    distY=R*TrigLookUpTable.sin[i];
